@@ -1,31 +1,18 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
+import React, {Component} from 'react';
+import {AppRegistry, Text, View, StyleSheet} from 'react-native';
 
-import React, { Component } from 'react';
-import {
-  AppRegistry,
-  StyleSheet,
-  Text,
-  View
-} from 'react-native';
+import About from './app/components/About/About';
+import Checkins from './app/components/Checkins/Checkins';
+import Checkups from './app/components/Checkups/Checkups';
+import Main from './app/components/Main/Main';
+import Welcome from './app/components/Welcome/Welcome';
 
-export default class YGG extends Component {
-  render() {
-    return (
+
+export default class YGG extends Component{
+  render(){
+    return(
       <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to You Go Girl!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.ios.js
-        </Text>
-        <Text style={styles.instructions}>
-          Press Cmd+R to reload,{'\n'}
-          Cmd+D or shake for dev menu
-        </Text>
+        <Checkins />
       </View>
     );
   }
@@ -33,21 +20,14 @@ export default class YGG extends Component {
 
 const styles = StyleSheet.create({
   container: {
+    marginTop: 20,
     flex: 1,
-    justifyContent: 'center',
+    flexDirection: 'column',
+    flexWrap: 'nowrap',
+    backgroundColor: '#ecf0f1',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
+    justifyContent: 'center'
+  }
 });
 
 AppRegistry.registerComponent('YGG', () => YGG);
