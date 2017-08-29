@@ -6,7 +6,7 @@ module.exports = function(sequelize, DataTypes) {
 
   Checkup.associate = function(models) {
     Checkup.belongsTo(models.User, {foreignKey: 'UserID', as: 'User'});
-    Checkup.hasOne(models.Checkin, {foreignKey: 'CheckinID', as: 'Checkin'});
+    Checkup.hasOne(models.Checkin, {foreignKey: 'CheckupID', as: 'Checkin'});
   };
 
   return Checkup;

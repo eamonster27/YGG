@@ -12,7 +12,7 @@ module.exports = function(sequelize, DataTypes) {
   Checkin.associate = function(models) {
     Checkin.belongsTo(models.User, {foreignKey: 'UserID', as: 'User'});
     Checkin.hasMany(models.Ping, {foreignKey: 'CheckinID', as: 'Pings'});
-    Checkin.hasOne(models.Checkup, {foreignKey: 'CheckupID', as: 'Checkup'});
+    Checkin.hasOne(models.Checkup, {foreignKey: 'CheckinID', as: 'Checkup'});
   };
 
   return Checkin;
