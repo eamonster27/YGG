@@ -3,11 +3,11 @@ const router = express.Router();
 const models = require('../models');
 
 
-router.get('/api/', function(req, res, next){
+router.get('/api/users', function(req, res, next){
   models.User.findAll().then(users => { res.json(users); });
 })
 
-router.get('/api/:user', function(req, res, next){
+router.get('/api/users/:user', function(req, res, next){
   models.User.findOne({
     where: {id: req.params.user},
     include: [
@@ -17,7 +17,33 @@ router.get('/api/:user', function(req, res, next){
   .then(user => { res.json(user); });
 })
 
-router.get('/api/:user/:checkin', function(req, res, next){
+router.get('/api/users/:user/checkins', function(req, res, next){
+  models.User.findOne({
+    where: {id: req.params.user}
+  })
+  .then(user => {
+    models.Checkin.findAll({
+      where: {UserID: user.dataValues.id},
+      include: [
+        {model: models.Ping, as: 'Pings'}]
+    })
+    .then(checkins => { res.json(checkins); })
+  });
+})
+
+router.get('/api/users/:user/checkups', function(req, res, next){
+  models.User.findOne({
+    where: {id: req.params.user}
+  })
+  .then(user => {
+    models.Checkup.findAll({
+      where: {UserID: user.dataValues.id}
+    })
+    .then(checkups => { res.json(checkups); })
+  });
+})
+
+router.get('/api/users/:user/checkins/:checkin', function(req, res, next){
   models.User.findOne({
     where: {id: req.params.user}
   })
@@ -31,7 +57,7 @@ router.get('/api/:user/:checkin', function(req, res, next){
   });
 })
 
-router.get('/api/:user/:checkup', function(req, res, next){
+router.get('/api/users/:user/checkups/:checkup', function(req, res, next){
   models.User.findOne({
     where: {id: req.params.user}
   })
@@ -43,7 +69,7 @@ router.get('/api/:user/:checkup', function(req, res, next){
   });
 })
 
-router.get('/api/:user/:checkin/pings', function(req, res, next){
+router.get('/api/users/:user/checkins/:checkin/pings', function(req, res, next){
   models.User.findOne({
     where: {id: req.params.user}
   })
