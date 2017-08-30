@@ -7,7 +7,6 @@ import Checkups from './app/components/Checkups/Checkups';
 import Main from './app/components/Main/Main';
 import Welcome from './app/components/Welcome/Welcome';
 
-
 export default class YGG extends Component{
   render(){
     return(

@@ -18,6 +18,13 @@ module.exports = {
           key: 'id'
         }
       },
+      CheckinID: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Checkins',
+          key: 'id'
+        }
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
