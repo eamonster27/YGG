@@ -8,6 +8,6 @@ app.use(express.static('public'));
 const port = process.env.PORT || 3000;
 app.listen(port);
 
-const apiRoute = require('./app/routes/api');
+const apiRoute = require('./routes/api');
 
 app.use(apiRoute);
