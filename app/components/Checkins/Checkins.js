@@ -13,12 +13,12 @@ export default class Checkins extends Component{
       case 'checkinsapi':
         return (<CheckinsAPI navigator={navigator} title="checkinsapi" />)
       case 'checkin':
-        return (<Checkin user={route.user} navigator={navigator} title="checkin" />)
+        return (<Checkin checkin={route.checkin} navigator={navigator} title="checkin" />)
     }
   }
 // onPress should direct to checkin creation.
   onPress(){
-    
+
   }
 
   render(){

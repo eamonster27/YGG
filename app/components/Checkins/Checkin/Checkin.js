@@ -21,8 +21,8 @@ export default class Checkin extends Component{
     const markerInfo = [];
     for (let i = 1; i < NUM_MARKERS; i++) {
       markerInfo.push({
-        latitude: this.props.user.address.geo.lat * 1.0,
-        longitude: this.props.user.address.geo.lng * 1.0,
+        latitude: this.props.checkin.lat * 1.0,
+        longitude: this.props.checkin.lng * 1.0,
         isSpecial: Math.random() < PERCENT_SPECIAL_MARKERS,
         id: i,
       });
@@ -56,8 +56,8 @@ export default class Checkin extends Component{
           ref={ref => { this.map = ref; }}
           style={styles.map}
           initialRegion={{
-            latitude: this.props.user.address.geo.lat * 1.0,
-            longitude: this.props.user.address.geo.lng * 1.0,
+            latitude: this.props.checkin.lat * 1.0,
+            longitude: this.props.checkin.lng * 1.0,
             latitudeDelta: MAP_LATITUDE_DELTA,
             longitudeDelta: MAP_LONGITUDE_DELTA,
           }}

@@ -6,36 +6,36 @@ export default class CheckinsAPI extends Component {
     super();
     const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     this.state = {
-      userDataSource: ds
+      checkinDataSource: ds
     };
   }
 
   componentDidMount(){
-    this.fetchUsers();
+    this.fetchCheckins();
   }
 
-  fetchUsers(){
-    fetch('https://yougogirl.herokuapp.com/api/1')
+  fetchCheckins(){
+    fetch('https://yougogirl.herokuapp.com/api/users/2/checkins')
       .then((response) => response.json())
       .then((response) => {
         this.setState({
-          userDataSource: this.state.userDataSource.cloneWithRows(response)
+          checkinDataSource: this.state.checkinDataSource.cloneWithRows(response)
         });
       });
   }
 
-  onPress(user){
+  onPress(checkin){
     this.props.navigator.push({
       id: 'checkin',
-      user: user
+      checkin: checkin
     });
   }
 
-  renderRow(user, sectionId, rowId, highlightRow){
+  renderRow(checkin, sectionId, rowId, highlightRow){
     return(
-      <TouchableHighlight onPress={() => {this.onPress(user)}}>
+      <TouchableHighlight onPress={() => {this.onPress(checkin)}}>
         <View style={styles.row}>
-          <Text style={styles.rowText}> {user.cell} </Text>
+          <Text style={styles.rowText}> {checkin.time} </Text>
         </View>
       </TouchableHighlight>
     )
@@ -45,7 +45,7 @@ export default class CheckinsAPI extends Component {
     return (
       <View>
         <ListView
-          dataSource={this.state.userDataSource}
+          dataSource={this.state.checkinDataSource}
           renderRow={this.renderRow.bind(this)}
         />
       </View>
