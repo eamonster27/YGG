@@ -8,10 +8,14 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      cell: {
-        type: Sequelize.STRING
+      alerts: {
+        type: Sequelize.INTEGER
+      },
+      reqUserID: {
+        type: Sequelize.INTEGER,
       },
       UserID: {
+        allowNull: false,
         type: Sequelize.INTEGER,
         references: {
           model: 'Users',
@@ -19,6 +23,7 @@ module.exports = {
         }
       },
       CheckinID: {
+        allowNull: false,
         type: Sequelize.INTEGER,
         references: {
           model: 'Checkins',

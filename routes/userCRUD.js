@@ -12,7 +12,9 @@ router.post('/create/user', function(req, res){
     passcode: req.body.passcode,
     paniccode: req.body.paniccode,
   })
-
+  //After user create is initiated, persist session in "local-storage". On app start,
+  //check local storage for session and auto login, otherwise direct to login/signup.
+  // Very important that session persists permanently.
 })
 
 //edit user (panic code, pass code)

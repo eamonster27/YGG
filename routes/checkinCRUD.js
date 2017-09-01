@@ -5,34 +5,23 @@ const models = require('../models');
 //show checkin??? Maybe move the API here.
 
 //create checkin ( add to database )
-router.post('/user/:user/create/checkin', function(req, res, next){
+router.post('/user/:userid/create/checkin', function(req, res, next){
   models.Checkin.create({
     status: "On Schedule", //On Schedule, Home Safe, Snoozed, Disabled, Panic
     lat: req.body.lat, //user types address, address converted to lat lng, then post to create
     lng: req.body.lng,
     time: req.body.time,
-    emCell: req.body.emCell, //validate w/ database query, on green post to create
     requestStatus: "Pending",
-    UserID: req.params.user,
+    emContactID: req.body.emContactID, // use dropdown menu after search query to select user.
+    UserID: req.params.userid,
   }).then(checkin => {
-    models.User.findOne({
-      where: {cell: req.params.checkin.emCell}
-    }).then(emContact => {
-      models.User.findOne({
-        where: {id: req.params.user}
-      }).then(requestingUser => {
-        //find the receiving userID with cell number
-        //set equal to UserID variable
-        //.then pass checkin to this model and access its id for checkinid
-        models.Checkup.create({
-          cell: requestingUser.cell, //senders cellphone //CHANGE THIS TO reqUserID this avoids the third .then statment
-          UserID: emContact.id, //receiving userid
-          CheckinID: checkin.id, //<-------
-        })
-      })
+    models.Checkup.create({
+      reqUserID: checkin.UserID, //requesting or originating user
+      UserID: checkin.emContactID,
+      CheckinID: checkin.id,
     })
-  })
-})
+  });
+});
 
 //edit checkin (status, lat, lng, time, emCell, requestStatus, associated checkup)
 //update checkin ( add ping(s))

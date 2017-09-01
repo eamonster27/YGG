@@ -14,12 +14,13 @@ router.post('/create/checkin/:checkin/ping', function(req, res){
     lng: req.body.lng,
     time: req.body.time, //moment().format('LLLL')
     CheckinID: req.params.checkin,
-  })//.then notification for emcontact
+  })
   //Add a notification index to checkup. When ping is initiated through checkin,
   //also initiate notification for checkup originating with checkin.
 
-  //delete ping
 })
+
+//delete ping
 
 module.exports = router;
 

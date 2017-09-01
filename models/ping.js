@@ -1,9 +1,26 @@
 'use strict';
 module.exports = function(sequelize, DataTypes) {
   var Ping = sequelize.define('Ping', {
-    lat: DataTypes.STRING,
-    lng: DataTypes.STRING,
-    time: DataTypes.STRING
+    lat: {
+      type: DataTypes.STRING,
+      validate: {
+        isNumeric: true,
+        allowNull: false
+      }
+    },
+    lng: {
+      type: DataTypes.STRING,
+      validate: {
+        isNumeric: true,
+        allowNull: false
+      }
+    },
+    time: {
+      type: DataTypes.DATE,
+      validate: {
+        allowNull: false
+      }
+    }
   }, {})
 
   Ping.associate = function(models) {

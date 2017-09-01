@@ -15,9 +15,10 @@ module.exports = {
         type: Sequelize.STRING
       },
       time: {
-        type: Sequelize.STRING
+        type: Sequelize.DATE
       },
       CheckinID: {
+        allowNull: false,
         type: Sequelize.INTEGER,
         references: {
           model: 'Checkins',

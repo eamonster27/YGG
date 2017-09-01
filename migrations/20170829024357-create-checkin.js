@@ -18,15 +18,16 @@ module.exports = {
         type: Sequelize.STRING
       },
       time: {
-        type: Sequelize.STRING
-      },
-      emCell: {
-        type: Sequelize.STRING
+        type: Sequelize.DATE
       },
       requestStatus: {
         type: Sequelize.STRING
       },
+      emContactID: {
+        type: Sequelize.INTEGER,
+      },
       UserID: {
+        allowNull: false,
         type: Sequelize.INTEGER,
         references: {
           model: 'Users',
