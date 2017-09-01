@@ -24,15 +24,32 @@ export default class Checkins extends Component{
   render(){
     return(
       <View style={styles.container}>
-        <Button
-          onPress={this.onPress.bind(this)}
-          title="+"
-        />
+        <View style={styles.header}>
+          <Button
+            onPress={this.onPress.bind(this)}
+            title="Edit"
+          />
+          <Button
+            onPress={this.onPress.bind(this)}
+            title="+"
+          />
+
+        </View>
         <Navigator
           initialRoute={{id: 'checkinsapi'}}
           renderScene={this.renderScene}
           configureScreen={(route, routeStack) => Navigator.SceneConfigs.FloatFromBottom}
         />
+        <View style={styles.footer}>
+          <Button
+            onPress={this.onPress.bind(this)}
+            title="Checkins"
+          />
+          <Button
+            onPress={this.onPress.bind(this)}
+            title="Checkups"
+          />
+        </View>
       </View>
     );
   }
@@ -42,7 +59,19 @@ const styles = StyleSheet.create({
   container: {
     height: '100%',
     width: '100%'
-
+  },
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginLeft: '5%',
+    marginRight: '5%',
+  },
+  footer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginLeft: '5%',
+    marginRight: '5%',
+    marginBottom: '2.5%',
   }
 });
 

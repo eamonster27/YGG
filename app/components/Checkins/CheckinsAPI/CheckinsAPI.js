@@ -58,13 +58,19 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     padding: 10,
-    backgroundColor: 'grey',
+    backgroundColor: '#3498db', //Approved
+    // backgroundColor: '#f1c40f', //Pending
+    // backgroundColor: '#2ecc71', //Home Safe Checkups only
+    // backgroundColor: '#e74c3c', //Declined
+    opacity: 0.85,
     marginBottom: 3,
     width: '100%'
   },
   rowText: {
     flex: 1,
-    textAlign: 'center'
+    textAlign: 'center',
+    fontSize: 20,
+    color: 'white'
   }
 });
 

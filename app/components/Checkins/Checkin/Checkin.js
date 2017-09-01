@@ -1,12 +1,10 @@
 import React, {Component} from 'react';
-import {AppRegistry, Text, View, Button, StyleSheet, Dimensions} from 'react-native';
+import {AppRegistry, Text, View, Button, StyleSheet, Dimensions, TextInput} from 'react-native';
 import MapView from 'react-native-maps';
 
 const { width, height } = Dimensions.get('window');
 
 const ASPECT_RATIO = width / height;
-const LATITUDE = 37.733858;
-const LONGITUDE = -122.446549;
 const MARKERS_LATITUDE_DELTA = 0.3;
 const MARKERS_LONGITUDE_DELTA = MARKERS_LATITUDE_DELTA * ASPECT_RATIO;
 const MAP_LATITUDE_DELTA = 0.3;
@@ -65,8 +63,23 @@ export default class Checkin extends Component{
           {markers}
         </MapView>
 
-        <Text> Address </Text>
-        <Text> Emergency Contact </Text>
+        <View style={styles.body}>
+          <TextInput
+            style={{textAlign: 'center', height: 20, width: '80%', borderColor: 'gray', borderWidth: 1}}
+            onChangeText={(text) => this.setState({text})}
+            placeholder={this.props.checkin.lat + ', ' + this.props.checkin.lng}
+          />
+          <TextInput
+            style={{textAlign: 'center', marginTop: 20, height: 20, width: '80%', borderColor: 'gray', borderWidth: 1}}
+            onChangeText={(text) => this.setState({text})}
+            placeholder={this.props.checkin.emCell}
+          />
+        </View>
+
+        <Button
+          onPress={this.onPress.bind(this)}
+          title="Delete"
+        />
 
         <Button
           onPress={this.onPress.bind(this)}
@@ -83,9 +96,16 @@ Checkin.propTypes = {
 
 const styles = StyleSheet.create({
   container: {
-      ...StyleSheet.absoluteFillObject,
-      justifyContent: 'space-between',
-      alignItems: 'center',
+    ...StyleSheet.absoluteFillObject,
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  body: {
+    height: '30%',
+    width: '100%',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   map: {
     width: '100%',
