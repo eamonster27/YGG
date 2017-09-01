@@ -16,9 +16,9 @@ router.post('/user/:userid/create/checkin', function(req, res, next){
     UserID: req.params.userid,
   }).then(checkin => {
     models.Checkup.create({
-      reqUserID: checkin.UserID, //requesting or originating user
-      UserID: checkin.emContactID,
-      CheckinID: checkin.id,
+      reqUserID: checkin.dataValues.UserID, //requesting or originating user
+      UserID: checkin.dataValues.emContactID,
+      CheckinID: checkin.dataValues.id,
     })
   });
 });

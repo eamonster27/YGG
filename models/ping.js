@@ -16,7 +16,7 @@ module.exports = function(sequelize, DataTypes) {
       }
     },
     time: {
-      type: DataTypes.DATE,
+      type: DataTypes.STRING,
       validate: {
         allowNull: false
       }

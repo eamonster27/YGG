@@ -15,7 +15,7 @@ export default class CheckinsAPI extends Component {
   }
 
   fetchCheckins(){
-    fetch('https://yougogirl.herokuapp.com/api/users/2/checkins')
+    fetch('https://yougogirl.herokuapp.com/api/users/1/checkins')
       .then((response) => response.json())
       .then((response) => {
         this.setState({
