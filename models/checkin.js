@@ -3,46 +3,94 @@ module.exports = function(sequelize, DataTypes) {
   var Checkin = sequelize.define('Checkin', {
     status: {
       type: DataTypes.STRING,
-      defaultValue: "On Schedule",
       validate: {
         len: [4,12],
-        isAlpha: true,
-        allowNull: false
+        isAlpha: {
+          args: true,
+          msg: "Letters only."
+        },
+        notNull: {
+          args: true,
+          msg: "Cannot be null."
+        },
+        notEmpty: {
+          args: true,
+          msg: "Cannot be empty string."
+        }
       }
     },
     lat: {
       type: DataTypes.STRING,
       validate: {
-        isNumeric: true,
-        allowNull: false
+        isNumeric: {
+          args: true,
+          msg: "Numeric only."
+        },
+        notNull: {
+          args: true,
+          msg: "Cannot be null."
+        },
+        notEmpty: {
+          args: true,
+          msg: "Cannot be empty string."
+        }
       }
     },
     lng: {
       type: DataTypes.STRING,
       validate: {
-        isNumeric: true,
-        allowNull: false
+        isNumeric: {
+          args: true,
+          msg: "Numeric only."
+        },
+        notNull: {
+          args: true,
+          msg: "Cannot be null."
+        },
+        notEmpty: {
+          args: true,
+          msg: "Cannot be empty string."
+        }
       }
     },
     time: {
       type: DataTypes.STRING,
       validate: {
-        allowNull: false
+        notNull: {
+          args: true,
+          msg: "Cannot be null."
+        },
+        notEmpty: {
+          args: true,
+          msg: "Cannot be empty string."
+        }
       }
     },
     requestStatus: {
       type: DataTypes.STRING,
-      defaultValue: "Pending",
       validate: {
         len: [7,8],
-        isAlpha: true,
-        allowNull: false
+        isAlpha: {
+          args: true,
+          msg: "Letters only."
+        },
+        notNull: {
+          args: true,
+          msg: "Cannot be null."
+        },
+        notEmpty: {
+          args: true,
+          msg: "Cannot be empty string."
+        }
       }
     },
     emContactID: {
       type: DataTypes.INTEGER,
       validate: {
-        allowNull: false,
+        notNull: {
+          args: true,
+          msg: "Cannot be null."
+        },
         notThisUser(value) {
           if (value === this.UserID) {
             throw new Error('You cannot be your own Emergency Contact!')

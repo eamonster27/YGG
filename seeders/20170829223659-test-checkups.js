@@ -11,6 +11,7 @@ module.exports = {
       updatedAt: new Date(),
     },
     {
+      alerts: 0,
       reqUserID: 1,
       UserID: 6,
       CheckinID: 2,
@@ -18,6 +19,7 @@ module.exports = {
       updatedAt: new Date(),
     },
     {
+      alerts: 0,
       reqUserID: 1,
       UserID: 5,
       CheckinID: 3,

@@ -3,15 +3,20 @@ module.exports = function(sequelize, DataTypes) {
   var Checkup = sequelize.define('Checkup', {
     alerts: {
       type: DataTypes.INTEGER,
-      defaultValue: 0,
       validate: {
-        allowNull: false
+        notNull: {
+          args: true,
+          msg: "Cannot be null."
+        }
       }
     },
     reqUserID: {
       type: DataTypes.INTEGER,
       validate: {
-        allowNull: false,
+        notNull: {
+          args: true,
+          msg: "Cannot be null."
+        },
         notThisUser(value) {
           if (value == this.UserID) {
             throw new Error('You cannot be your own Emergency Contact!')
