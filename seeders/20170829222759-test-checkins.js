@@ -14,7 +14,6 @@ module.exports = {
       updatedAt: new Date(),
     },
     {
-      status: "On Schedule",
       lat: "29.742063", //3403 Audubon Pl
       lng: "-95.386246",
       time: "2017-09-06 17:00",
@@ -25,7 +24,6 @@ module.exports = {
       updatedAt: new Date(),
     },
     {
-      status: "On Schedule",
       lat: "29.742063", //3403 Audubon Pl
       lng: "-95.386246",
       time: "2017-09-07 16:30",

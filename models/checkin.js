@@ -3,6 +3,7 @@ module.exports = function(sequelize, DataTypes) {
   var Checkin = sequelize.define('Checkin', {
     status: {
       type: DataTypes.STRING,
+      defaultValue: "On Schedule",
       validate: {
         len: [4,12],
         isAlpha: true,
@@ -31,6 +32,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     requestStatus: {
       type: DataTypes.STRING,
+      defaultValue: "Pending",
       validate: {
         len: [7,8],
         isAlpha: true,

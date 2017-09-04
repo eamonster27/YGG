@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const models = require('../models');
+const models = require('../../models');
 
 //create user ( add to database )
 router.post('/create/user', function(req, res){

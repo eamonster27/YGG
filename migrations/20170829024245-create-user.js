@@ -20,6 +20,9 @@ module.exports = {
       cell: {
         type: Sequelize.STRING
       },
+      password: {
+        type: Sequelize.STRING
+      },
       passcode: {
         type: Sequelize.STRING
       },

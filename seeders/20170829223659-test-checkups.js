@@ -3,7 +3,7 @@
 module.exports = {
   up: function (queryInterface, Sequelize) {
     return queryInterface.bulkInsert('Checkups', [{
-      alerts: 0, //pings, snooze, disable, homesafe, approved, declined, etc.
+      alerts: 1, //pings, snooze, disable, home, approved, declined, etc.
       reqUserID: 1,
       UserID: 2,
       CheckinID: 1,
@@ -11,7 +11,6 @@ module.exports = {
       updatedAt: new Date(),
     },
     {
-      alerts: 0,
       reqUserID: 1,
       UserID: 6,
       CheckinID: 2,
@@ -19,7 +18,6 @@ module.exports = {
       updatedAt: new Date(),
     },
     {
-      alerts: 0,
       reqUserID: 1,
       UserID: 5,
       CheckinID: 3,
@@ -27,7 +25,7 @@ module.exports = {
       updatedAt: new Date(),
     },
     {
-      alerts: 0,
+      alerts: 4,
       reqUserID: 2,
       UserID: 1,
       CheckinID: 4,
@@ -35,7 +33,7 @@ module.exports = {
       updatedAt: new Date(),
     },
     {
-      alerts: 0,
+      alerts: 4,
       reqUserID: 3,
       UserID: 4,
       CheckinID: 5,
@@ -43,7 +41,7 @@ module.exports = {
       updatedAt: new Date(),
     },
     {
-      alerts: 0,
+      alerts: 2,
       reqUserID: 5,
       UserID: 1,
       CheckinID: 6,
@@ -51,7 +49,7 @@ module.exports = {
       updatedAt: new Date(),
     },
     {
-      alerts: 0,
+      alerts: 2,
       reqUserID: 6,
       UserID: 7,
       CheckinID: 7,

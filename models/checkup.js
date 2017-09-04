@@ -3,6 +3,7 @@ module.exports = function(sequelize, DataTypes) {
   var Checkup = sequelize.define('Checkup', {
     alerts: {
       type: DataTypes.INTEGER,
+      defaultValue: 0,
       validate: {
         allowNull: false
       }
