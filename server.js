@@ -7,6 +7,6 @@ app.use(bodyParser.urlencoded({extended: false}));
 const port = process.env.PORT || 3000;
 app.listen(port);
 
-const apiRoute = require('./routes/api');
+const apiRoute = require('./routes/API/api');
 
 app.use(apiRoute);
