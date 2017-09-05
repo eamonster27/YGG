@@ -1,13 +1,18 @@
 const express = require('express');
 const router = express.Router();
 const models = require('../../models');
+const bodyParser = require('body-parser');
+
+app.use(bodyParser.urlencoded({ extended: false }));
 
 //create user ( add to database )
 router.post('/create/user', function(req, res){
+  console.log("posting to /create/user");
   models.User.create({
     firstname: req.body.firstname,
     lastname: req.body.lastname,
     email: req.body.email,
+    password: req.body.password,
     cell: req.body.cell,
     passcode: req.body.passcode,
     paniccode: req.body.paniccode,

@@ -42,7 +42,7 @@ module.exports = function(sequelize, DataTypes) {
         }
       }
     },
-    email: {
+    email: { //MAKE UNIQUE
       type: DataTypes.STRING,
       validate: {
         isEmail: {
@@ -59,7 +59,7 @@ module.exports = function(sequelize, DataTypes) {
         }
       }
     },
-    cell: {
+    cell: { //MAKE UNIQUE
       type: DataTypes.STRING,
       validate: {
         len: {

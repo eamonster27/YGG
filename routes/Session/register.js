@@ -9,31 +9,39 @@ router.get('/signup', function(req, res){
 })
 
 router.post('/signup', function(req, res){
-  if(req.body.username == '' || req.body.password == ''){
-    //Error. Use validation instead
-  }
-  else {
-    models.User.findOne({
-      where: {
-        email: req.body.email
-      }
-    }).then(function(user) {
-      if(user) {
-        //Error
-      }
-      else {
-        models.User.create({
-          username: req.body.username,
-          password: req.body.password
-        }).then(function (user){
-          if(user) {
-            session.user = user;
-            res.redirect('/');
-          }
-        })
-      }
-    })
-  }
+  models.User.findOne({
+    where: {
+      email: req.body.email
+    }
+  }).then(function(user) {
+    if(user) {
+      //Error email already taken
+    }
+    else {
+      models.User.create({
+        firstname: req.body.firstname,
+        lastname: req.body.lastname,
+        email: req.body.email,
+        cell: req.body.cell,
+        password: req.body.password,
+        passcode: req.body.passcode,
+        paniccode: req.body.paniccode
+      }).then(function (user){
+        if(user) {
+          session.user = user;
+          //redirect
+        }
+      }).catch(function(error){
+        //render with errors.
+        /*
+        res.render("userEdit", {
+        user: user,
+        errors: error.errors
+      })
+      */
+      })
+    }
+  })
 })
 
 

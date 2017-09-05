@@ -7,14 +7,14 @@ const bodyParser = require('body-parser');
 router.use(bodyParser.urlencoded({ extended: false }));
 
 router.get('/login', function(req, res){
-  
+
 })
 
 router.post('/auth', function(req,res){
   // Authorize login stuff
   models.User.findOne({
     where: {
-      username: req.body.username,
+      email: req.body.email,
       password: req.body.password
     }
   }).then(function(user) {

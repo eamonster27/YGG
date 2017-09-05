@@ -6,12 +6,14 @@ import Checkins from './app/components/Checkins/Checkins';
 import Checkups from './app/components/Checkups/Checkups';
 import Main from './app/components/Main/Main';
 import Welcome from './app/components/Welcome/Welcome';
+import Login from './app/components/Session/Login';
+import Register from './app/components/Session/Register';
 
 export default class YGG extends Component{
   render(){
     return(
       <View style={styles.container}>
-        <Checkins />
+        <Register />
       </View>
     );
   }
