@@ -3,10 +3,7 @@ const router = express.Router();
 const models = require('../../models');
 
 //create user ( add to database )
-router.post('/create/user', function(req, res){
-  console.log("Arriving at /create/user");
-  console.log(req.body);
-
+router.post('/register', function(req, res){
   models.User.create({
     firstname: req.body.firstname,
     lastname: req.body.lastname,
