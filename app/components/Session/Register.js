@@ -7,23 +7,23 @@ export default class Register extends Component {
     super(props);
 
     this.state = {
-      firstname: "",
-      lastname: "",
-      email: "",
-      password: "",
-      cell: "",
-      passcode: "",
-      paniccode: ""
+      firstname: '',
+      lastname: '',
+      email: '',
+      password: '',
+      cell: '',
+      passcode: '',
+      paniccode: ''
     };
   }
 
   onPress(){
     console.log(this.state);
-    let url = "https://yougogirl.herokuapp.com/";
-    let userPath = "register";
+    let url = 'https://yougogirl.herokuapp.com/';
+    let userPath = 'register';
 
     fetch(`${url}${userPath}`, {
-      method: "POST",
+      method: 'POST',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
@@ -55,43 +55,36 @@ export default class Register extends Component {
       <Form style={styles.container} ref="form">
         <View style={styles.container}>
           <TextInput
-            type="TextInput"
             style={{textAlign: 'center', marginTop: 20, height: 20, width: '80%', borderColor: 'gray', borderWidth: 1}}
             onChangeText = {(first) => this.setState({firstname: first})}
             placeholder="First:"
           />
           <TextInput
-            type="TextInput"
             style={{textAlign: 'center', marginTop: 20, height: 20, width: '80%', borderColor: 'gray', borderWidth: 1}}
             onChangeText = {(last) => this.setState({lastname: last})}
             placeholder = "Last:"
           />
           <TextInput
-            type="TextInput"
             style={{textAlign: 'center', marginTop: 20, height: 20, width: '80%', borderColor: 'gray', borderWidth: 1}}
             onChangeText = {(email) => this.setState({email: email})}
             placeholder = "Email:"
           />
           <TextInput
-            type="TextInput"
             style={{textAlign: 'center', marginTop: 20, height: 20, width: '80%', borderColor: 'gray', borderWidth: 1}}
             onChangeText = {(password) => this.setState({password: password})}
             placeholder = "Password:"
           />
           <TextInput
-            type="TextInput"
             style={{textAlign: 'center', marginTop: 20, height: 20, width: '80%', borderColor: 'gray', borderWidth: 1}}
             onChangeText = {(cell) => this.setState({cell: cell})}
             placeholder = "Mobile:"
           />
           <TextInput
-            type="TextInput"
             style={{textAlign: 'center', marginTop: 20, height: 20, width: '80%', borderColor: 'gray', borderWidth: 1}}
             onChangeText = {(passcode) => this.setState({passcode: passcode})}
             placeholder = "Passcode:"
           />
           <TextInput
-            type="TextInput"
             style={{textAlign: 'center', marginTop: 20, height: 20, width: '80%', borderColor: 'gray', borderWidth: 1}}
             onChangeText = {(paniccode) => this.setState({paniccode: paniccode})}
             placeholder = "Paniccode:"

@@ -8,12 +8,13 @@ import Main from './app/components/Main/Main';
 import Welcome from './app/components/Welcome/Welcome';
 import Login from './app/components/Session/Login';
 import Register from './app/components/Session/Register';
+import NewCheckin from './app/components/Checkins/NewCheckin';
 
 export default class YGG extends Component{
   render(){
     return(
       <View style={styles.container}>
-        <Register />
+        <NewCheckin />
       </View>
     );
   }

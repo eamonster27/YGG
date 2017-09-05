@@ -1,14 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const models = require('../../models');
-const moment = require('moment');
-const bodyParser = require('body-parser');
-app.use(bodyParser.urlencoded({extended: false}));
-
-
 
 //create ping ( add to database )
-router.post('/create/checkin/:checkin/ping', function(req, res){
+router.post('/checkin/:checkin/newping', function(req, res){
   models.Ping.create({
     lat: req.body.lat, //parser may not be useable for lat lng
     lng: req.body.lng,
@@ -19,6 +14,7 @@ router.post('/create/checkin/:checkin/ping', function(req, res){
   //also initiate notification for checkup originating with checkin.
 
 })
+//Alarm feature calls this create post.
 
 //delete ping
 

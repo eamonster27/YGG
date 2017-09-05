@@ -10,6 +10,8 @@ app.listen(port);
 
 const apiRoute = require('./routes/API/api');
 const userRoute = require('./routes/CRUD/user');
+const checkinRoute = require('./routes/CRUD/checkin');
 
 app.use(apiRoute);
 app.use(userRoute);
+app.use(checkinRoute);

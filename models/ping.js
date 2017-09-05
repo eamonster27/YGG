@@ -8,6 +8,14 @@ module.exports = function(sequelize, DataTypes) {
           args: true,
           msg: "Numeric only."
         },
+        min: {
+          args: -90,
+          msg: "Must be greater than or equal to -90."
+        },
+        max: {
+          args: 90,
+          msg: "Must be less than or equal to 90."
+        },
         notEmpty: {
           args: true,
           msg: "Cannot be empty string."
@@ -20,6 +28,14 @@ module.exports = function(sequelize, DataTypes) {
         isNumeric: {
           args: true,
           msg: "Numeric only."
+        },
+        min: {
+          args: -180,
+          msg: "Must be greater than or equal to -180."
+        },
+        max: {
+          args: 180,
+          msg: "Must be less than or equal to 180."
         },
         notEmpty: {
           args: true,

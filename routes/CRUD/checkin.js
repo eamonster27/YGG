@@ -5,7 +5,8 @@ const models = require('../../models');
 //show checkin??? Maybe move the API here.
 
 //create checkin ( add to database )
-router.post('/user/:userid/create/checkin', function(req, res, next){
+router.post('/user/:userid/newcheckin', function(req, res){
+  console.log(req.body);
   models.Checkin.create({
     status: "On Schedule", //On Schedule, Home Safe, Snoozed, Disabled, Panic
     lat: req.body.lat, //user types address, address converted to lat lng, then post to create
@@ -22,6 +23,8 @@ router.post('/user/:userid/create/checkin', function(req, res, next){
     })
   });
 });
+
+//ERROR MESSAGES!//ERROR MESSAGES!
 
 //edit checkin (status, lat, lng, time, emCell, requestStatus, associated checkup)
 //update checkin ( add ping(s))
