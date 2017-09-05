@@ -4,19 +4,11 @@ module.exports = function(sequelize, DataTypes) {
     alerts: {
       type: DataTypes.INTEGER,
       validate: {
-        notNull: {
-          args: true,
-          msg: "Cannot be null."
-        }
       }
     },
     reqUserID: {
       type: DataTypes.INTEGER,
       validate: {
-        notNull: {
-          args: true,
-          msg: "Cannot be null."
-        },
         notThisUser(value) {
           if (value == this.UserID) {
             throw new Error('You cannot be your own Emergency Contact!')

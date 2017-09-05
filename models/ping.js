@@ -8,10 +8,6 @@ module.exports = function(sequelize, DataTypes) {
           args: true,
           msg: "Numeric only."
         },
-        notNull: {
-          args: true,
-          msg: "Cannot be null."
-        },
         notEmpty: {
           args: true,
           msg: "Cannot be empty string."
@@ -25,10 +21,6 @@ module.exports = function(sequelize, DataTypes) {
           args: true,
           msg: "Numeric only."
         },
-        notNull: {
-          args: true,
-          msg: "Cannot be null."
-        },
         notEmpty: {
           args: true,
           msg: "Cannot be empty string."
@@ -38,10 +30,6 @@ module.exports = function(sequelize, DataTypes) {
     time: {
       type: DataTypes.STRING,
       validate: {
-        notNull: {
-          args: true,
-          msg: "Cannot be null."
-        },
         notEmpty: {
           args: true,
           msg: "Cannot be empty string."

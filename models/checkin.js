@@ -9,10 +9,6 @@ module.exports = function(sequelize, DataTypes) {
           args: true,
           msg: "Letters only."
         },
-        notNull: {
-          args: true,
-          msg: "Cannot be null."
-        },
         notEmpty: {
           args: true,
           msg: "Cannot be empty string."
@@ -25,10 +21,6 @@ module.exports = function(sequelize, DataTypes) {
         isNumeric: {
           args: true,
           msg: "Numeric only."
-        },
-        notNull: {
-          args: true,
-          msg: "Cannot be null."
         },
         notEmpty: {
           args: true,
@@ -43,10 +35,6 @@ module.exports = function(sequelize, DataTypes) {
           args: true,
           msg: "Numeric only."
         },
-        notNull: {
-          args: true,
-          msg: "Cannot be null."
-        },
         notEmpty: {
           args: true,
           msg: "Cannot be empty string."
@@ -56,10 +44,6 @@ module.exports = function(sequelize, DataTypes) {
     time: {
       type: DataTypes.STRING,
       validate: {
-        notNull: {
-          args: true,
-          msg: "Cannot be null."
-        },
         notEmpty: {
           args: true,
           msg: "Cannot be empty string."
@@ -74,10 +58,6 @@ module.exports = function(sequelize, DataTypes) {
           args: true,
           msg: "Letters only."
         },
-        notNull: {
-          args: true,
-          msg: "Cannot be null."
-        },
         notEmpty: {
           args: true,
           msg: "Cannot be empty string."
@@ -87,10 +67,6 @@ module.exports = function(sequelize, DataTypes) {
     emContactID: {
       type: DataTypes.INTEGER,
       validate: {
-        notNull: {
-          args: true,
-          msg: "Cannot be null."
-        },
         notThisUser(value) {
           if (value === this.UserID) {
             throw new Error('You cannot be your own Emergency Contact!')

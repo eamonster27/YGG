@@ -12,10 +12,6 @@ module.exports = function(sequelize, DataTypes) {
           args: true,
           msg: "Letters only, please."
         },
-        notNull:  {
-          args: true,
-          msg: "You have a first name."
-        },
         notEmpty: {
           args: true,
           msg: 'You have a first name.'
@@ -33,10 +29,6 @@ module.exports = function(sequelize, DataTypes) {
           args: true,
           msg: "Letters only, please."
         },
-        notNull:  {
-          args: true,
-          msg: "You have a last name."
-        },
         notEmpty: {
           msg: 'You have a last name.'
         }
@@ -48,10 +40,6 @@ module.exports = function(sequelize, DataTypes) {
         isEmail: {
           args: true,
           msg: "Invalid email address"
-        },
-        notNull: {
-          args: true,
-          msg: "You should have an email address."
         },
         notEmpty: {
           args: true,
@@ -70,10 +58,6 @@ module.exports = function(sequelize, DataTypes) {
           args: /^[0-9]+$/i,
           msg: "Digits only, please."
         },
-        notNull:  {
-          args: true,
-          msg: "Let me get that number."
-        },
         notEmpty: {
           args: true,
           msg: 'Let me get that number.'
@@ -90,10 +74,6 @@ module.exports = function(sequelize, DataTypes) {
         isAlphanumeric: {
           args: true,
           msg: "Alphanumeric only, please."
-        },
-        notNull:  {
-          args: true,
-          msg: "Dont forget that password."
         },
         notEmpty: {
           args: true,
@@ -112,10 +92,6 @@ module.exports = function(sequelize, DataTypes) {
           args: /^[0-9]+$/i,
           msg: "Digits only, please."
         },
-        notNull:  {
-          args: true,
-          msg: "Enter that passcode, yo."
-        },
         notEmpty: {
           args: true,
           msg: 'Enter that passcode, yo.'
@@ -132,10 +108,6 @@ module.exports = function(sequelize, DataTypes) {
         is: {
           args: /^[0-9]+$/i,
           msg: "Digits only, please."
-        },
-        notNull:  {
-          args: true,
-          msg: "Enter that panic code, yo."
         },
         notEmpty: {
           args: true,

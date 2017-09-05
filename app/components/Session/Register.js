@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {AppRegistry, StyleSheet, View, Text, Image, Button, TextInput} from 'react-native';
-import {Redirect} from 'react-router-dom';
 import Form from 'react-native-form';
 
 export default class Register extends Component {
@@ -8,25 +7,27 @@ export default class Register extends Component {
     super(props);
 
     this.state = {
-      firstname: '',
-      lastname: '',
-      email: '',
-      password: '',
-      cell: '',
-      passcode: '',
-      paniccode: '',
+      firstname: "",
+      lastname: "",
+      email: "",
+      password: "",
+      cell: "",
+      passcode: "",
+      paniccode: ""
     };
   }
 
   onPress(){
+    console.log(this.state);
+    let url = "http://localhost:3000";
+    let userPath = "create/user";
 
-    fetch("https://yougogirl.herokuapp.com/create/user", {
+    fetch(`${url}/${userPath}`, {
+      method: "POST",
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-
-      method: 'post',
       body: JSON.stringify({
         firstname: this.state.firstname,
         lastname: this.state.lastname,
@@ -34,9 +35,14 @@ export default class Register extends Component {
         password: this.state.password,
         cell: this.state.cell,
         passcode: this.state.passcode,
-        paniccode: this.state.paniccode
+        paniccode: this.state.paniccode,
       })
     })
+    // .then((response) => response.json())
+    // .then((responseData) => {
+    //   console.log("responseData");
+    //   console.log(responseData);
+    // }).done();
   }
 
   render() {

@@ -1,13 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const models = require('../../models');
-const bodyParser = require('body-parser');
-
-app.use(bodyParser.urlencoded({ extended: false }));
 
 //create user ( add to database )
 router.post('/create/user', function(req, res){
-  console.log("posting to /create/user");
+  console.log("Arriving at /create/user");
+  console.log(req.body);
+
   models.User.create({
     firstname: req.body.firstname,
     lastname: req.body.lastname,
