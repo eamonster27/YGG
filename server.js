@@ -8,10 +8,14 @@ app.use(bodyParser.json())
 const port = process.env.PORT || 3000;
 app.listen(port);
 
-const apiRoute = require('./routes/API/api');
-const userRoute = require('./routes/CRUD/user');
-const checkinRoute = require('./routes/CRUD/checkin');
+const sessionRoute = require('./routes/session');
+const userRoute = require('./routes/user');
+const checkinRoute = require('./routes/checkin');
+const checkupRoute = require('./routes/checkup');
+const pingRoute = require('./routes/ping');
 
-app.use(apiRoute);
+app.use(sessionRoute);
 app.use(userRoute);
 app.use(checkinRoute);
+app.use(checkupRoute);
+app.use(pingRoute);

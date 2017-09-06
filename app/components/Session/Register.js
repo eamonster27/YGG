@@ -20,9 +20,9 @@ export default class Register extends Component {
   onPress(){
     console.log(this.state);
     let url = 'https://yougogirl.herokuapp.com/';
-    let userPath = 'register';
+    let sessionPath = 'register';
 
-    fetch(`${url}${userPath}`, {
+    fetch(`${url}${sessionPath}`, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',

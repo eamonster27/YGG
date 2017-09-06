@@ -1,57 +1,82 @@
 import React, {Component} from 'react';
-import {AppRegistry, StyleSheet, View, Text, Image, TouchableOpacity, Button} from 'react-native';
+import {AppRegistry, Text, View, StyleSheet, Button} from 'react-native';
+import {Navigator} from 'react-native-deprecated-custom-components';
 
-export default class Main extends Component {
+import List from './Body/List/List';
+import Checkin from './Body/Checkin/Checkin';
 
-  onPressCheckins(){
-    this.props.navigator.push({
-      id: 'checkins'
-    });
+
+export default class Main extends Component{
+  renderScene(route, navigator){
+
+    switch(route.id){
+      case 'list':
+        return (<List navigator={navigator} title="list" />)
+      case 'checkin':
+        return (<Checkin checkin={route.checkin} navigator={navigator} title="checkin" />)
+    }
   }
 
-  onPressCheckups(){
-    this.props.navigator.push({
-      id: 'checkups'
-    });
+// onPress should direct to checkin creation.
+  onPress(){
+
   }
 
-
-  render() {
-    return (
-      <View>
-        <View style={styles.container}>
-
-          <TouchableOpacity
-            onPress={this.onPressCheckins}
-            style={styles.v2}
-          >
-            <Button
-              onPress={this.onPressCheckins.bind(this)}
-              title="Check-in"
-            />
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            onPress={this.onPressCheckups}
-            style={styles.v2}
-          >
-            <Button
-              onPress={this.onPressCheckups.bind(this)}
-              title="Check-up"
-            />
-          </TouchableOpacity>
+  render(){
+    return(
+      <View style={styles.container}>
+        <View style={styles.header}>
+          <Button
+            onPress={this.onPress.bind(this)}
+            title="Edit"
+          />
+          <Button
+            onPress={this.onPress.bind(this)}
+            title="+"
+          />
 
         </View>
+
+        <Navigator
+          initialRoute={{id: 'list'}}
+          renderScene={this.renderScene}
+          configureScreen={(route, routeStack) => Navigator.SceneConfigs.FloatFromBottom}
+        />
+
+        <View style={styles.footer}>
+          <Button
+            onPress={this.onPress.bind(this)}
+            title="Checkins"
+          />
+          <Button
+            onPress={this.onPress.bind(this)}
+            title="Checkups"
+          />
+        </View>
       </View>
-    )
+    );
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'column',
-    justifyContent: 'space-around'
+    height: '100%',
+    width: '100%'
+  },
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginLeft: '5%',
+    marginRight: '5%',
+  },
+  footer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginLeft: '5%',
+    marginRight: '5%',
+    marginBottom: '2.5%',
   }
 });
+
 
 AppRegistry.registerComponent('Main', () => Main);

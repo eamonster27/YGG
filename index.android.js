@@ -1,19 +1,21 @@
 import React, {Component} from 'react';
 import {AppRegistry, Text, View, StyleSheet} from 'react-native';
 
-import About from './app/components/About/About';
-import Checkins from './app/components/Checkins/Checkins';
-import Checkups from './app/components/Checkups/Checkups';
+// import About from './app/components/About/About';
 import Main from './app/components/Main/Main';
+// import Main from './app/components/Main/Main';
 import Welcome from './app/components/Welcome/Welcome';
 import Login from './app/components/Session/Login';
 import Register from './app/components/Session/Register';
+
+import NewCheckin from './app/components/Main/Body/Checkin/NewCheckin';
+//Instead of entire edit page, when edit is pressed, expand to make fields editable.
 
 export default class YGG extends Component{
   render(){
     return(
       <View style={styles.container}>
-        <Register />
+        <Main />
       </View>
     );
   }

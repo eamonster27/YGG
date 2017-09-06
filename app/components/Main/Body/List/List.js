@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import {AppRegistry, StyleSheet, View, Text, ListView, TouchableHighlight} from 'react-native';
 
-export default class CheckinsAPI extends Component {
+//Convert all checkin/checkup stuff into main. The pages will look exactly the same, just with different data.
+export default class List extends Component {
   constructor(){
     super();
     const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
@@ -14,8 +15,12 @@ export default class CheckinsAPI extends Component {
     this.fetchCheckins();
   }
 
+  //local storage
+  //pass argument to fetchCheckins with either checkins or checkups based on what link user presses
+  //Perhaps you should fetch the user page and save checkin and checkup data locally for quicker page loads.
   fetchCheckins(){
-    fetch('https://yougogirl.herokuapp.com/api/users/1/checkins')
+    // fetch('https://yougogirl.herokuapp.com/api/users/1/checkins')
+    fetch('http://localhost:3000/api/users/1/checkins')
       .then((response) => response.json())
       .then((response) => {
         this.setState({
@@ -74,4 +79,4 @@ const styles = StyleSheet.create({
   }
 });
 
-AppRegistry.registerComponent('CheckinsAPI', () => CheckinsAPI);
+AppRegistry.registerComponent('List', () => List);

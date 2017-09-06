@@ -2,6 +2,9 @@ import React, {Component} from 'react';
 import {AppRegistry, StyleSheet, View, Text, Image, Button, TextInput} from 'react-native';
 import Form from 'react-native-form';
 
+// Perhaps this should be EDITCHECKIN. + or Existing checkin is selected.
+// This should check to see if it was passed existing info and populate it in relevant fields.
+// Otherwise, new checkin creation.
 export default class NewCheckin extends Component {
   constructor(props){
     super(props);
@@ -13,15 +16,15 @@ export default class NewCheckin extends Component {
       time: '',
       requestStatus: '',
       emContactID: null,
-      UserID: 1, //UPDATE
+      UserID: 1, //UPDATE with user data stored in local storage
     };
   }
 
   onPress(){
     console.log(this.state);
 
-    let url = 'http://localhost:3000/';
-    let checkinPath = `user/${this.state.UserID}/newcheckin`;
+    let url = 'http://localhost:3000/'; //Update to heroku
+    let checkinPath = `user/${this.state.UserID}/new-checkin`; //May not need user url param when local storage is used.
 
     fetch(`${url}${checkinPath}`, {
       method: 'POST',
@@ -47,12 +50,11 @@ export default class NewCheckin extends Component {
     // }).done();
   }
 
+  // Address instead. Then convert address into latlng.
+  // Time should look similar to apple alarm clock page. Scroll select times.
+  //Enter emergency contact phone number. Should find user with that number. When selected, passes emContactID.
+  //Change button to a better functioning button.
   render() {
-    // if(this.state.submitted){
-    //   return(
-    //     <Redirect to="/"/>
-    //   )
-    // }
     return (
       <Form style={styles.container} ref="form">
         <View style={styles.container}>

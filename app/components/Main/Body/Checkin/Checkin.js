@@ -33,7 +33,7 @@ export default class Checkin extends Component{
 
   onPress(){
     this.props.navigator.push({
-      id: 'checkinsapi'
+      id: 'list'
     });
   }
 
