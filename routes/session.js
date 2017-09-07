@@ -2,12 +2,14 @@ const express = require('express');
 const router = express.Router();
 const models = require('../models');
 
+//Very important that session persists permanently.
+
 //Register New User
+//Check if user exists.
+//If not, create new user.
+//Persist session to local storage.
+//Respond with error or ok.
 router.post('/register', function(req, res){
-  //Check if user exists.
-  //If not, create new user.
-  //Persist session to local storage.
-  //Respond with error or ok.
   models.User.create({
     firstname: req.body.firstname,
     lastname: req.body.lastname,
@@ -17,15 +19,14 @@ router.post('/register', function(req, res){
     passcode: req.body.passcode,
     paniccode: req.body.paniccode,
   })
-  // Very important that session persists permanently.
 })
 
 //Login
+//Find user.
+//Verify credentials.
+//Persist to local storage.
+//Respond with error or ok.
 router.post('/auth', function(req, res){
-  //Find user.
-  //Verify credentials.
-  //Persist to local storage.
-  //Respond with error or ok.
   models.User.findOne({
        where: {
          email: req.body.email,
@@ -44,10 +45,10 @@ router.post('/auth', function(req, res){
 })
 
 //Logout
+//Destroy session.
+//Remove form local storage.
+//Respond with error or ok.
 router.post("/logout", function(req,res){
-  //Destroy session.
-  //Remove form local storage.
-  //Respond with error or ok.
 })
 
 

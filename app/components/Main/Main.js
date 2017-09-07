@@ -4,16 +4,23 @@ import {Navigator} from 'react-native-deprecated-custom-components';
 
 import List from './Body/List/List';
 import Checkin from './Body/Checkin/Checkin';
-
+import NewCheckin from './Body/Checkin/NewCheckin';
+import Header from './Header/Header';
+import Footer from './Footer/Footer';
 
 export default class Main extends Component{
   renderScene(route, navigator){
-
     switch(route.id){
-      case 'list':
-        return (<List navigator={navigator} title="list" />)
+      case 'checkins':
+        return (<List list={route.list} navigator={navigator} title="checkins" />)
+      case 'checkups':
+        return (<List list={route.list} navigator={navigator} title="checkups" />)
       case 'checkin':
         return (<Checkin checkin={route.checkin} navigator={navigator} title="checkin" />)
+      case 'checkup':
+        return (<Checkup checkup={route.checkup} navigator={navigator} title="checkup" />)
+      case 'newcheckin':
+        return (<NewCheckin newcheckin={route.newcheckin} navigator={navigator} title="newcheckin" />)
     }
   }
 
@@ -25,34 +32,15 @@ export default class Main extends Component{
   render(){
     return(
       <View style={styles.container}>
-        <View style={styles.header}>
-          <Button
-            onPress={this.onPress.bind(this)}
-            title="Edit"
-          />
-          <Button
-            onPress={this.onPress.bind(this)}
-            title="+"
-          />
-
-        </View>
+        <Header />
 
         <Navigator
-          initialRoute={{id: 'list'}}
+          initialRoute={{id: 'checkins'}}
           renderScene={this.renderScene}
           configureScreen={(route, routeStack) => Navigator.SceneConfigs.FloatFromBottom}
         />
 
-        <View style={styles.footer}>
-          <Button
-            onPress={this.onPress.bind(this)}
-            title="Checkins"
-          />
-          <Button
-            onPress={this.onPress.bind(this)}
-            title="Checkups"
-          />
-        </View>
+        <Footer />
       </View>
     );
   }
@@ -62,19 +50,6 @@ const styles = StyleSheet.create({
   container: {
     height: '100%',
     width: '100%'
-  },
-  header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginLeft: '5%',
-    marginRight: '5%',
-  },
-  footer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginLeft: '5%',
-    marginRight: '5%',
-    marginBottom: '2.5%',
   }
 });
 

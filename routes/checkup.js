@@ -3,10 +3,10 @@ const router = express.Router();
 const models = require('../models');
 
 //Get All User Checkups
+//Find user.
+//Find all user checkups.
+//Respond with checkups.
 router.get('/users/:user/checkups', function(req, res, next){
-  //Find user.
-  //Find all user checkups.
-  //Respond with checkups.
   models.User.findOne({
     where: { id: req.params.user }
   }).then(user => {
@@ -18,10 +18,10 @@ router.get('/users/:user/checkups', function(req, res, next){
 })
 
 //Get Individual User Checkup
+//Find user.
+//Find checkup.
+//Respond with checkup.
 router.get('/users/:user/checkups/:checkup', function(req, res, next){
-  //Find user.
-  //Find checkup.
-  //Respond with checkup.
   models.User.findOne({
     where: { id: req.params.user }
   })

@@ -3,16 +3,16 @@ const router = express.Router();
 const models = require('../models');
 
 //Get All Users
+//Find all users.
+//Respond w/ all users.
 router.get('/users', function(req, res, next){
-  //Find all users.
-  //Respond w/ all users.
   models.User.findAll().then(users => { res.json(users); });
 })
 
 //Get Individual User
+//Find user.
+//Respond w/ user.
 router.get('/users/:id', function(req, res, next){
-  //Find user.
-  //Respond w/ user.
   models.User.findOne({
     where: {id: req.params.id},
     include: [
@@ -23,11 +23,11 @@ router.get('/users/:id', function(req, res, next){
 })
 
 //Edit User (Everything but email)
+//Find user.
+//Verify user credentials.
+//Edit user data.
+//Respond with error or ok.
 router.post('/edit-user', function(req, res){
-  //Find user.
-  //Verify user credentials.
-  //Edit user data.
-  //Respond with error or ok.
   models.User.findOne({
        where: {
          id: req.body.id,
@@ -44,18 +44,18 @@ router.post('/edit-user', function(req, res){
       user.dataValues.paniccode = req.body.paniccode;
     }
     else {
-      //render with error
+      //Error
       console.log("No found user!!!");
     }
   })
 })
 
 //Delete User
+//Find user.
+//Verify user credentials.
+//Delete user.
+//Respond with error or ok.
 router.post('/delete-user', function(req, res){
-  //Find user.
-  //Verify user credentials.
-  //Delete user.
-  //Respond with error or ok.
   models.User.findOne({
        where: {
          email: req.body.email,
@@ -67,7 +67,7 @@ router.post('/delete-user', function(req, res){
       console.log("Found it!!!");
     }
     else {
-      //render with error
+      //Error
       console.log("No found it!!!");
     }
   })

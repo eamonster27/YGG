@@ -3,10 +3,10 @@ const router = express.Router();
 const models = require('../models');
 
 //Get All User Checkins
+//Find user.
+//Find all user checkins.
+//Respond with checkins.
 router.get('/users/:user/checkins', function(req, res, next){
-  //Find user.
-  //Find all user checkins.
-  //Respond with checkins.
   models.User.findOne({
     where: {id: req.params.user}
   })
@@ -21,10 +21,10 @@ router.get('/users/:user/checkins', function(req, res, next){
 })
 
 //Get Individual User Checkin
+//Find user.
+//Find checkin.
+//Respond with checkin.
 router.get('/users/:user/checkins/:checkin', function(req, res, next){
-  //Find user.
-  //Find checkin.
-  //Respond with checkin.
   models.User.findOne({
     where: {id: req.params.user}
   })
@@ -39,13 +39,13 @@ router.get('/users/:user/checkins/:checkin', function(req, res, next){
 })
 
 //Create New Checkin
+//Verify user credentials.
+//Create checkin.
+//Set data values.
+//Create corresponding checkup.
+//Set data values.
+//Respond with error or ok.
 router.post('/user/:userid/new-checkin', function(req, res){
-  //Verify user credentials.
-  //Create checkin.
-  //Set data values.
-  //Create corresponding checkup.
-  //Set data values.
-  //Respond with error or ok.
   models.Checkin.create({
     status: "On Schedule",
     lat: req.body.lat,
@@ -64,12 +64,12 @@ router.post('/user/:userid/new-checkin', function(req, res){
 });
 
 //Edit checkin (Lat, Lng, and Time only)
+//Verify user credentials.
+//Find checkin.
+//Edit data values.
+//Update checkup alerts.
+//Respond with error or ok.
 router.post('/user/:userid/edit-checkin', function(req, res){
-  //Verify user credentials.
-  //Find checkin.
-  //Edit data values.
-  //Update checkup alerts.
-  //Respond with error or ok.
   models.Checkin.findOne({
      where: {
        id: req.body.id,
@@ -105,13 +105,13 @@ router.post('/user/:userid/edit-checkin', function(req, res){
 })
 
 //Delete Checkin
+//Verify user credentials.
+//Find checkin.
+//Find corresponding checkup.
+//Delete checkup.
+//Delete checkin.
+//Respond with error or ok.
 router.post('/user/:userid/delete-checkin', function(req, res){
-  //Verify user credentials.
-  //Find checkin.
-  //Find corresponding checkup.
-  //Delete checkup.
-  //Delete checkin.
-  //Respond with error or ok.
   models.Checkin.findOne({
      where: {
        id: req.body.id,

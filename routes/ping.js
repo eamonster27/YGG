@@ -3,11 +3,11 @@ const router = express.Router();
 const models = require('../models');
 
 //Get All Checkin Pings
+//Find user.
+//Find checkin.
+//Find pings.
+//Respond with pings.
 router.get('/users/:user/checkins/:checkin/pings', function(req, res, next){
-  //Find user.
-  //Find checkin.
-  //Find pings.
-  //Respond with pings.
   models.User.findOne({
     where: {id: req.params.user}
   })
@@ -25,13 +25,13 @@ router.get('/users/:user/checkins/:checkin/pings', function(req, res, next){
 })
 
 //Create New Ping [Called by Alarm Feature]
+//Verify user credentials.
+//Create ping.
+//Set data values.
+//Find corresponding checkup.
+//Update alerts.
+//Respond with error or ok.
 router.post('/checkin/:checkin/new-ping', function(req, res){
-  //Verify user credentials.
-  //Create ping.
-  //Set data values.
-  //Find corresponding checkup.
-  //Update alerts.
-  //Respond with error or ok.
   models.Ping.create({
     lat: req.body.lat,
     lng: req.body.lng,
@@ -56,11 +56,11 @@ router.post('/checkin/:checkin/new-ping', function(req, res){
 })
 
 //Delete Pings
+//Verify user credentials.
+//Find all pings.
+//Delete all pings.
+//Respond with error or ok.
 router.post('/checkin/:checkin/delete-pings', function(req, res){
-  //Verify user credentials.
-  //Find all pings.
-  //Delete all pings.
-  //Respond with error or ok.
   models.Ping.findAll({
      where: {
        CheckinID: req.params.checkin
