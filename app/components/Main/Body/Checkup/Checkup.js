@@ -15,10 +15,22 @@ export default class Checkup extends Component{
   }
 
   render(){
+    const pings = this.props.checkup.Checkin.Pings.map((ping) =>
+      <MapView.Marker
+        coordinate={{
+          latitude: parseFloat(ping.lat),
+          longitude: parseFloat(ping.lng),
+        }}
+        key={ping.id}
+        title={ping.time}
+        pinColor='#e74c3c'
+      />
+    );
     return(
       <View style={styles.container}>
         <MapView style={styles.map}
           provider={this.props.provider}
+          ref={ref => { this.map = ref; }}
           region={{
             latitude: parseFloat(this.props.checkup.Checkin.lat),
             longitude: parseFloat(this.props.checkup.Checkin.lng),
@@ -32,9 +44,9 @@ export default class Checkup extends Component{
               longitude: parseFloat(this.props.checkup.Checkin.lng),
             }}
             title={"Home"}
-            description={"Description"}
             pinColor='#3498db'
           />
+          {pings}
         </MapView>
 
         <View style={styles.body}>

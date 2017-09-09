@@ -16,13 +16,9 @@ router.get('/users/:user/checkups', function(req, res, next){
       where: {
         UserID: user.dataValues.id
       },
-      include: [
-        {
-          model: models.Checkin, as: 'Checkin',
-          include: [
-            {model: models.Ping, as: 'Pings'}
-          ]
-        }
+      include: [{
+        model: models.Checkin, as: 'Checkin',
+        include: [{model: models.Ping, as: 'Pings'}]}
       ]
     }).then((checkups) => {
       res.json(checkups);
@@ -45,8 +41,9 @@ router.get('/users/:user/checkups/:checkup', function(req, res, next){
         id: req.params.checkup,
         UserID: user.dataValues.id
       },
-      include: [
-        {model: models.Checkin, as: 'Checkin'}
+      include: [{
+        model: models.Checkin, as: 'Checkin',
+        include: [{model: models.Ping, as: 'Pings'}]}
       ]
     }).then((checkup) => {
       res.json(checkup);
