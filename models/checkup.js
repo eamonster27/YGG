@@ -25,3 +25,5 @@ module.exports = function(sequelize, DataTypes) {
 
   return Checkup;
 };
+
+//Maybe make alert a key value pair with index and string description.

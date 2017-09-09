@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {AppRegistry, Text, View, Button, StyleSheet, Dimensions, TextInput} from 'react-native';
 import MapView from 'react-native-maps';
 
+//This is where i list all the pings and the home location.
 const { width, height } = Dimensions.get('window');
 
 const ASPECT_RATIO = width / height;

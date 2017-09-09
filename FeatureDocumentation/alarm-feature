@@ -1,0 +1,72 @@
+Alarm goes off:
+  1. Create Ping for Checkin.
+  2. Calculate Standard Deviation of [Ping.lat]&[Ping.lng] and [Checkin.lat]&[Checkin.lng]
+
+      //USER IS HOME
+    switch(Std_Dev)
+    - case <= 0.1 mile radius of [Checkin.lat]&[Checkin.lng]
+      a) Checkin.status = "Home"
+      b) ++Checkup.alerts
+
+      //USER IS NOT HOME
+    - case > 0.1 mile radius of [Checkin.lat]&[Checkin.lng]
+      a) Check Checkin.status:
+        - case: 'On Schedule'
+        - case: 'Snoozed'
+        - case: 'Unresponsive'
+          a) Checkin.status = "Unresponsive"
+          b) Checkin.time += 5 min
+          c) ++Checkup.alerts
+          d)------------------------------------
+              USER[Be discrete here]
+                1. Sound: Notification sound and Receives randomized white girl pep-talk text.
+                2. Display:
+                  - Locked: Show notification on lock screen.
+                  - Unlocked: Show notification at top of screen.
+                3. Expected user interaction:
+                  a) Open app.
+                  b) Click on Checkin that has gone off.
+                  c) Enter passcode.
+                  d) Snooze or Disable.
+                  e) Submit.
+
+              EMCONTACT[Be noticeable here]
+                1. Sound: Notification/Alarm/Alert sound and Receives text w/ User info.
+                2. Display:
+                  - Locked: Show notification on lock screen.
+                  - Unlocked: Show notification at top of screen.
+                  - App: Notification # on app.
+                3. Expected user interaction:
+                  a) Open app.
+                  b) Click on Checkup that has gone off.
+                  c) User's name at top of page w/ link to phone number w/ call or text dropdown on click.
+                  d) See map w/ all user pings(red w/ number) and home(blue) location.
+                  e) Under map list of alert strings. "1: 08:00 Unresponsive" "2: 8:05 Unresponsive"
+            ------------------------------------
+        - case: 'Panic'
+          a) Checkin.time += 1 min
+          b) ++Checkup.alerts
+          c)------------------------------------
+              USER[Be discrete here]
+                1. Sound: NO TEXTS OR NOTIFICATIONS.
+                2. Display: NO DISPLAY NOTIFICATIONS.
+                3. App:
+                  - Checkin: Panic and Disabled should look exactly the same.
+                  Panic disables user notifications and updates EmContact at faster rate.
+                  - Only EmContact can disable panic mode. Or after 48 hours.
+
+              EMCONTACT[Be noticeable here]
+                1. Sound: Notification/Alarm/Alert sound and Receives text w/ User info.
+                2. Display:
+                  - Locked: Show notification on lock screen.
+                  - Unlocked: Show notification at top of screen.
+                  - App: Notification # on app.
+                3. Expected user interaction:
+                  a) Open app.
+                  b) Click on Checkup that has gone off.
+                  c) User's name at top of page w/ link to phone number w/ call or text dropdown on click.
+                  d) See map w/ all user pings(red w/ number) and home(blue) location.
+                  e) Under map list of alert strings. "1: 08:00 Unresponsive" "2: 8:02 Panic"
+                  f) Disable Panic Mode at bottom. Enter User's name as shown. Are you sure?
+            ------------------------------------
+  3.

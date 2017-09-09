@@ -5,29 +5,23 @@ import MapView from 'react-native-maps';
 const { width, height } = Dimensions.get('window');
 
 const ASPECT_RATIO = width / height;
-const MARKERS_LATITUDE_DELTA = 0.3;
-const MARKERS_LONGITUDE_DELTA = MARKERS_LATITUDE_DELTA * ASPECT_RATIO;
-const MAP_LATITUDE_DELTA = 0.3;
-const MAP_LONGITUDE_DELTA = MAP_LATITUDE_DELTA * ASPECT_RATIO;
-const NUM_MARKERS = 2;
-const PERCENT_SPECIAL_MARKERS = 0.1;
+const LATITUDE = 37.78825;
+const LONGITUDE = -122.4324;
+const LATITUDE_DELTA = 0.0922;
+const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
+//This is where i list only the home location.
 export default class Checkin extends Component{
   constructor(props){
     super(props);
 
-    const markerInfo = [];
-    for (let i = 1; i < NUM_MARKERS; i++) {
-      markerInfo.push({
-        latitude: this.props.checkin.lat * 1.0,
-        longitude: this.props.checkin.lng * 1.0,
-        isSpecial: Math.random() < PERCENT_SPECIAL_MARKERS,
-        id: i,
-      });
-    }
-
     this.state = {
-      markerInfo,
+      region: {
+        latitude: LATITUDE,
+        longitude: LONGITUDE,
+        latitudeDelta: LATITUDE_DELTA,
+        longitudeDelta: LONGITUDE_DELTA,
+      },
     };
   }
 
@@ -38,48 +32,22 @@ export default class Checkin extends Component{
   }
 
   render(){
-    const markers = this.state.markerInfo.map((markerInfo) =>
-      <MapView.Marker
-        coordinate={markerInfo}
-        key={markerInfo.id}
-        pinColor={markerInfo.isSpecial ? '#c5a620' : null}
-        style={markerInfo.isSpecial ? styles.specialMarker : null}
-      />
-    );
-
     return(
       <View style={styles.container}>
-        <MapView
+        <MapView style={styles.map}
           provider={this.props.provider}
-          ref={ref => { this.map = ref; }}
-          style={styles.map}
-          initialRegion={{
-            latitude: this.props.checkin.lat * 1.0,
-            longitude: this.props.checkin.lng * 1.0,
-            latitudeDelta: MAP_LATITUDE_DELTA,
-            longitudeDelta: MAP_LONGITUDE_DELTA,
-          }}
+          initialRegion={this.state.region}
         >
-          {markers}
+          <MapView.Marker
+            coordinate={{
+              latitude: LATITUDE,
+              longitude: LONGITUDE,
+            }}
+            title={"Home"}
+            description={"Description"}
+            pinColor='#3498db'
+          />
         </MapView>
-
-        <View style={styles.body}>
-          <TextInput
-            style={{textAlign: 'center', height: 20, width: '80%', borderColor: 'gray', borderWidth: 1}}
-            onChangeText={(text) => this.setState({text})}
-            placeholder={this.props.checkin.lat + ', ' + this.props.checkin.lng}
-          />
-          <TextInput
-            style={{textAlign: 'center', marginTop: 20, height: 20, width: '80%', borderColor: 'gray', borderWidth: 1}}
-            onChangeText={(text) => this.setState({text})}
-            placeholder={this.props.checkin.requestStatus}
-          />
-        </View>
-
-        <Button
-          onPress={this.onPress.bind(this)}
-          title="Delete"
-        />
 
         <Button
           onPress={this.onPress.bind(this)}
