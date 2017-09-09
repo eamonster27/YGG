@@ -1,11 +1,6 @@
 'use strict';
 module.exports = function(sequelize, DataTypes) {
   var Checkup = sequelize.define('Checkup', {
-    alerts: {
-      type: DataTypes.INTEGER,
-      validate: {
-      }
-    },
     reqUserID: {
       type: DataTypes.INTEGER,
       validate: {
@@ -20,7 +15,7 @@ module.exports = function(sequelize, DataTypes) {
 
   Checkup.associate = function(models) {
     Checkup.belongsTo(models.User, {foreignKey: 'UserID', as: 'User'});
-    Checkup.belongsTo(models.Checkin, {foreignKey: 'CheckinID', as: 'Checkin'});
+    Checkup.hasOne(models.Checkin, {foreignKey: 'CheckupID', as: 'Checkin'});
   };
 
   return Checkup;

@@ -8,12 +8,20 @@ const models = require('../models');
 //Respond with checkups.
 router.get('/users/:user/checkups', function(req, res, next){
   models.User.findOne({
-    where: { id: req.params.user }
-  }).then(user => {
+    where: {
+      id: req.params.user
+    }
+  }).then((user) => {
     models.Checkup.findAll({
-      where: { UserID: user.dataValues.id }
+      where: {
+        UserID: user.dataValues.id
+      },
+      include: [
+        {model: models.Checkin, as: 'Checkin'}
+      ]
+    }).then((checkups) => {
+      res.json(checkups);
     })
-    .then(checkups => { res.json(checkups); })
   });
 })
 
@@ -23,17 +31,41 @@ router.get('/users/:user/checkups', function(req, res, next){
 //Respond with checkup.
 router.get('/users/:user/checkups/:checkup', function(req, res, next){
   models.User.findOne({
-    where: { id: req.params.user }
-  })
-  .then(user => {
+    where: {
+      id: req.params.user
+    }
+  }).then((user) => {
     models.Checkup.findOne({
       where: {
         id: req.params.checkup,
         UserID: user.dataValues.id
-      }
+      },
+      include: [
+        {model: models.Checkin, as: 'Checkin'}
+      ]
+    }).then((checkup) => {
+      res.json(checkup);
     })
-    .then(checkup => { res.json(checkup); })
   });
+})
+
+//Delete Checkup/Checkin/Pings
+//Verify user credentials.
+//Find checkup.
+//Find corresponding checkin.
+//Find corresponding pings.
+//Delete pings.
+//Delete checkin.
+//Delete checkup.
+//Respond with error or ok.
+router.post('/user/:userid/delete-checkup', function(req, res){
+  models.Checkup.findOne({
+    where: {
+      id: req.body.CheckupID
+    }
+  }).then((checkup) => {
+    return checkup.destroy();
+  })
 })
 
 module.exports = router;

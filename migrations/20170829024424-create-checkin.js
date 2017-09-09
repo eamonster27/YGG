@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
   up: function(queryInterface, Sequelize) {
-    return queryInterface.createTable('Checkups', {
+    return queryInterface.createTable('Checkins', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -12,23 +12,43 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false
       },
-      reqUserID: {
+      status: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
+      lat: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
+      lng: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
+      time: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
+      requestStatus: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
+      emContactID: {
         type: Sequelize.INTEGER,
         allowNull: false
       },
       UserID: {
-        allowNull: false,
         type: Sequelize.INTEGER,
+        allowNull: false,
         references: {
           model: 'Users',
           key: 'id'
         }
       },
-      CheckinID: {
+      CheckupID: {
         allowNull: false,
         type: Sequelize.INTEGER,
         references: {
-          model: 'Checkins',
+          model: 'Checkups',
           key: 'id'
         }
       },
@@ -43,6 +63,6 @@ module.exports = {
     });
   },
   down: function(queryInterface, Sequelize) {
-    return queryInterface.dropTable('Checkups');
+    return queryInterface.dropTable('Checkins');
   }
 };

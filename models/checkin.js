@@ -1,6 +1,11 @@
 'use strict';
 module.exports = function(sequelize, DataTypes) {
   var Checkin = sequelize.define('Checkin', {
+    alerts: {
+      type: DataTypes.INTEGER,
+      validate: {
+      }
+    },
     status: {
       type: DataTypes.STRING,
       validate: {
@@ -78,8 +83,8 @@ module.exports = function(sequelize, DataTypes) {
 
   Checkin.associate = function(models) {
     Checkin.belongsTo(models.User, {foreignKey: 'UserID', as: 'User'});
+    Checkin.belongsTo(models.Checkup, {foreignKey: 'CheckupID', as: 'Checkup'});
     Checkin.hasMany(models.Ping, {foreignKey: 'CheckinID', as: 'Pings'});
-    Checkin.hasOne(models.Checkup, {foreignKey: 'CheckinID', as: 'Checkup'});
   };
 
   return Checkin;

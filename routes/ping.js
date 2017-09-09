@@ -9,17 +9,23 @@ const models = require('../models');
 //Respond with pings.
 router.get('/users/:user/checkins/:checkin/pings', function(req, res, next){
   models.User.findOne({
-    where: {id: req.params.user}
-  })
-  .then(user => {
+    where: {
+      id: req.params.user
+    }
+  }).then((user) => {
     models.Checkin.findOne({
-      where: {id: req.params.checkin, UserID: user.dataValues.id}
-    })
-    .then(checkin => {
+      where: {
+        id: req.params.checkin,
+        UserID: user.dataValues.id
+      }
+    }).then((checkin) => {
       models.Ping.findAll({
-        where: {CheckinID: checkin.dataValues.id}
+        where: {
+          CheckinID: checkin.dataValues.id
+        }
+      }).then((pings) => {
+        res.json(pings);
       })
-      .then(pings => { res.json(pings); })
     })
   });
 })
@@ -28,7 +34,7 @@ router.get('/users/:user/checkins/:checkin/pings', function(req, res, next){
 //Verify user credentials.
 //Create ping.
 //Set data values.
-//Find corresponding checkup.
+//Find corresponding checkin.
 //Update alerts.
 //Respond with error or ok.
 router.post('/checkin/:checkin/new-ping', function(req, res){
@@ -38,42 +44,14 @@ router.post('/checkin/:checkin/new-ping', function(req, res){
     time: req.body.time,
     CheckinID: req.params.checkin,
   }).then((ping) => {
-    models.Checkup.findOne({
+    models.Checkin.findOne({
       where: {
-        CheckinID: ping.dataValues.CheckinID
+        id: ping.dataValues.CheckinID
       }
-    }).then((checkup) => {
-      if(checkup) {
-        console.log("Found Checkup!!!");
-        checkup.dataValues.alerts += 1;
-      }
-      else {
-        //Error
-        console.log("No found Checkup!!!");
-      }
+    }).then((checkin) => {
+      checkin.dataValues.alerts += 1;
+      checkin.save();
     })
-  })
-})
-
-//Delete Pings
-//Verify user credentials.
-//Find all pings.
-//Delete all pings.
-//Respond with error or ok.
-router.post('/checkin/:checkin/delete-pings', function(req, res){
-  models.Ping.findAll({
-     where: {
-       CheckinID: req.params.checkin
-     }
-  }).then((pings) => {
-    if(pings) {
-      //Delete all pings
-      console.log("Found pings!!!");
-    }
-    else {
-      //Error
-      console.log("Found no pings!!!");
-    }
   })
 })
 

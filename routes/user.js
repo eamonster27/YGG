@@ -14,12 +14,16 @@ router.get('/users', function(req, res, next){
 //Respond w/ user.
 router.get('/users/:id', function(req, res, next){
   models.User.findOne({
-    where: {id: req.params.id},
+    where: {
+      id: req.params.id
+    },
     include: [
       {model: models.Checkin, as: 'Checkins'},
-      {model: models.Checkup, as: 'Checkups'}]
-  })
-  .then(user => { res.json(user); });
+      {model: models.Checkup, as: 'Checkups'}
+    ]
+  }).then((user) => {
+    res.json(user);
+  });
 })
 
 //Edit User (Everything but email)
@@ -29,10 +33,10 @@ router.get('/users/:id', function(req, res, next){
 //Respond with error or ok.
 router.post('/edit-user', function(req, res){
   models.User.findOne({
-       where: {
-         id: req.body.id,
-         email: req.body.email,
-       }
+     where: {
+       id: req.body.id,
+       email: req.body.email,
+     }
   }).then((user) => {
     if(user) {
       console.log("Found user!!!");
@@ -42,6 +46,7 @@ router.post('/edit-user', function(req, res){
       user.dataValues.cell = req.body.cell;
       user.dataValues.passcode = req.body.passcode;
       user.dataValues.paniccode = req.body.paniccode;
+      user.save();
     }
     else {
       //Error
@@ -57,10 +62,10 @@ router.post('/edit-user', function(req, res){
 //Respond with error or ok.
 router.post('/delete-user', function(req, res){
   models.User.findOne({
-       where: {
-         email: req.body.email,
-         password: req.body.password
-       }
+     where: {
+       email: req.body.email,
+       password: req.body.password
+     }
   }).then((user) => {
     if(user) {
       //Delete all user info
