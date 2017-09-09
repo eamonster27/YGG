@@ -14,7 +14,8 @@ router.get('/users/:user/checkins', function(req, res, next){
     models.Checkin.findAll({
       where: {UserID: user.dataValues.id},
       include: [
-        {model: models.Ping, as: 'Pings'}]
+        {model: models.Ping, as: 'Pings'},
+        {model: models.Checkup, as: 'Checkup'}]
     })
     .then(checkins => { res.json(checkins); })
   });
@@ -32,7 +33,8 @@ router.get('/users/:user/checkins/:checkin', function(req, res, next){
     models.Checkin.findOne({
       where: {id: req.params.checkin, UserID: user.dataValues.id},
       include: [
-        {model: models.Ping, as: 'Pings'}]
+        {model: models.Ping, as: 'Pings'},
+        {model: models.Checkup, as: 'Checkup'}]
     })
     .then(checkin => { res.json(checkin); })
   });

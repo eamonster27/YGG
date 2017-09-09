@@ -2,27 +2,10 @@ import React, {Component} from 'react';
 import {AppRegistry, Text, View, Button, StyleSheet, Dimensions, TextInput} from 'react-native';
 import MapView from 'react-native-maps';
 
-const { width, height } = Dimensions.get('window');
-
-const ASPECT_RATIO = width / height;
-const LATITUDE = 37.78825;
-const LONGITUDE = -122.4324;
-const LATITUDE_DELTA = 0.0922;
-const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
-
 //This is where i list only the home location.
 export default class Checkin extends Component{
   constructor(props){
     super(props);
-
-    this.state = {
-      region: {
-        latitude: LATITUDE,
-        longitude: LONGITUDE,
-        latitudeDelta: LATITUDE_DELTA,
-        longitudeDelta: LONGITUDE_DELTA,
-      },
-    };
   }
 
   onPress(){
@@ -36,12 +19,17 @@ export default class Checkin extends Component{
       <View style={styles.container}>
         <MapView style={styles.map}
           provider={this.props.provider}
-          initialRegion={this.state.region}
+          region={{
+            latitude: parseFloat(this.props.checkin.lat),
+            longitude: parseFloat(this.props.checkin.lng),
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0420,
+          }}
         >
           <MapView.Marker
             coordinate={{
-              latitude: LATITUDE,
-              longitude: LONGITUDE,
+              latitude: parseFloat(this.props.checkin.lat),
+              longitude: parseFloat(this.props.checkin.lng),
             }}
             title={"Home"}
             description={"Description"}
@@ -49,10 +37,24 @@ export default class Checkin extends Component{
           />
         </MapView>
 
+        <View style={styles.body}>
+          <TextInput
+            style={{textAlign: 'center', height: 20, width: '80%', borderColor: 'gray', borderWidth: 1}}
+            onChangeText={(text) => this.setState({text})}
+            placeholder={this.props.checkin.lat + ', ' + this.props.checkin.lng}
+          />
+          <TextInput
+            style={{textAlign: 'center', marginTop: 20, height: 20, width: '80%', borderColor: 'gray', borderWidth: 1}}
+            onChangeText={(text) => this.setState({text})}
+            placeholder={this.props.checkin.requestStatus}
+          />
+        </View>
+
         <Button
           onPress={this.onPress.bind(this)}
           title="Go Back"
         />
+
       </View>
     );
   }
