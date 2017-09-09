@@ -20,7 +20,7 @@ export default class List extends Component {
   //Perhaps you should fetch the user page and save checkup and checkup data locally for quicker page loads.
   fetchCheckins(){
     // fetch('https://yougogirl.herokuapp.com/users/1/checkups')
-    fetch('http://localhost:3000/users/4/checkups')
+    fetch('http://localhost:3000/users/2/checkups')
       .then((response) => response.json())
       .then((response) => {
         this.setState({

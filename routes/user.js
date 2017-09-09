@@ -19,7 +19,10 @@ router.get('/users/:id', function(req, res, next){
     },
     include: [
       {model: models.Checkin, as: 'Checkins'},
-      {model: models.Checkup, as: 'Checkups'}
+      {model: models.Checkup, as: 'Checkups',
+        include: [{model: models.Checkin, as: 'Checkin',
+          include: [{model: models.Ping, as: 'Pings'}]}]
+      }
     ]
   }).then((user) => {
     res.json(user);
