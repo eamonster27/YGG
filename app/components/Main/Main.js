@@ -4,6 +4,7 @@ import {Navigator} from 'react-native-deprecated-custom-components';
 
 import List from './Body/List/List';
 import Checkin from './Body/Checkin/Checkin';
+import Checkup from './Body/Checkup/Checkup';
 import NewCheckin from './Body/Checkin/NewCheckin';
 import Header from './Header/Header';
 import Footer from './Footer/Footer';

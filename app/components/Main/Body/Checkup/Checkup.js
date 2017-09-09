@@ -20,16 +20,16 @@ export default class Checkup extends Component{
         <MapView style={styles.map}
           provider={this.props.provider}
           region={{
-            latitude: parseFloat(this.props.checkup.lat),
-            longitude: parseFloat(this.props.checkup.lng),
+            latitude: parseFloat(this.props.checkup.Checkin.lat),
+            longitude: parseFloat(this.props.checkup.Checkin.lng),
             latitudeDelta: 0.0922,
             longitudeDelta: 0.0420,
           }}
         >
           <MapView.Marker
             coordinate={{
-              latitude: parseFloat(this.props.checkup.lat),
-              longitude: parseFloat(this.props.checkup.lng),
+              latitude: parseFloat(this.props.checkup.Checkin.lat),
+              longitude: parseFloat(this.props.checkup.Checkin.lng),
             }}
             title={"Home"}
             description={"Description"}
@@ -41,12 +41,12 @@ export default class Checkup extends Component{
           <TextInput
             style={{textAlign: 'center', height: 20, width: '80%', borderColor: 'gray', borderWidth: 1}}
             onChangeText={(text) => this.setState({text})}
-            placeholder={this.props.checkup.lat + ', ' + this.props.checkup.lng}
+            placeholder={this.props.checkup.Checkin.lat + ', ' + this.props.checkup.Checkin.lng}
           />
           <TextInput
             style={{textAlign: 'center', marginTop: 20, height: 20, width: '80%', borderColor: 'gray', borderWidth: 1}}
             onChangeText={(text) => this.setState({text})}
-            placeholder={this.props.checkup.requestStatus}
+            placeholder={this.props.checkup.Checkin.requestStatus}
           />
         </View>
 
