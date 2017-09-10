@@ -3992,10 +3992,6 @@ react-devtools-core@2.3.1:
     shell-quote "^1.6.1"
     ws "^2.0.3"
 
-react-native-calendar-events@^1.4.2:
-  version "1.4.2"
-  resolved "https://registry.yarnpkg.com/react-native-calendar-events/-/react-native-calendar-events-1.4.2.tgz#7fdf5e361b24d5c7411597fe975c89ef93f72108"
-
 react-native-deprecated-custom-components@^0.1.1:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/react-native-deprecated-custom-components/-/react-native-deprecated-custom-components-0.1.1.tgz#bb911f01bf2f47f0a91764757bf918f3216e94e9"
@@ -4013,6 +4009,10 @@ react-native-form@^2.1.2:
 react-native-maps@^0.16.2:
   version "0.16.2"
   resolved "https://registry.yarnpkg.com/react-native-maps/-/react-native-maps-0.16.2.tgz#5716cefd0fb4c3f326bc2281f02e873ebaa1f987"
+
+react-native-push-notification@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/react-native-push-notification/-/react-native-push-notification-3.0.1.tgz#0e23db302d03bb4a3f28dc072dcaf2a9a1178ed8"
 
 react-native@0.47.2:
   version "0.47.2"
