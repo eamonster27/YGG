@@ -1,6 +1,19 @@
 import React, {Component} from 'react';
-import {AppRegistry, StyleSheet, View, Text, Image, Button, TextInput} from 'react-native';
+import {
+  AppRegistry,
+  StyleSheet,
+  View,
+  Text,
+  Image,
+  Button,
+  TextInput,
+  Picker,
+  AppState,
+  Platform } from 'react-native';
 import Form from 'react-native-form';
+import MapView from 'react-native-maps';
+import PushNotification from 'react-native-push-notification';
+import PushController from './PushController';
 
 // Perhaps this should be EDITCHECKIN. + or Existing checkin is selected.
 // This should check to see if it was passed existing info and populate it in relevant fields.
@@ -10,14 +23,39 @@ export default class NewCheckin extends Component {
     super(props);
 
     this.state = {
-      status: '',
-      lat: '',
-      lng: '',
+      lat: '29.742063',
+      lng: '-95.386246',
       time: '',
-      requestStatus: '',
       emContactID: null,
       UserID: 1, //UPDATE with user data stored in local storage
+      hours: 0,
+      minutes: 0,
+      address: '',
     };
+    this.handleAppStateChange = this.handleAppStateChange.bind(this);
+  }
+
+  componentDidMount(){
+    AppState.addEventListener('change', this.handleAppStateChange);
+  }
+
+  componentWillUnmount(){
+    AppState.removeEventListener('change', this.handleAppStateChange);
+  }
+
+  handleAppStateChange(appState) {
+    if (appState === 'background') {
+      let date = new Date(Date.now() + (this.state.hours * 1000));
+
+      if (Platform.OS === 'ios') {
+        date = date.toISOString();
+      }
+
+      PushNotification.localNotificationSchedule({
+        message: "My Notification Message",
+        date,
+      });
+    }
   }
 
   onPress(){
@@ -33,11 +71,9 @@ export default class NewCheckin extends Component {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        status: "On Schedule",
         lat: this.state.lat,
         lng: this.state.lng,
         time: this.state.time,
-        requestStatus: "Pending",
         emContactID: this.state.emContactID,
         UserID: this.state.UserID,
       })
@@ -56,28 +92,99 @@ export default class NewCheckin extends Component {
   //Change button to a better functioning button.
   render() {
     return (
-      <Form style={styles.container} ref="form">
+      <Form style={{width: '100%', height: '100%'}} ref="form">
         <View style={styles.container}>
+          <Text
+            style={{fontSize: 20, marginTop: 10, marginBottom: 10}}
+          >
+            Add Checkin
+          </Text>
+
+          <MapView style={styles.map}
+            provider={this.props.provider}
+            region={{
+              latitude: parseFloat(this.state.lat),
+              longitude: parseFloat(this.state.lng),
+              latitudeDelta: 0.0922,
+              longitudeDelta: 0.0420,
+            }}
+          >
+            <MapView.Marker
+              coordinate={{
+                latitude: parseFloat(this.state.lat),
+                longitude: parseFloat(this.state.lng),
+              }}
+              title={"Home"}
+              description={"Description"}
+              pinColor='#3498db'
+            />
+          </MapView>
+
           <TextInput
-            style={{textAlign: 'center', marginTop: 20, height: 20, width: '80%', borderColor: 'gray', borderWidth: 1}}
-            onChangeText = {(lat) => this.setState({lat: lat})}
-            placeholder="Latitude:"
+            style={{textAlign: 'center', height: 30, width: '100%', borderColor: 'gray', borderWidth: 1}}
+            onChangeText = {(address) => this.setState({address: address})}
+            placeholder="Address: "
           />
+
+          <View style={styles.time}>
+            <Picker
+              style={styles.picker}
+              selectedValue={this.state.hours}
+              onValueChange={(hours) => this.setState({hours: hours})}
+            >
+              <Picker.Item label="00" value={0}/>
+              <Picker.Item label="01" value={1}/>
+              <Picker.Item label="02" value={2}/>
+              <Picker.Item label="03" value={3}/>
+              <Picker.Item label="04" value={4}/>
+              <Picker.Item label="05" value={5}/>
+              <Picker.Item label="06" value={6}/>
+              <Picker.Item label="07" value={7}/>
+              <Picker.Item label="08" value={8}/>
+              <Picker.Item label="09" value={9}/>
+              <Picker.Item label="10" value={10}/>
+              <Picker.Item label="11" value={11}/>
+              <Picker.Item label="12" value={12}/>
+              <Picker.Item label="13" value={13}/>
+              <Picker.Item label="14" value={14}/>
+              <Picker.Item label="15" value={15}/>
+              <Picker.Item label="16" value={16}/>
+              <Picker.Item label="17" value={17}/>
+              <Picker.Item label="18" value={18}/>
+              <Picker.Item label="19" value={19}/>
+              <Picker.Item label="20" value={20}/>
+              <Picker.Item label="21" value={21}/>
+              <Picker.Item label="22" value={22}/>
+              <Picker.Item label="23" value={23}/>
+            </Picker>
+
+            <Picker
+              style={styles.picker}
+              selectedValue={this.state.minutes}
+              onValueChange={(minutes) => this.setState({minutes: minutes})}
+            >
+              <Picker.Item label="00" value={0}/>
+              <Picker.Item label="05" value={5}/>
+              <Picker.Item label="10" value={10}/>
+              <Picker.Item label="15" value={15}/>
+              <Picker.Item label="20" value={20}/>
+              <Picker.Item label="25" value={25}/>
+              <Picker.Item label="30" value={30}/>
+              <Picker.Item label="35" value={35}/>
+              <Picker.Item label="40" value={40}/>
+              <Picker.Item label="45" value={45}/>
+              <Picker.Item label="50" value={50}/>
+              <Picker.Item label="55" value={55}/>
+            </Picker>
+            <PushController />
+          </View>
+
           <TextInput
-            style={{textAlign: 'center', marginTop: 20, height: 20, width: '80%', borderColor: 'gray', borderWidth: 1}}
-            onChangeText = {(lng) => this.setState({lng: lng})}
-            placeholder = "Longitude:"
-          />
-          <TextInput
-            style={{textAlign: 'center', marginTop: 20, height: 20, width: '80%', borderColor: 'gray', borderWidth: 1}}
-            onChangeText = {(time) => this.setState({time: time})}
-            placeholder = "Time:"
-          />
-          <TextInput
-            style={{textAlign: 'center', marginTop: 20, height: 20, width: '80%', borderColor: 'gray', borderWidth: 1}}
+            style={{textAlign: 'center', marginBottom: 10, height: 30, width: '100%', borderColor: 'gray', borderWidth: 1}}
             onChangeText = {(emContactID) => this.setState({emContactID: emContactID})}
             placeholder = "Emergency Contact ID:"
           />
+
           <Button
             onPress={this.onPress.bind(this)}
             title="Submit"
@@ -88,11 +195,28 @@ export default class NewCheckin extends Component {
   }
 }
 
+NewCheckin.propTypes = {
+  provider: MapView.ProviderPropType,
+};
+
 const styles = StyleSheet.create({
   container: {
-    width: '80%',
-    height: '80%'
-  }
+    ...StyleSheet.absoluteFillObject,
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  picker: {
+    width: 100,
+  },
+  time: {
+    flexDirection: 'row',
+    flexWrap: 'nowrap',
+  },
+  map: {
+    width: '100%',
+    height: '40%',
+    marginBottom: 0,
+  },
 });
 
 AppRegistry.registerComponent('NewCheckin', () => NewCheckin);

@@ -1,13 +1,13 @@
 import React, {Component} from 'react';
 import {AppRegistry, StyleSheet, View, Text, ListView, TouchableHighlight} from 'react-native';
 
-//Convert all checkup/checkup stuff into main. The pages will look exactly the same, just with different data.
+//Convert all checkin/checkin stuff into main. The pages will look exactly the same, just with different data.
 export default class List extends Component {
   constructor(props){
     super(props);
     const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     this.state = {
-      checkupDataSource: ds
+      checkinDataSource: ds
     };
   }
 
@@ -16,31 +16,31 @@ export default class List extends Component {
   }
 
   //local storage
-  //pass argument to fetchCheckins with either checkups or checkups based on what link user presses
-  //Perhaps you should fetch the user page and save checkup and checkup data locally for quicker page loads.
+  //pass argument to fetchCheckins with either checkins or checkins based on what link user presses
+  //Perhaps you should fetch the user page and save checkin and checkin data locally for quicker page loads.
   fetchCheckins(){
-    // fetch('https://yougogirl.herokuapp.com/users/1/checkups')
-    fetch('http://localhost:3000/users/1/checkups')
+    // fetch('https://yougogirl.herokuapp.com/users/1/checkins')
+    fetch('http://localhost:3000/users/1/checkins')
       .then((response) => response.json())
       .then((response) => {
         this.setState({
-          checkupDataSource: this.state.checkupDataSource.cloneWithRows(response)
+          checkinDataSource: this.state.checkinDataSource.cloneWithRows(response)
         });
       });
   }
 
-  onPress(checkup){
+  onPress(checkin){
     this.props.navigator.push({
-      id: 'checkup',
-      checkup: checkup
+      id: 'checkin',
+      checkin: checkin
     });
   }
 
-  renderRow(checkup, sectionId, rowId, highlightRow){
+  renderRow(checkin, sectionId, rowId, highlightRow){
     return(
-      <TouchableHighlight onPress={() => {this.onPress(checkup)}}>
+      <TouchableHighlight onPress={() => {this.onPress(checkin)}}>
         <View style={styles.row}>
-          <Text style={styles.rowText}> {checkup.Checkin.time} </Text>
+          <Text style={styles.rowText}> {checkin.time} </Text>
         </View>
       </TouchableHighlight>
     )
@@ -50,7 +50,7 @@ export default class List extends Component {
     return (
       <View>
         <ListView
-          dataSource={this.state.checkupDataSource}
+          dataSource={this.state.checkinDataSource}
           renderRow={this.renderRow.bind(this)}
         />
       </View>

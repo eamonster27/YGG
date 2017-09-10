@@ -53,7 +53,7 @@ Alarm goes off:
                 3. App:
                   - Checkin: Panic and Disabled should look exactly the same.
                   Panic disables user notifications and updates EmContact at faster rate.
-                  - Only EmContact can disable panic mode. Or after 48 hours.
+                  - Only EmContact can disable panic mode. Or after 48 hours. Or on home arrival.
 
               EMCONTACT[Be noticeable here]
                 1. Sound: Notification/Alarm/Alert sound and Receives text w/ User info.
