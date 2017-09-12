@@ -1,6 +1,14 @@
 import React, {Component} from 'react';
-import {AppRegistry, Text, View, Button, StyleSheet, Dimensions, TextInput} from 'react-native';
+import {
+  AppRegistry,
+  Text,
+  View,
+  Button,
+  StyleSheet,
+  Dimensions,
+  TextInput } from 'react-native';
 import MapView from 'react-native-maps';
+import PropTypes from 'prop-types';
 
 //This is where i list only the home location.
 export default class Checkin extends Component{
@@ -39,14 +47,16 @@ export default class Checkin extends Component{
 
         <View style={styles.body}>
           <TextInput
-            style={{textAlign: 'center', height: 20, width: '80%', borderColor: 'gray', borderWidth: 1}}
+            style={{textAlign: 'center', width: '80%', borderColor: 'gray', borderWidth: 1}}
             onChangeText={(text) => this.setState({text})}
             placeholder={this.props.checkin.lat + ', ' + this.props.checkin.lng}
+            underlineColorAndroid = 'transparent'
           />
           <TextInput
-            style={{textAlign: 'center', marginTop: 20, height: 20, width: '80%', borderColor: 'gray', borderWidth: 1}}
+            style={{textAlign: 'center', marginTop: 20, width: '80%', borderColor: 'gray', borderWidth: 1}}
             onChangeText={(text) => this.setState({text})}
             placeholder={this.props.checkin.requestStatus}
+            underlineColorAndroid = 'transparent'
           />
         </View>
 

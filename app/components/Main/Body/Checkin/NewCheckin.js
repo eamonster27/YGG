@@ -14,6 +14,7 @@ import Form from 'react-native-form';
 import MapView from 'react-native-maps';
 import PushNotification from 'react-native-push-notification';
 import PushController from './PushController';
+import PropTypes from 'prop-types';
 
 // Perhaps this should be EDITCHECKIN. + or Existing checkin is selected.
 // This should check to see if it was passed existing info and populate it in relevant fields.

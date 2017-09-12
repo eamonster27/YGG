@@ -19,13 +19,15 @@ export default class List extends Component {
   //pass argument to fetchCheckins with either checkins or checkins based on what link user presses
   //Perhaps you should fetch the user page and save checkin and checkin data locally for quicker page loads.
   fetchCheckins(){
-    // fetch('https://yougogirl.herokuapp.com/users/1/checkins')
-    fetch('http://localhost:3000/users/1/checkins')
+    // return fetch('http://localhost:3000/users/1/checkins')
+    return fetch('https://yougogirl.herokuapp.com/users/1/checkins')
       .then((response) => response.json())
-      .then((response) => {
+      .then((responseJson) => {
         this.setState({
-          checkinDataSource: this.state.checkinDataSource.cloneWithRows(response)
-        });
+          checkinDataSource: this.state.checkinDataSource.cloneWithRows(responseJson)
+        })
+      }).catch((error) => {
+        console.log(error);
       });
   }
 

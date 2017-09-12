@@ -1,10 +1,13 @@
 import React, {Component} from 'react';
 import {AppRegistry, Text, View, StyleSheet} from 'react-native';
 
-// import About from './app/components/About/About';
+import About from './app/components/About/About';
 import Main from './app/components/Main/Main';
-// import Main from './app/components/Main/Main';
+
 import Welcome from './app/components/Welcome/Welcome';
+//On app start,
+//check local storage for session and auto login, otherwise direct to login/signup.
+
 import Login from './app/components/Session/Login';
 import Register from './app/components/Session/Register';
 

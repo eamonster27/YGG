@@ -1,6 +1,14 @@
 import React, {Component} from 'react';
-import {AppRegistry, Text, View, Button, StyleSheet, Dimensions, TextInput} from 'react-native';
+import {
+  AppRegistry,
+  Text,
+  View,
+  Button,
+  StyleSheet,
+  Dimensions,
+  TextInput } from 'react-native';
 import MapView from 'react-native-maps';
+import PropTypes from 'prop-types';
 
 //This is where i list only the home location.
 export default class Checkup extends Component{

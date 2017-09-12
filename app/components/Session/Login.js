@@ -43,22 +43,32 @@ export default class Login extends Component {
     //   )
     // }
     return (
-      <Form style={styles.container} ref="form">
-        <View style={styles.container}>
-          <TextInput
-            style={{textAlign: 'center', marginTop: 20, height: 20, width: '80%', borderColor: 'gray', borderWidth: 1}}
-            onChangeText = {(email) => this.setState({email: email})}
-            placeholder = "Email:"
+      <Form style={styles.form} ref="form">
+        <View style={styles.wrapper}>
+          <Image
+            source={require('../../images/yougogirl-logo.png')}
+            style={styles.image}
           />
-          <TextInput
-            style={{textAlign: 'center', marginTop: 20, height: 20, width: '80%', borderColor: 'gray', borderWidth: 1}}
-            onChangeText = {(password) => this.setState({password: password})}
-            placeholder = "Password:"
-          />
-          <Button
-            onPress={this.onPress.bind(this)}
-            title="Submit"
-          />
+          <View style={styles.allInput}>
+
+            <TextInput
+              style={styles.textInput}
+              onChangeText = {(email) => this.setState({email: email})}
+              placeholder = "Email"
+              underlineColorAndroid = 'transparent'
+            />
+            <TextInput
+              style={styles.textInput}
+              onChangeText = {(password) => this.setState({password: password})}
+              placeholder = "Password"
+              underlineColorAndroid = 'transparent'
+            />
+
+            <Button
+              onPress={this.onPress.bind(this)}
+              title="Log in"
+            />
+          </View>
         </View>
       </Form>
     )
@@ -66,9 +76,36 @@ export default class Login extends Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    width: '80%',
-    height: '80%'
+  form: {
+    height: '100%',
+    width: '100%',
+    justifyContent: 'center',
+  },
+  wrapper: {
+    height: '100%',
+    flexDirection: 'column',
+    justifyContent: 'center',
+  },
+  image: {
+    height: '30%',
+    width: '50%',
+    alignSelf: 'center',
+  },
+  allInput: {
+    height: '35%',
+    width: '100%',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  textInput: {
+    height: '16%',
+    width: '75%',
+    textAlign: 'center',
+    fontSize: 18,
+    borderColor: 'gray',
+    borderWidth: 1,
+    marginBottom: '5%',
   }
 });
 

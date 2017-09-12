@@ -2,6 +2,10 @@ import React, {Component} from 'react';
 import {AppRegistry, StyleSheet, View, Text, Image, Button, TextInput} from 'react-native';
 import Form from 'react-native-form';
 
+//Edit into three page transitions(include descriptions):
+//1. First, Last, Mobile
+//2. Email, Password, Confirm password
+//3. Panic Code, Pass Code
 export default class Register extends Component {
   constructor(props){
     super(props);
@@ -46,53 +50,56 @@ export default class Register extends Component {
   }
 
   render() {
-    // if(this.state.submitted){
-    //   return(
-    //     <Redirect to="/"/>
-    //   )
-    // }
     return (
-      <Form style={styles.container} ref="form">
-        <View style={styles.container}>
-          <TextInput
-            style={{textAlign: 'center', marginTop: 20, height: 20, width: '80%', borderColor: 'gray', borderWidth: 1}}
-            onChangeText = {(first) => this.setState({firstname: first})}
-            placeholder="First:"
+      <Form style={styles.form} ref="form">
+        <View style={styles.wrapper}>
+          <Image
+            source={require('../../images/yougogirl-logo.png')}
+            style={styles.image}
           />
-          <TextInput
-            style={{textAlign: 'center', marginTop: 20, height: 20, width: '80%', borderColor: 'gray', borderWidth: 1}}
-            onChangeText = {(last) => this.setState({lastname: last})}
-            placeholder = "Last:"
-          />
-          <TextInput
-            style={{textAlign: 'center', marginTop: 20, height: 20, width: '80%', borderColor: 'gray', borderWidth: 1}}
-            onChangeText = {(email) => this.setState({email: email})}
-            placeholder = "Email:"
-          />
-          <TextInput
-            style={{textAlign: 'center', marginTop: 20, height: 20, width: '80%', borderColor: 'gray', borderWidth: 1}}
-            onChangeText = {(password) => this.setState({password: password})}
-            placeholder = "Password:"
-          />
-          <TextInput
-            style={{textAlign: 'center', marginTop: 20, height: 20, width: '80%', borderColor: 'gray', borderWidth: 1}}
-            onChangeText = {(cell) => this.setState({cell: cell})}
-            placeholder = "Mobile:"
-          />
-          <TextInput
-            style={{textAlign: 'center', marginTop: 20, height: 20, width: '80%', borderColor: 'gray', borderWidth: 1}}
-            onChangeText = {(passcode) => this.setState({passcode: passcode})}
-            placeholder = "Passcode:"
-          />
-          <TextInput
-            style={{textAlign: 'center', marginTop: 20, height: 20, width: '80%', borderColor: 'gray', borderWidth: 1}}
-            onChangeText = {(paniccode) => this.setState({paniccode: paniccode})}
-            placeholder = "Paniccode:"
-          />
-          <Button
-            onPress={this.onPress.bind(this)}
-            title="Submit"
-          />
+          <View style={styles.allInput}>
+            <TextInput
+              style={styles.textInput}
+              onChangeText = {(first) => this.setState({firstname: first})}
+              placeholder = "First name"
+            />
+            <TextInput
+              style={styles.textInput}
+              onChangeText = {(last) => this.setState({lastname: last})}
+              placeholder = "Last name"
+            />
+            <TextInput
+              style={styles.textInput}
+              onChangeText = {(email) => this.setState({email: email})}
+              placeholder = "Email"
+              underlineColorAndroid = 'transparent'
+            />
+            <TextInput
+              style={styles.textInput}
+              onChangeText = {(password) => this.setState({password: password})}
+              placeholder = "Password"
+              underlineColorAndroid = 'transparent'
+            />
+            <TextInput
+              style={styles.textInput}
+              onChangeText = {(cell) => this.setState({cell: cell})}
+              placeholder = "Mobile"
+            />
+            <TextInput
+              style={styles.textInput}
+              onChangeText = {(passcode) => this.setState({passcode: passcode})}
+              placeholder = "Passcode"
+            />
+            <TextInput
+              style={styles.textInput}
+              onChangeText = {(paniccode) => this.setState({paniccode: paniccode})}
+              placeholder = "Panic code"
+            />
+            <Button
+              onPress={this.onPress.bind(this)}
+              title="Register"
+            />
+          </View>
         </View>
       </Form>
     )
@@ -100,9 +107,39 @@ export default class Register extends Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    width: '80%',
-    height: '80%'
+  form: {
+    height: '100%',
+    width: '100%',
+    justifyContent: 'center',
+  },
+  wrapper: {
+    height: '100%',
+    flexDirection: 'column',
+    justifyContent: 'center',
+  },
+  image: {
+    height: '20%',
+    width: '50%',
+    marginTop: 20,
+    alignSelf: 'center',
+  },
+  allInput: {
+    height: '80%',
+    width: '100%',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingBottom: '7%',
+    marginTop: -20,
+  },
+  textInput: {
+    height: '7%',
+    width: '75%',
+    textAlign: 'center',
+    fontSize: 18,
+    borderColor: 'gray',
+    borderWidth: 1,
+    marginBottom: '5%',
   }
 });
 
