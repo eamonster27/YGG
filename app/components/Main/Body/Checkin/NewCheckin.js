@@ -49,7 +49,10 @@ export default class NewCheckin extends Component {
       let date = new Date(Date.now() + (this.state.hours * 1000));
 
       if (Platform.OS === 'ios') {
-        date = date.toISOString();
+        console.log("HELLO mothafucka IOS!", this.state.hours)
+      }
+      else {
+        console.log("HELLO mothafucka Android!", this.state.hours)
       }
 
       PushNotification.localNotificationSchedule({
