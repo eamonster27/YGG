@@ -125,9 +125,10 @@ export default class NewCheckin extends Component {
           </MapView>
 
           <TextInput
-            style={{textAlign: 'center', height: 30, width: '100%', borderColor: 'gray', borderWidth: 1}}
+            style={{textAlign: 'center', width: '100%', fontSize: 18, borderColor: 'gray', borderWidth: 1}}
             onChangeText = {(address) => this.setState({address: address})}
             placeholder="Address: "
+            underlineColorAndroid = 'transparent'
           />
 
           <View style={styles.time}>
@@ -184,9 +185,10 @@ export default class NewCheckin extends Component {
           </View>
 
           <TextInput
-            style={{textAlign: 'center', marginBottom: 10, height: 30, width: '100%', borderColor: 'gray', borderWidth: 1}}
+            style={{textAlign: 'center', marginBottom: 10, fontSize: 18, width: '100%', borderColor: 'gray', borderWidth: 1}}
             onChangeText = {(emContactID) => this.setState({emContactID: emContactID})}
             placeholder = "Emergency Contact ID:"
+            underlineColorAndroid = 'transparent'
           />
 
           <Button
