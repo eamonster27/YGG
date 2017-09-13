@@ -58,12 +58,12 @@ export default class Checkin extends Component{
             placeholder={this.props.checkin.requestStatus}
             underlineColorAndroid = 'transparent'
           />
-          <Button
-          onPress={this.onPress.bind(this)}
-          title="Go Back"
-          />
         </View>
 
+        <Button
+          onPress={this.onPress.bind(this)}
+          title="Go Back"
+        />
 
       </View>
     );
