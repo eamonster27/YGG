@@ -1,5 +1,12 @@
 import React, {Component} from 'react';
-import {AppRegistry, StyleSheet, View, Text, Image, Button, TextInput} from 'react-native';
+import {
+  AppRegistry,
+  StyleSheet,
+  View,
+  Text,
+  Image,
+  Button,
+  TextInput } from 'react-native';
 import Form from 'react-native-form';
 
 //Edit into three page transitions(include descriptions):
@@ -23,8 +30,9 @@ export default class Register extends Component {
 
   onPress(){
     console.log(this.state);
-    let url = 'https://yougogirl.herokuapp.com/';
-    let sessionPath = 'register';
+    // let url = 'https://yougogirl.herokuapp.com';
+    let url = 'http://localhost:3000';
+    let sessionPath = '/register';
 
     fetch(`${url}${sessionPath}`, {
       method: 'POST',
@@ -35,7 +43,7 @@ export default class Register extends Component {
       body: JSON.stringify({
         firstname: this.state.firstname,
         lastname: this.state.lastname,
-        email: this.state.email,
+        email: this.state.email.toLowerCase(),
         password: this.state.password,
         cell: this.state.cell,
         passcode: this.state.passcode,

@@ -1,5 +1,11 @@
 import React, {Component} from 'react';
-import {AppRegistry, StyleSheet, View, Text, ListView, TouchableHighlight} from 'react-native';
+import {
+  AppRegistry,
+  StyleSheet,
+  View,
+  Text,
+  ListView,
+  TouchableHighlight } from 'react-native';
 
 //Convert all checkin/checkin stuff into main. The pages will look exactly the same, just with different data.
 export default class List extends Component {
@@ -20,7 +26,7 @@ export default class List extends Component {
   //Perhaps you should fetch the user page and save checkin and checkin data locally for quicker page loads.
   fetchCheckins(){
     // return fetch('http://localhost:3000/users/1/checkins')
-    return fetch('https://yougogirl.herokuapp.com/users/1/checkins')
+    return fetch('https://yougogirl.herokuapp.com/user')
       .then((response) => response.json())
       .then((responseJson) => {
         this.setState({

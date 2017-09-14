@@ -1,5 +1,12 @@
 import React, {Component} from 'react';
-import {AppRegistry, StyleSheet, View, Text, Image, Button, TextInput} from 'react-native';
+import {
+  AppRegistry,
+  StyleSheet,
+  View,
+  Text,
+  Image,
+  Button,
+  TextInput } from 'react-native';
 import Form from 'react-native-form';
 
 export default class Login extends Component {
@@ -14,9 +21,10 @@ export default class Login extends Component {
 
   onPress(){
     // let url = 'https://yougogirl.herokuapp.com/';
-    let url = 'http://localhost:3000/';
-    let sessionPath = 'auth';
-
+    let url = 'http://localhost:3000';
+    let sessionPath = '/auth';
+    
+    console.log("Login pressed")
     fetch(`${url}${sessionPath}`, {
       method: 'POST',
       headers: {

@@ -28,12 +28,11 @@ function createAccessToken(user) {
 
 function genJwtid() {
   let jwtid = '';
-  let possible = /[A-Za-z0-9]/;
+  let possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 
   for(let i = 0; i < 16; i++) {
     jwtid += possible.charAt(Math.floor(Math.random() * possible.length));
   }
-
   return jwtid;
 }
 
@@ -68,8 +67,8 @@ router.post('/register', function(req, res){
         paniccode: req.body.paniccode,
       }).then((user) => {
         res.status(201).send({
-          id_token: createIDToken(user),
-          access_token: createAccessToken(user)
+          id_token: createIDToken(user.dataValues),
+          access_token: createAccessToken(user.dataValues)
         })
       }).catch((error) => {
         return res.status(401).send(error);
@@ -87,7 +86,7 @@ router.post('/auth', function(req, res){
   if(!req.body.email || !req.body.password) {
     return res.status(400).send("Please enter your email and password.");
   }
-
+  console.log('auth reached!')
   models.User.findOne({
      where: {
        email: req.body.email,
@@ -97,9 +96,11 @@ router.post('/auth', function(req, res){
     if(user) {
       //persist login and redirect
       res.status(201).send({
-        id_token: createIDToken(user),
-        access_token: createAccessToken(user)
+        id_token: createIDToken(user.dataValues),
+        access_token: createAccessToken(user.dataValues)
       })
+      console.log(createIDToken(user.dataValues))
+      console.log(createAccessToken(user.dataValues))
     }
     else {
       //res with error

@@ -18,7 +18,7 @@ export default class YGG extends Component{
   render(){
     return(
       <View style={styles.container}>
-        <Login />
+        <Register />
       </View>
     );
   }

@@ -1,5 +1,10 @@
 import React, {Component} from 'react';
-import {AppRegistry, Text, View, StyleSheet, Button} from 'react-native';
+import {
+  AppRegistry,
+  Text,
+  View,
+  StyleSheet,
+  Button } from 'react-native';
 import {Navigator} from 'react-native-deprecated-custom-components';
 //Replace nagvigator
 import List from './Body/List/List';
