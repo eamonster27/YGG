@@ -1,5 +1,11 @@
 import React, {Component} from 'react';
-import {AppRegistry, StyleSheet, View, Text, Image} from 'react-native';
+import {
+  AppRegistry,
+  StyleSheet,
+  View,
+  Text,
+  Image } from 'react-native';
+import {Router, Scene} from 'react-native-router-flux';
 
 export default class Welcome extends Component {
   render() {

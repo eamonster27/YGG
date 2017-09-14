@@ -23,7 +23,7 @@ export default class Login extends Component {
     // let url = 'https://yougogirl.herokuapp.com/';
     let url = 'http://localhost:3000';
     let sessionPath = '/auth';
-    
+
     console.log("Login pressed")
     fetch(`${url}${sessionPath}`, {
       method: 'POST',
