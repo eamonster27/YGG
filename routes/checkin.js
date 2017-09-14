@@ -1,52 +1,43 @@
-const express = require('express');
-const router = express.Router();
-const models = require('../models');
+const express = require('express'),
+      models  = require('../models'),
+      access = require('./access');
 
+const router = express.Router();
+//Scope: create:checkin read:checkin update:checkin
 //Get All User Checkins
 //Find user.
 //Find all user checkins.
 //Respond with checkins.
-router.get('/users/:user/checkins', function(req, res, next){
-  models.User.findOne({
+router.use('/checkins', access.jwtCheck, access.requireScope('read:checkin'));
+router.get('/checkins', function(req, res, next){
+  models.Checkin.findAll({
     where: {
-      id: req.params.user
-    }
-  }).then(user => {
-    models.Checkin.findAll({
-      where: {
-        UserID: user.dataValues.id
-      },
-      include: [
-        {model: models.Ping, as: 'Pings'}
-      ]
-    }).then(checkins => {
-      res.json(checkins);
-    })
-  });
+      UserID: req.user.id
+    },
+    include: [
+      {model: models.Ping, as: 'Pings'}
+    ]
+  }).then((checkins) => {
+    res.json(checkins);
+  })
 })
 
 //Get Individual User Checkin
 //Find user.
 //Find checkin.
 //Respond with checkin.
-router.get('/users/:user/checkins/:checkin', function(req, res, next){
-  models.User.findOne({
+router.get('/checkins/:checkinid', function(req, res, next){
+  models.Checkin.findOne({
     where: {
-      id: req.params.user
-    }
-  }).then((user) => {
-    models.Checkin.findOne({
-      where: {
-        id: req.params.checkin,
-        UserID: user.dataValues.id
-      },
-      include: [
-        {model: models.Ping, as: 'Pings'}
-      ]
-    }).then((checkin) => {
-      res.json(checkin);
-    })
-  });
+      id: req.params.checkinid,
+      UserID: req.user.id
+    },
+    include: [
+      {model: models.Ping, as: 'Pings'}
+    ]
+  }).then((checkin) => {
+    res.json(checkin);
+  })
 })
 
 //Create New Checkin
@@ -56,9 +47,10 @@ router.get('/users/:user/checkins/:checkin', function(req, res, next){
 //Create corresponding checkup.
 //Set data values.
 //Respond with error or ok.
-router.post('/user/:userid/new-checkin', function(req, res){
+router.use('/create/checkin', access.jwtCheck, access.requireScope('create:checkin'));
+router.post('/create/checkin', function(req, res){
   models.Checkup.create({
-    reqUserID: req.params.userid,
+    reqUserID: req.user.id,
     UserID: req.body.emContactID,
   }).then((checkup) => {
     models.Checkin.create({
@@ -69,9 +61,11 @@ router.post('/user/:userid/new-checkin', function(req, res){
       time: req.body.time,
       requestStatus: "Pending",
       emContactID: req.body.emContactID,
-      UserID: req.params.userid,
+      UserID: req.user.id,
       CheckupID: checkup.dataValues.id
     })
+  }).catch((error) => {
+    return res.status(401).send(error);
   })
 });
 
@@ -81,18 +75,22 @@ router.post('/user/:userid/new-checkin', function(req, res){
 //Edit data values.
 //Update checkup alerts.
 //Respond with error or ok.
-router.post('/user/:userid/edit-checkin', function(req, res){
+router.use('/update/checkin', access.jwtCheck, access.requireScope('update:checkin'));
+router.post('/update/checkin', function(req, res){
   models.Checkin.findOne({
      where: {
        id: req.body.id,
-       UserID: req.params.userid
+       UserID: req.user.id
      }
-  }).then((checkin) => {
-    checkin.dataValues.lat = req.body.lat;
-    checkin.dataValues.lng = req.body.lng;
-    checkin.dataValues.time = req.body.time;
-    checkin.dataValues.alerts =+ 1;
-    checkin.save()
+  }).success((checkin) => {
+    checkin.update({
+      lat: req.body.lat,
+      lng: req.body.lng,
+      time: req.body.time,
+      alerts: checkin.dataValues.alerts++,
+    })
+  }).catch((error) => {
+    return res.status(401).send(error);
   })
 })
 

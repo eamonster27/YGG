@@ -1,54 +1,45 @@
-const express = require('express');
-const router = express.Router();
-const models = require('../models');
+const express = require('express'),
+      models  = require('../models'),
+      access = require('./access');
 
+const router = express.Router();
+//Scope: read:checkup delete:checkup
 //Get All User Checkups
 //Find user.
 //Find all user checkups.
 //Respond with checkups.
-router.get('/users/:user/checkups', function(req, res, next){
-  models.User.findOne({
+router.use('/checkups', access.jwtCheck, access.requireScope('read:checkup'));
+router.get('/checkups', function(req, res, next){
+  models.Checkup.findAll({
     where: {
-      id: req.params.user
-    }
-  }).then((user) => {
-    models.Checkup.findAll({
-      where: {
-        UserID: user.dataValues.id
-      },
-      include: [{
-        model: models.Checkin, as: 'Checkin',
-        include: [{model: models.Ping, as: 'Pings'}]}
-      ]
-    }).then((checkups) => {
-      res.json(checkups);
-    })
-  });
+      UserID: req.user.id
+    },
+    include: [{
+      model: models.Checkin, as: 'Checkin',
+      include: [{model: models.Ping, as: 'Pings'}]}
+    ]
+  }).then((checkups) => {
+    res.json(checkups);
+  })
 })
 
 //Get Individual User Checkup
 //Find user.
 //Find checkup.
 //Respond with checkup.
-router.get('/users/:user/checkups/:checkup', function(req, res, next){
-  models.User.findOne({
+router.get('/checkups/:checkupid', function(req, res, next){
+  models.Checkup.findOne({
     where: {
-      id: req.params.user
-    }
-  }).then((user) => {
-    models.Checkup.findOne({
-      where: {
-        id: req.params.checkup,
-        UserID: user.dataValues.id
-      },
-      include: [{
-        model: models.Checkin, as: 'Checkin',
+      id: req.params.checkupid,
+      UserID: req.user.id
+    },
+    include: [
+      {model: models.Checkin, as: 'Checkin',
         include: [{model: models.Ping, as: 'Pings'}]}
-      ]
-    }).then((checkup) => {
-      res.json(checkup);
-    })
-  });
+    ]
+  }).then((checkup) => {
+    res.json(checkup);
+  })
 })
 
 //Delete Checkup/Checkin/Pings
@@ -60,13 +51,17 @@ router.get('/users/:user/checkups/:checkup', function(req, res, next){
 //Delete checkin.
 //Delete checkup.
 //Respond with error or ok.
-router.post('/user/:userid/delete-checkup', function(req, res){
+router.use('/delete/checkup', access.jwtCheck, access.requireScope('delete:checkup'));
+router.post('/delete/checkup', function(req, res){
   models.Checkup.findOne({
     where: {
-      id: req.body.CheckupID
+      id: req.body.CheckupID,
+      reqUserID: req.user.id
     }
-  }).then((checkup) => {
-    return checkup.destroy();
+  }).success((checkup) => {
+    checkup.destroy();
+  }).catch((error) => {
+    return res.status(401).send(error);
   })
 })
 

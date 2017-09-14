@@ -1,21 +1,33 @@
-const express = require('express');
+const express    = require('express'),
+      bodyParser = require('body-parser'),
+      http       = require('http'),
+      dotenv     = require('dotenv');
+
 const app = express();
-const bodyParser = require('body-parser');
+
+dotenv.load();
+
 app.use(express.static('public'));
-app.use(bodyParser.urlencoded({extended: false}));
-app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
+
+app.use(function(err, req, res, next) {
+  if (err.name === 'StatusError') {
+    res.send(err.status, err.message);
+  }
+  else {
+    next(err);
+  }
+});
 
 const port = process.env.PORT || 3000;
-app.listen(port);
 
-const sessionRoute = require('./routes/session');
-const userRoute = require('./routes/user');
-const checkinRoute = require('./routes/checkin');
-const checkupRoute = require('./routes/checkup');
-const pingRoute = require('./routes/ping');
+http.createServer(app).listen(port, function (err) {
+  console.log('Listening on http://localhost:' + port);
+});
 
-app.use(sessionRoute);
-app.use(userRoute);
-app.use(checkinRoute);
-app.use(checkupRoute);
-app.use(pingRoute);
+app.use(require('./routes/session'));
+app.use(require('./routes/user'));
+app.use(require('./routes/checkin'));
+app.use(require('./routes/checkup'));
+app.use(require('./routes/ping'));
