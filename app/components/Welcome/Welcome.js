@@ -15,14 +15,14 @@ export default class Welcome extends Component {
           source={require('../../images/yougogirl-logo.png')}
           style={{width: 115, height: 100}}
         />
-        <Text style={styles.welcome}>You Go Girl</Text>
+        <Text style={styles.splash}>You Go Girl</Text>
       </View>
     )
   }
 }
 
 const styles = StyleSheet.create({
-  welcome: {
+  splash: {
     color: '#8880ff',
     fontSize: 24
   }

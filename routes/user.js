@@ -7,9 +7,9 @@ const router = express.Router();
 //Get All Users
 //Find all users.
 //Respond w/ all users.
-// router.get('/users', function(req, res, next){
-//   models.User.findAll().then(users => { res.json(users); });
-// })
+router.get('/users', function(req, res, next){
+  models.User.findAll().then(users => { res.json(users); });
+})
 
 //Get Individual User
 //Find user.
