@@ -3,6 +3,7 @@ import {
   AsyncStorage,
   Alert,
   Text,
+  Image,
   TextInput,
   TouchableOpacity,
   View } from 'react-native';
@@ -28,7 +29,7 @@ class Authentication extends Component {
 
     // let url = 'https://yougogirl.herokuapp.com';
     // let url = 'http://localhost:3000';
-    let url = 'http://192.168.1.20:3000';
+    let url = 'http://10.0.0.145:3000';
     let path = '/register';
 
     fetch(`${url}${path}`, {
@@ -38,7 +39,7 @@ class Authentication extends Component {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        email: this.state.email,
+        email: this.state.email.toLowerCase(),
         password: this.state.password,
         firstname: this.state.firstname,
         lastname: this.state.lastname,
@@ -50,6 +51,7 @@ class Authentication extends Component {
     .then((response) => response.json())
     .then((responseData) => {
       this.saveItem('id_token', responseData.id_token),
+      this.saveItem('access_token', responseData.access_token),
       Alert.alert('Success!'),
       Actions.Main();
     })
@@ -61,7 +63,7 @@ class Authentication extends Component {
 
     // let url = 'https://yougogirl.herokuapp.com';
     // let url = 'http://localhost:3000';
-    let url = 'http://192.168.1.20:3000';
+    let url = 'http://10.0.0.145:3000';
     let path = '/auth';
 
     fetch(`${url}${path}`, {
@@ -71,13 +73,14 @@ class Authentication extends Component {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        email: this.state.email,
+        email: this.state.email.toLowerCase(),
         password: this.state.password,
       })
     })
     .then((response) => response.json())
     .then((responseData) => {
       this.saveItem('id_token', responseData.id_token),
+      this.saveItem('access_token', responseData.access_token),
       Alert.alert('Success!'),
       Actions.Main();
     })
@@ -95,6 +98,7 @@ class Authentication extends Component {
   render() {
     return (
       <View style={styles.container}>
+        <Image source={require('../images/yougogirl-logo.png')} style={styles.image}/>
         <Text style={styles.title}> You Go Girl </Text>
 
         <View style={styles.form}>

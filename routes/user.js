@@ -1,8 +1,37 @@
 const express = require('express'),
+      jwt     = require('express-jwt'),
       models  = require('../models'),
-      access = require('./access');
+      config  = require('../config');
 
 const router = express.Router();
+
+// Validate access_token
+var jwtCheck = jwt({
+  secret: config.secret,
+  aud: config.audience,
+  iss: config.issuer
+})
+
+// Check for scope
+function requireScope(scope) {
+  return function (req, res, next) {
+    console.log("At requireScope!!!!!!!!!!!!")
+    var has_scopes = false;
+
+    var user_scopes = req.user.scope.split(" ");
+    console.log(user_scopes);
+    for(let i = 0; i < user_scopes.length; ++i) {
+      if(user_scopes[i] === scope) { has_scopes = true; }
+    }
+
+    if (!has_scopes) {
+      res.sendStatus(401);
+      return;
+    }
+    next();
+  };
+}
+
 //Scope: read:user update:user
 //Get All Users
 //Find all users.
@@ -14,7 +43,7 @@ router.get('/users', function(req, res, next){
 //Get Individual User
 //Find user.
 //Respond w/ user.
-router.use('/user', access.jwtCheck, access.requireScope('read:user'));
+router.use('/user', jwtCheck, requireScope('read:user'));
 router.get('/user', function(req, res, next){
   models.User.findOne({
     where: {
@@ -36,7 +65,7 @@ router.get('/user', function(req, res, next){
 //Verify user credentials.
 //Edit user data.
 //Respond with error or ok.
-router.use('/update/user', access.jwtCheck, access.requireScope('update:user'));
+router.use('/update/user', jwtCheck, requireScope('update:user'));
 router.post('/update/user', function(req, res){
   models.User.findOne({
      where: {

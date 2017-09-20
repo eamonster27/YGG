@@ -1,8 +1,36 @@
 const express = require('express'),
+      jwt     = require('express-jwt'),
       models  = require('../models'),
-      access = require('./access');
+      config  = require('../config');
 
 const router = express.Router();
+
+// Validate access_token
+var jwtCheck = jwt({
+  secret: config.secret,
+  aud: config.audience,
+  iss: config.issuer
+});
+
+// Check for scope
+function requireScope(scope) {
+  return function (req, res, next) {
+    console.log("At requireScope!!!!!!!!!!!!")
+    var has_scopes = false;
+
+    var user_scopes = req.user.scope.split(" ");
+    console.log(user_scopes);
+    for(let i = 0; i < user_scopes.length; ++i) {
+      if(user_scopes[i] === scope) { has_scopes = true; }
+    }
+
+    if (!has_scopes) {
+      res.sendStatus(401);
+      return;
+    }
+    next();
+  };
+}
 
 //Scope: create:ping read:pings
 
@@ -11,7 +39,7 @@ const router = express.Router();
 //Find checkin.
 //Find pings.
 //Respond with pings.
-router.use('/pings', access.jwtCheck, access.requireScope('read:pings'));
+router.use('/pings', jwtCheck, requireScope('read:pings'));
 router.get('/pings', function(req, res, next){
   models.Ping.findAll({
     where: {
@@ -29,7 +57,7 @@ router.get('/pings', function(req, res, next){
 //Find corresponding checkin.
 //Update alerts.
 //Respond with error or ok.
-router.use('/create/ping', access.jwtCheck, access.requireScope('create:ping'));
+router.use('/create/ping', jwtCheck, requireScope('create:ping'));
 router.post('/create/ping', function(req, res){
   models.Ping.create({
     lat: req.body.lat,

@@ -1,18 +1,44 @@
 const express = require('express'),
+      jwt     = require('express-jwt'),
       models  = require('../models'),
-      access = require('./access');
+      config  = require('../config');
 
 const router = express.Router();
+
+// Validate access_token
+var jwtCheck = jwt({
+  secret: config.secret,
+  aud: config.audience,
+  iss: config.issuer
+})
+
+// Check for scope
+function requireScope(scope) {
+  return function (req, res, next) {
+    var has_scopes = false;
+    var user_scopes = req.user.scope.split(" ");
+
+    for(let i = 0; i < user_scopes.length; ++i) {
+      if(user_scopes[i] === scope) { has_scopes = true; }
+    }
+    if (!has_scopes) {
+      res.sendStatus(401);
+      return;
+    }
+    next();
+  };
+}
+
 //Scope: read:checkup delete:checkup
 //Get All User Checkups
 //Find user.
 //Find all user checkups.
 //Respond with checkups.
-router.use('/checkups', access.jwtCheck, access.requireScope('read:checkup'));
+router.use('/checkups', jwtCheck, requireScope('read:checkup'));
 router.get('/checkups', function(req, res, next){
   models.Checkup.findAll({
     where: {
-      UserID: req.user.id
+      UserID: req.user.sub
     },
     include: [{
       model: models.Checkin, as: 'Checkin',
@@ -31,7 +57,7 @@ router.get('/checkups/:checkupid', function(req, res, next){
   models.Checkup.findOne({
     where: {
       id: req.params.checkupid,
-      UserID: req.user.id
+      UserID: req.user.sub
     },
     include: [
       {model: models.Checkin, as: 'Checkin',
@@ -51,12 +77,12 @@ router.get('/checkups/:checkupid', function(req, res, next){
 //Delete checkin.
 //Delete checkup.
 //Respond with error or ok.
-router.use('/delete/checkup', access.jwtCheck, access.requireScope('delete:checkup'));
+router.use('/delete/checkup', jwtCheck, requireScope('delete:checkup'));
 router.post('/delete/checkup', function(req, res){
   models.Checkup.findOne({
     where: {
       id: req.body.CheckupID,
-      reqUserID: req.user.id
+      reqUserID: req.user.sub
     }
   }).success((checkup) => {
     checkup.destroy();

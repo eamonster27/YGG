@@ -1,5 +1,4 @@
 const express = require('express'),
-      ejwt    = require('express-jwt'),
       jwt     = require('jsonwebtoken'),
       _       = require('lodash'),
       models  = require('../models'),
@@ -11,18 +10,18 @@ const router = express.Router();
 function createIDToken(user) {
   return jwt.sign(_.omit(user, 'password', 'cell', 'paniccode', 'passcode'),
           config.secret,
-          { expiresIn: 60 }); //increase later
+          { expiresIn: 60*60 }); //increase later
 }
 
 function createAccessToken(user) {
   return jwt.sign({
     algorithm: 'HS256',
-    exp: Math.floor(Date.now() / 1000) + (60), //increase later
+    exp: Math.floor(Date.now() / 1000) + (60*60), //increase later
     aud: config.audience,
     iss: config.issuer,
     jwtid: genJwtid(),
     sub: user.id, //Possible issue
-    scope: "read:user update:user create:checkin read:checkin update:checkin delete:checkin read:checkup create:ping read:pings",
+    scope: 'read:user update:user create:checkin read:checkin update:checkin delete:checkin read:checkup create:ping read:pings',
   }, config.secret);
 }
 
@@ -99,22 +98,12 @@ router.post('/auth', function(req, res){
         id_token: createIDToken(user.dataValues),
         access_token: createAccessToken(user.dataValues)
       })
-      console.log(createIDToken(user.dataValues))
-      console.log(createAccessToken(user.dataValues))
     }
     else {
       //res with error
       return res.status(401).send("The username or password don't match our records.");
     }
   })
-})
-
-//Logout
-//Destroy session.
-//Remove form local storage.
-//Respond with error or ok.
-router.post("/logout", function(req,res){
-
 })
 
 module.exports = router;

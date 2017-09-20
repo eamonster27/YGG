@@ -11,12 +11,14 @@ import {
 import {Actions} from 'react-native-router-flux';
 import styles from './styles';
 
+import List from './List';
+
 class Main extends Component {
   constructor(props) {
     super(props);
-    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+    var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     this.state = {
-      dataSource: ds
+      dataSource: ds.cloneWithRows([])
     };
   }
 
@@ -26,10 +28,10 @@ class Main extends Component {
   }
 
   getCheckins() {
-    let url = 'http://192.168.1.20:3000';
+    let url = 'http://10.0.0.145:3000';
     let path = '/checkins';
 
-    AsyncStorage.getItem('id_token').then((token) => {
+    AsyncStorage.getItem('access_token').then((token) => {
       fetch(`${url}${path}`, {
         method: 'GET',
         headers: {
@@ -47,10 +49,10 @@ class Main extends Component {
   }
 
   getCheckups() {
-    let url = 'http://192.168.1.20:3000';
+    let url = 'http://10.0.0.145:3000';
     let path = '/checkups';
 
-    AsyncStorage.getItem('id_token').then((token) => {
+    AsyncStorage.getItem('access_token').then((token) => {
       fetch(`${url}${path}`, {
         method: 'GET',
         headers: {
@@ -70,6 +72,7 @@ class Main extends Component {
   async userLogout() {
     try {
       await AsyncStorage.removeItem('id_token');
+      await AsyncStorage.removeItem('access_token');
       Alert.alert('Logged out!');
       Actions.Authentication();
     } catch(error) {
@@ -77,7 +80,7 @@ class Main extends Component {
     }
   }
 
-  renderRow(data, sectionId, rowId, highlightRow){
+  renderRow(data){
     return(
       <TouchableHighlight>
         <View style={styles.row}>
@@ -90,7 +93,11 @@ class Main extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Image source={require('../images/yougogirl-logo.png')} style={styles.image}/>
+        <ListView
+          enableEmptySections={true}
+          dataSource={this.state.dataSource}
+          renderRow={this.renderRow.bind(this)}
+        />
 
         <TouchableOpacity style={styles.buttonWrapper} onPress={this.getCheckins}>
           <Text style={styles.buttonText}> Checkins </Text>
