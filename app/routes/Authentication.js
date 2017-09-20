@@ -10,6 +10,8 @@ import {
 import { Actions } from 'react-native-router-flux';
 import styles from './styles';
 
+import Welcome from './Welcome/Welcome'
+
 class Authentication extends Component {
   constructor() {
     super();
@@ -98,8 +100,7 @@ class Authentication extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Image source={require('../images/yougogirl-logo.png')} style={styles.image}/>
-        <Text style={styles.title}> You Go Girl </Text>
+        <Welcome />
 
         <View style={styles.form}>
           <TextInput
@@ -123,11 +124,11 @@ class Authentication extends Component {
             value={this.state.password}
           />
 
-          <TouchableOpacity style={styles.buttonWrapper} onPress={this.userLogin.bind(this)}>
+          <TouchableOpacity style={styles.authButtonWrapper} onPress={this.userLogin.bind(this)}>
             <Text style={styles.buttonText}> Log In </Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.buttonWrapper} onPress={this.userRegister.bind(this)}>
+          <TouchableOpacity style={styles.authButtonWrapper} onPress={this.userRegister.bind(this)}>
             <Text style={styles.buttonText}> Register </Text>
           </TouchableOpacity>
         </View>

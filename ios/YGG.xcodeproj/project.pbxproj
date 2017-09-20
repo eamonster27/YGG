@@ -36,6 +36,7 @@
 		2DCD954D1E0B4F2C00145EB5 /* YGGTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* YGGTests.m */; };
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
+		B66940D61F72FB1500853C9B /* libAirMaps.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B68864021F64D2E2002651BB /* libAirMaps.a */; };
 		B68864311F64D3AF002651BB /* libRCTPushNotification.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B688642E1F64D33F002651BB /* libRCTPushNotification.a */; settings = {ATTRIBUTES = (Required, ); }; };
 /* End PBXBuildFile section */
 
@@ -323,6 +324,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B66940D61F72FB1500853C9B /* libAirMaps.a in Frameworks */,
 				B68864311F64D3AF002651BB /* libRCTPushNotification.a in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
 				5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */,
