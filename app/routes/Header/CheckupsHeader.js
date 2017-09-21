@@ -6,14 +6,14 @@ import {
   TouchableOpacity } from 'react-native';
 import {Actions} from 'react-native-router-flux';
 
-import styles from '../styles';
+import styles from '../../styles/styles';
 
 class CheckupsHeader extends Component{
 
   render(){
     return(
-      <View style={styles.header}>
-        
+      <View>
+
       </View>
     );
   }

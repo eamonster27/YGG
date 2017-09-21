@@ -8,8 +8,8 @@ import {
   TouchableOpacity } from 'react-native';
 import {Actions} from 'react-native-router-flux';
 
-import styles from '../styles';
-
+import styles from '../../styles/styles';
+//Change to Home Header and add Settings/ User Profile stuff
 class LogoutHeader extends Component{
 
   async userLogout() {
@@ -25,9 +25,9 @@ class LogoutHeader extends Component{
 
   render(){
     return(
-      <View style={styles.header}>
-        <TouchableOpacity style={styles.loginButtonWrapper} onPress={this.userLogout}>
-          <Text style={styles.buttonText} > Log out </Text>
+      <View style={styles.logoutHeader}>
+        <TouchableOpacity style={styles.logoutButtonWrapper} onPress={this.userLogout}>
+          <Text style={styles.logoutButtonText} > Log out </Text>
         </TouchableOpacity>
       </View>
     );

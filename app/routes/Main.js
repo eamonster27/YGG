@@ -11,7 +11,7 @@ import {
 import Welcome from './Welcome/Welcome'
 import LogoutHeader from './Header/LogoutHeader'
 import Footer from './Footer/Footer'
-import styles from './styles';
+import styles from '../styles/styles';
 
 class Main extends Component {
   constructor(props) {
@@ -21,7 +21,7 @@ class Main extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
+      <View style={styles.mainContainer}>
         <LogoutHeader />
 
         <Welcome />

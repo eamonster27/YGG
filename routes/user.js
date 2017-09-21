@@ -47,7 +47,7 @@ router.use('/user', jwtCheck, requireScope('read:user'));
 router.get('/user', function(req, res, next){
   models.User.findOne({
     where: {
-      id: req.user.id
+      id: req.user.sub
     },
     include: [
       {model: models.Checkin, as: 'Checkins'},
@@ -69,7 +69,7 @@ router.use('/update/user', jwtCheck, requireScope('update:user'));
 router.post('/update/user', function(req, res){
   models.User.findOne({
      where: {
-       id: req.user.id,
+       id: req.user.sub,
      }
   }).success((user) => {
     user.update({

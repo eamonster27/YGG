@@ -10,7 +10,7 @@ import {
 import MapView from 'react-native-maps';
 import PropTypes from 'prop-types';
 
-import styles from './styles';
+import styles from '../../styles/styles';
 
 //This is where i list only the home location.
 class Checkin extends Component{
@@ -20,7 +20,7 @@ class Checkin extends Component{
 
   render(){
     return(
-      <View style={styles.map_container}>
+      <View style={styles.checkinContainer}>
         <MapView style={styles.map}
           provider={this.props.provider}
           region={{

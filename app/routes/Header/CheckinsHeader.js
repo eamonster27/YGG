@@ -6,15 +6,15 @@ import {
   TouchableOpacity } from 'react-native';
 import {Actions} from 'react-native-router-flux';
 
-import styles from '../styles';
+import styles from '../../styles/styles';
 
 class CheckinsHeader extends Component{
 
   render(){
     return(
-      <View style={styles.newCheckinHeader}>
-        <TouchableOpacity style={styles.newCheckinButtonWrapper} onPress={Actions.NewCheckin}>
-          <Text style={styles.buttonText}>+</Text>
+      <View style={styles.checkinsHeader}>
+        <TouchableOpacity style={styles.addCheckinButtonWrapper} onPress={Actions.NewCheckin}>
+          <Text style={styles.addCheckinButtonText}>+</Text>
         </TouchableOpacity>
       </View>
     );

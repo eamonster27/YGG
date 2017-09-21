@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {
-  StyleSheet,
   View,
   Text,
   Image,
@@ -16,6 +15,7 @@ import PushNotification from 'react-native-push-notification';
 import {Actions} from 'react-native-router-flux';
 import PropTypes from 'prop-types';
 
+import styles from '../../styles/styles';
 import PushController from './PushController';
 
 // Perhaps this should be EDITCHECKIN. + or Existing checkin is selected.
@@ -99,8 +99,8 @@ class NewCheckin extends Component {
   render() {
     return (
       <Form style={{width: '100%', height: '100%'}} ref="form">
-        <View style={styles.container}>
-          <MapView style={styles.map}
+        <View style={styles.addCheckinContainer}>
+          <MapView style={styles.addCheckinMap}
             provider={this.props.provider}
             region={{
               latitude: parseFloat(this.state.lat),
@@ -127,9 +127,9 @@ class NewCheckin extends Component {
             underlineColorAndroid = 'transparent'
           />
 
-          <View style={styles.time}>
+          <View style={styles.addCheckinTime}>
             <Picker
-              style={styles.picker}
+              style={styles.addCheckinPicker}
               selectedValue={this.state.hours}
               onValueChange={(hours) => this.setState({hours: hours})}
             >
@@ -160,7 +160,7 @@ class NewCheckin extends Component {
             </Picker>
 
             <Picker
-              style={styles.picker}
+              style={styles.addCheckinPicker}
               selectedValue={this.state.minutes}
               onValueChange={(minutes) => this.setState({minutes: minutes})}
             >
@@ -200,25 +200,5 @@ class NewCheckin extends Component {
 NewCheckin.propTypes = {
   provider: MapView.ProviderPropType,
 };
-
-const styles = StyleSheet.create({
-  container: {
-    ...StyleSheet.absoluteFillObject,
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  picker: {
-    width: 100,
-  },
-  time: {
-    flexDirection: 'row',
-    flexWrap: 'nowrap',
-  },
-  map: {
-    width: '100%',
-    height: '40%',
-    marginBottom: 0,
-  },
-});
 
 export default NewCheckin;

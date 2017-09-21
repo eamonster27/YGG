@@ -10,26 +10,25 @@ import {
   ListView } from 'react-native';
 import {Actions} from 'react-native-router-flux';
 
-import CheckupsHeader from './Header/CheckupsHeader'
-import Footer from './Footer/Footer'
-import styles from './styles';
+import CheckinsHeader from '../Header/CheckinsHeader'
+import styles from '../../styles/styles';
 
-class Checkups extends Component {
+class Checkins extends Component {
   constructor(props) {
     super(props);
-    const checkups_ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+    const checkins_ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     this.state = {
-      CheckupsDataSource: checkups_ds
+      CheckinsDataSource: checkins_ds
     };
   }
 
   componentWillMount(){
-    this.getCheckups();
+    this.getCheckins();
   }
 
-  getCheckups() {
+  getCheckins() {
     let url = 'http://10.0.0.145:3000';
-    let path = '/checkups';
+    let path = '/checkins';
 
     AsyncStorage.getItem('access_token').then((token) => {
       fetch(`${url}${path}`, {
@@ -41,23 +40,23 @@ class Checkups extends Component {
       .then((response) => response.json())
       .then((responseJson) => {
         this.setState({
-          CheckupsDataSource: this.state.CheckupsDataSource.cloneWithRows(responseJson)
+          CheckinsDataSource: this.state.CheckinsDataSource.cloneWithRows(responseJson)
         })
       })
       .done();
     })
   }
 
-  onPressCheckup(checkup){
-    Actions.Checkup({checkup: checkup});
-    console.log(checkup);
+  onPressCheckin(checkin){
+    Actions.Checkin({checkin: checkin});
+    console.log(checkin);
   }
 
-  renderRow(checkup){
+  renderRow(checkin){
     return(
-      <TouchableHighlight onPress={() => {this.onPressCheckup(checkup)}}>
-        <View style={styles.row}>
-          <Text style={styles.rowText}> {checkup.Checkin.time} </Text>
+      <TouchableHighlight onPress={() => {this.onPressCheckin(checkin)}}>
+        <View style={styles.listRow}>
+          <Text style={styles.listRowText}> {checkin.time} </Text>
         </View>
       </TouchableHighlight>
     )
@@ -65,22 +64,20 @@ class Checkups extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <CheckupsHeader />
+      <View style={styles.listContainer}>
+        <CheckinsHeader />
 
-        <View style={styles.wrapper}>
+        <View style={styles.listWrapper}>
           <ListView
             style={styles.listView}
             enableEmptySections={true}
-            dataSource={this.state.CheckupsDataSource}
+            dataSource={this.state.CheckinsDataSource}
             renderRow={this.renderRow.bind(this)}
           />
-        </View>
-
-        <Footer />
+        </ View>
       </View>
     );
   }
 }
 
-export default Checkups;
+export default Checkins;

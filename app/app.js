@@ -5,13 +5,14 @@ import {
 } from 'react-native';
 import {Router, Scene} from 'react-native-router-flux';
 
-import Authentication from './routes/Authentication';
+import Authentication from './routes/Session/Authentication';
 import Main from './routes/Main';
-import Checkins from './routes/Checkins';
-import Checkups from './routes/Checkups';
-import Checkin from './routes/Checkin';
-import Checkup from './routes/Checkup';
-import NewCheckin from './routes/NewCheckin';
+import Register from './routes/Session/Register';
+import Checkins from './routes/Lists/Checkins';
+import Checkups from './routes/Lists/Checkups';
+import Checkin from './routes/Checkin/Checkin';
+import Checkup from './routes/Checkup/Checkup';
+import NewCheckin from './routes/Checkin/NewCheckin';
 
 class App extends Component {
   constructor() {
@@ -52,14 +53,14 @@ class App extends Component {
               hideNavBar={true}
               initial={!this.state.hasToken}
               key='Authentication'
-              title='Authentication'
+              title='Login'
             />
             <Scene
               component={Main}
               hideNavBar={true}
               initial={this.state.hasToken}
               key='Main'
-              title='Main'
+              title='Home'
             />
             <Scene
               component={Checkins}
@@ -86,10 +87,10 @@ class App extends Component {
               title='Checkup'
             />
             <Scene
-              component={NewCheckin}
+              component={Register}
               hideNavBar={false}
-              key='NewCheckin'
-              title='Add Checkin'
+              key='Register'
+              title='Register'
             />
           </Scene>
         </Router>
