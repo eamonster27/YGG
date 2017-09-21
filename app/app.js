@@ -87,6 +87,12 @@ class App extends Component {
               title='Checkup'
             />
             <Scene
+              component={NewCheckin}
+              hideNavBar={false}
+              key='NewCheckin'
+              title='Add Checkin'
+            />
+            <Scene
               component={Register}
               hideNavBar={false}
               key='Register'
@@ -94,7 +100,6 @@ class App extends Component {
             />
           </Scene>
         </Router>
-
       )
     }
   }
