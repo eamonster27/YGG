@@ -57,11 +57,13 @@ class Checkup extends Component {
             style={{textAlign: 'center', height: 20, width: '80%', borderColor: 'gray', borderWidth: 1}}
             onChangeText={(text) => this.setState({text})}
             placeholder={this.props.checkup.Checkin.lat + ', ' + this.props.checkup.Checkin.lng}
+            editable={false}
           />
           <TextInput
             style={{textAlign: 'center', marginTop: 20, height: 20, width: '80%', borderColor: 'gray', borderWidth: 1}}
             onChangeText={(text) => this.setState({text})}
             placeholder={this.props.checkup.Checkin.requestStatus}
+            editable={false}
           />
         </View>
       </View>

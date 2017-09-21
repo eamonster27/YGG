@@ -53,9 +53,26 @@ class Checkups extends Component {
   }
 
   renderRow(checkup){
+    switch(checkup.Checkin.requestStatus){
+      case 'Approved':
+        rowStyle = styles.listRowApproved
+        break;
+      case 'Pending':
+        rowStyle = styles.listRowPending
+        break;
+      case 'Declined':
+        rowStyle = styles.listRowDeclined
+        break;
+    }
+
+    switch(checkup.Checkin.status){
+      case 'Home':
+        rowStyle = styles.listRowHomeSafe
+        break;
+    }
     return(
       <TouchableHighlight onPress={() => {this.onPressCheckup(checkup)}}>
-        <View style={styles.listRow}>
+        <View style={rowStyle}>
           <Text style={styles.listRowText}> {checkup.Checkin.time} </Text>
         </View>
       </TouchableHighlight>

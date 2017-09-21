@@ -92,7 +92,6 @@ export default styles = StyleSheet.create({
     fontSize: 20
   },
 
-
   // Checkins.js & Checkups.js
   // Checkins.js & Checkups.js
   listContainer: {
@@ -109,15 +108,39 @@ export default styles = StyleSheet.create({
   listView: {
     width: '100%'
   },
-  listRow: {
+  listRowApproved: {
     flexDirection: 'row',
     justifyContent: 'center',
     padding: 10,
     backgroundColor: '#3498db', //Approved
-    // backgroundColor: '#f1c40f', //Pending
-    // backgroundColor: '#2ecc71', //Home Safe Checkups only
-    // backgroundColor: '#e74c3c', //Declined
     opacity: 0.85,
+    marginBottom: 3,
+    width: '100%',
+  },
+  listRowPending: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    padding: 10,
+    backgroundColor: '#f1c40f', //Pending
+    opacity: 0.7,
+    marginBottom: 3,
+    width: '100%',
+  },
+  listRowHomeSafe: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    padding: 10,
+    backgroundColor: '#2ecc71', //Home Status: Checkups only
+    opacity: 0.85,
+    marginBottom: 3,
+    width: '100%',
+  },
+  listRowDeclined: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    padding: 10,
+    backgroundColor: '#e74c3c', //Declined
+    opacity: 0.7,
     marginBottom: 3,
     width: '100%',
   },
