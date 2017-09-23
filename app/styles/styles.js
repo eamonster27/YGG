@@ -112,43 +112,65 @@ export default styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     padding: 10,
-    backgroundColor: '#3498db', //Approved
-    opacity: 0.85,
-    marginBottom: 3,
+    backgroundColor: '#87CEEB', //Approved
+    opacity: 1.0,
+    marginTop: 3,
     width: '100%',
+    borderRadius: 50,
   },
   listRowPending: {
     flexDirection: 'row',
     justifyContent: 'center',
     padding: 10,
-    backgroundColor: '#f1c40f', //Pending
-    opacity: 0.7,
-    marginBottom: 3,
+    backgroundColor: '#87CEEB', //Pending
+    opacity: 1.0,
+    marginTop: 3,
     width: '100%',
+    borderRadius: 50,
   },
   listRowHomeSafe: {
     flexDirection: 'row',
     justifyContent: 'center',
     padding: 10,
-    backgroundColor: '#2ecc71', //Home Status: Checkups only
+    backgroundColor: '#32CD32', //Home Status: Checkups only
     opacity: 0.85,
-    marginBottom: 3,
+    marginTop: 3,
     width: '100%',
+    borderRadius: 50,
   },
   listRowDeclined: {
     flexDirection: 'row',
     justifyContent: 'center',
     padding: 10,
-    backgroundColor: '#e74c3c', //Declined
+    backgroundColor: '#DC143C', //Declined
     opacity: 0.7,
-    marginBottom: 3,
+    marginTop: 3,
     width: '100%',
+    borderRadius: 50,
   },
-  listRowText: {
+  listRowTextApproved: {
     flex: 1,
     textAlign: 'center',
-    fontSize: 20,
-    color: 'white'
+    fontSize: 24,
+    color: '#FFFF00'
+  },
+  listRowTextPending: {
+    flex: 1,
+    textAlign: 'center',
+    fontSize: 24,
+    color: '#FFFF00'
+  },
+  listRowTextHomeSafe: {
+    flex: 1,
+    textAlign: 'center',
+    fontSize: 24,
+    color: '#8A2BE2'
+  },
+  listRowTextDeclined: {
+    flex: 1,
+    textAlign: 'center',
+    fontSize: 24,
+    color: '#00FFFF'
   },
 
   // LogoutHeader.js
@@ -176,12 +198,14 @@ export default styles = StyleSheet.create({
     justifyContent: 'center',
   },
   addCheckinButtonWrapper: {
-    width: '12%',
+    width: '100%',
+    backgroundColor: '#8880ff'
   },
   addCheckinButtonText: {
     fontSize: 20,
     padding: 7,
-    textAlign: 'center'
+    textAlign: 'center',
+    color: 'white'
   },
 
   // Footer.js
@@ -221,8 +245,8 @@ export default styles = StyleSheet.create({
     width: '100%',
     height: '50%',
   },
-  body: {
-    height: '30%',
+  checkupBody: {
+    height: '45%',
     width: '100%',
     flexDirection: 'column',
     alignItems: 'center',
@@ -239,6 +263,12 @@ export default styles = StyleSheet.create({
   addCheckinPicker: {
     width: 100,
   },
+  addCheckinBody: {
+    height: '50%',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
   addCheckinTime: {
     flexDirection: 'row',
     flexWrap: 'nowrap',
@@ -248,6 +278,15 @@ export default styles = StyleSheet.create({
     height: '40%',
     marginBottom: 0,
   },
+  submitNewCheckinButtonWrapper: {
+    width: '40%'
+  },
+  submitNewCheckinButtonText: {
+    color: '#3498db',
+    fontSize: 20,
+    padding: 10,
+    textAlign: 'center'
+  },
 
   // Checkin.js
   // Checkin.js
@@ -256,4 +295,33 @@ export default styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
+  checkinBody: {
+    height: '45%',
+    width: '100%',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  //SelectEm.js
+  //SelectEm.js
+  selectEmContainer: {
+    height: '100%',
+    width: '100%',
+  },
+  selectEmRowStyle: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    padding: 10,
+    opacity: 1.0,
+    marginTop: 3,
+    width: '100%',
+  },
+  selectEmListRowTextStyle: {
+    flex: 1,
+    textAlign: 'left',
+    fontSize: 24,
+    color: '#2980b9',
+  },
+
 });

@@ -13,7 +13,7 @@ class CheckinsHeader extends Component{
   render(){
     return(
       <View style={styles.checkinsHeader}>
-        <TouchableOpacity style={styles.addCheckinButtonWrapper} onPress={Actions.NewCheckin}>
+        <TouchableOpacity style={styles.addCheckinButtonWrapper} onPress={Actions.SelectEm}>
           <Text style={styles.addCheckinButtonText}>+</Text>
         </TouchableOpacity>
       </View>

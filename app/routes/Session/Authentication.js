@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {
   AsyncStorage,
-  Alert,
   Text,
   Image,
   TextInput,
@@ -32,7 +31,8 @@ class Authentication extends Component {
 
     // let url = 'https://yougogirl.herokuapp.com';
     // let url = 'http://localhost:3000';
-    let url = 'http://10.0.0.145:3000';
+    // let url = 'http://10.0.0.145:3000';
+    let url = 'http://172.20.10.3:3000';
     let path = '/auth';
 
     fetch(`${url}${path}`, {
@@ -50,7 +50,6 @@ class Authentication extends Component {
     .then((responseData) => {
       this.saveItem('id_token', responseData.id_token),
       this.saveItem('access_token', responseData.access_token),
-      Alert.alert('Success!'),
       Actions.Main();
     })
     .done();

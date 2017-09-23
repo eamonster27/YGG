@@ -10,7 +10,7 @@ import {
   ListView } from 'react-native';
 import {Actions} from 'react-native-router-flux';
 
-import CheckupsHeader from '../Header/CheckupsHeader'
+import CheckupsHeader from '../Header/CheckupsHeader';
 import styles from '../../styles/styles';
 
 class Checkups extends Component {
@@ -27,7 +27,8 @@ class Checkups extends Component {
   }
 
   getCheckups() {
-    let url = 'http://10.0.0.145:3000';
+    // let url = 'http://10.0.0.145:3000';
+    let url = 'http://172.20.10.3:3000';
     let path = '/checkups';
 
     AsyncStorage.getItem('access_token').then((token) => {
@@ -56,24 +57,29 @@ class Checkups extends Component {
     switch(checkup.Checkin.requestStatus){
       case 'Approved':
         rowStyle = styles.listRowApproved
+        listRowTextStyle = styles.listRowTextApproved
         break;
       case 'Pending':
         rowStyle = styles.listRowPending
+        listRowTextStyle = styles.listRowTextPending
         break;
       case 'Declined':
         rowStyle = styles.listRowDeclined
+        listRowTextStyle = styles.listRowTextDeclined
         break;
     }
 
     switch(checkup.Checkin.status){
       case 'Home':
         rowStyle = styles.listRowHomeSafe
+        listRowTextStyle = styles.listRowTextHomeSafe
         break;
     }
+
     return(
       <TouchableHighlight onPress={() => {this.onPressCheckup(checkup)}}>
         <View style={rowStyle}>
-          <Text style={styles.listRowText}> {checkup.Checkin.time} </Text>
+          <Text style={listRowTextStyle}>{checkup.Checkin.time.slice(10, 16)}</Text>
         </View>
       </TouchableHighlight>
     )

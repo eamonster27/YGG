@@ -12,7 +12,8 @@ import Checkins from './routes/Lists/Checkins';
 import Checkups from './routes/Lists/Checkups';
 import Checkin from './routes/Checkin/Checkin';
 import Checkup from './routes/Checkup/Checkup';
-import NewCheckin from './routes/Checkin/NewCheckin';
+import NewCheckin from './routes/Checkin/Add/NewCheckin';
+import SelectEm from './routes/Checkin/Add/SelectEm';
 
 class App extends Component {
   constructor() {
@@ -91,6 +92,12 @@ class App extends Component {
               hideNavBar={false}
               key='NewCheckin'
               title='Add Checkin'
+            />
+            <Scene
+              component={SelectEm}
+              hideNavBar={false}
+              key='SelectEm'
+              title='Emergency Contact'
             />
             <Scene
               component={Register}

@@ -27,7 +27,8 @@ class Checkins extends Component {
   }
 
   getCheckins() {
-    let url = 'http://10.0.0.145:3000';
+    // let url = 'http://10.0.0.145:3000';
+    let url = 'http://172.20.10.3:3000';
     let path = '/checkins';
 
     AsyncStorage.getItem('access_token').then((token) => {
@@ -56,24 +57,28 @@ class Checkins extends Component {
     switch(checkin.requestStatus){
       case 'Approved':
         rowStyle = styles.listRowApproved
+        listRowTextStyle = styles.listRowTextApproved
         break;
       case 'Pending':
         rowStyle = styles.listRowPending
+        listRowTextStyle = styles.listRowTextPending
         break;
       case 'Declined':
         rowStyle = styles.listRowDeclined
+        listRowTextStyle = styles.listRowTextDeclined
         break;
     }
 
     switch(checkin.status){
       case 'Home':
         rowStyle = styles.listRowHomeSafe
+        listRowTextStyle = styles.listRowTextHomeSafe
         break;
     }
     return(
       <TouchableHighlight onPress={() => {this.onPressCheckin(checkin)}}>
         <View style={rowStyle}>
-          <Text style={styles.listRowText}> {checkin.time} </Text>
+          <Text style={listRowTextStyle}> {checkin.time.slice(10, 16)} </Text>
         </View>
       </TouchableHighlight>
     )
@@ -91,7 +96,7 @@ class Checkins extends Component {
             dataSource={this.state.CheckinsDataSource}
             renderRow={this.renderRow.bind(this)}
           />
-        </ View>
+        </View>
       </View>
     );
   }

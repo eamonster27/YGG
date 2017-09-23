@@ -34,8 +34,11 @@ function requireScope(scope) {
 //Get All Users
 //Find all users.
 //Respond w/ all users.
+router.use('/users', jwtCheck, requireScope('read:user'));
 router.get('/users', function(req, res, next){
-  models.User.findAll().then(users => { res.json(users); });
+  models.User.findAll().then(users => {
+    res.json(users);
+  });
 })
 
 //Get Individual User

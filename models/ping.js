@@ -4,7 +4,7 @@ module.exports = function(sequelize, DataTypes) {
     lat: {
       type: DataTypes.STRING,
       validate: {
-        isNumeric: {
+        isFloat: {
           args: true,
           msg: "Numeric only."
         },
@@ -25,7 +25,7 @@ module.exports = function(sequelize, DataTypes) {
     lng: {
       type: DataTypes.STRING,
       validate: {
-        isNumeric: {
+        isFloat: {
           args: true,
           msg: "Numeric only."
         },
@@ -44,13 +44,7 @@ module.exports = function(sequelize, DataTypes) {
       }
     },
     time: {
-      type: DataTypes.STRING,
-      validate: {
-        notEmpty: {
-          args: true,
-          msg: "Cannot be empty string."
-        }
-      }
+      type: DataTypes.DATE,
     }
   }, {})
 

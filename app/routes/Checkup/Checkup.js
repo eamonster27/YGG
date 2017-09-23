@@ -8,13 +8,38 @@ import {
   TouchableOpacity } from 'react-native';
 import MapView from 'react-native-maps';
 import PropTypes from 'prop-types';
+import Geocoder from 'react-native-geocoding';
 
+import CheckupDetails from './CheckupDetails';
 import styles from '../../styles/styles';
 
 //This is where i list only the home location.
 class Checkup extends Component {
   constructor(props){
     super(props);
+
+    this.state = {
+      address: ''
+    }
+  }
+
+  componentWillMount(){
+    this.getAddress(this.props.checkup.Checkin.lat, this.props.checkup.Checkin.lng)
+  }
+
+  getAddress(lat, lng) {
+    Geocoder.getFromLatLng(lat, lng).then(
+      json => {
+        console.log(json)
+        this.setState({
+          address: json.results[0].address_components[0].long_name + " " +
+          json.results[0].address_components[1].long_name,
+        })
+      },
+      error => {
+        console.log(error);
+      }
+    )
   }
 
   render(){
@@ -29,6 +54,7 @@ class Checkup extends Component {
         pinColor='#e74c3c'
       />
     );
+
     return(
       <View style={styles.checkupContainer}>
         <MapView style={styles.map}
@@ -52,20 +78,15 @@ class Checkup extends Component {
           {pings}
         </MapView>
 
-        <View style={styles.body}>
-          <TextInput
-            style={{textAlign: 'center', height: 20, width: '80%', borderColor: 'gray', borderWidth: 1}}
-            onChangeText={(text) => this.setState({text})}
-            placeholder={this.props.checkup.Checkin.lat + ', ' + this.props.checkup.Checkin.lng}
-            editable={false}
-          />
-          <TextInput
-            style={{textAlign: 'center', marginTop: 20, height: 20, width: '80%', borderColor: 'gray', borderWidth: 1}}
-            onChangeText={(text) => this.setState({text})}
-            placeholder={this.props.checkup.Checkin.requestStatus}
-            editable={false}
-          />
-        </View>
+        <TextInput
+          style={{textAlign: 'left', paddingLeft: 10, width: '100%', height: 45, fontSize: 18, backgroundColor: 'white', color: 'black'}}
+          onChangeText={(text) => this.setState({text})}
+          value={this.state.address}
+          editable={false}
+        />
+
+        <CheckupDetails />
+
       </View>
     );
   }

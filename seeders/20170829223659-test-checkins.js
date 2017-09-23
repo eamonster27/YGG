@@ -7,7 +7,7 @@ module.exports = {
       status: "Home",
       lat: "29.742063", //3403 Audubon Pl
       lng: "-95.386246",
-      time: "2017-09-05 17:30", //moment(2017-02-08 09:30).format('LLLL')
+      time: new Date("2017-09-05T17:30:00Z"),
       requestStatus: "Approved",
       emContactID: 2,
       UserID: 1, //Eamon
@@ -17,10 +17,10 @@ module.exports = {
     },
     {
       alerts: 0,
-      status: "On Schedule",
+      status: "Scheduled",
       lat: "29.742063", //3403 Audubon Pl
       lng: "-95.386246",
-      time: "2017-09-06 17:00",
+      time: new Date("2017-09-06T17:00:00Z"),
       requestStatus: "Pending",
       emContactID: 6,
       UserID: 1, //Eamon
@@ -30,10 +30,10 @@ module.exports = {
     },
     {
       alerts: 0,
-      status: "On Schedule",
+      status: "Scheduled",
       lat: "29.742063", //3403 Audubon Pl
       lng: "-95.386246",
-      time: "2017-09-07 16:30",
+      time: new Date("2017-09-07T16:30:00Z"),
       requestStatus: "Declined",
       emContactID: 5,
       UserID: 1, //Eamon
@@ -46,7 +46,7 @@ module.exports = {
       status: "Unresponsive",
       lat: "29.900808", //912 Sagewood Trl
       lng: "-97.955796",
-      time: "2017-09-05 16:00",
+      time: new Date("2017-09-05T16:00:00Z"),
       requestStatus: "Approved",
       emContactID: 1,
       UserID: 2, //Camila
@@ -59,7 +59,7 @@ module.exports = {
       status: "Panic",
       lat: "29.565607", //14 Asbury Park Court
       lng: "-95.592912",
-      time: "2017-09-05 15:30",
+      time: new Date("2017-09-05T15:30:00Z"),
       requestStatus: "Approved",
       emContactID: 4,
       UserID: 3, //Mommy
@@ -72,7 +72,7 @@ module.exports = {
       status: "Disabled",
       lat: "29.570977", //2225 Long Cove Court
       lng: "-95.398422",
-      time: "2017-09-05 15:00",
+      time: new Date("2017-09-05T15:00:00Z"),
       requestStatus: "Approved",
       emContactID: 1,
       UserID: 5, //Omid
@@ -85,7 +85,7 @@ module.exports = {
       status: "Snoozed",
       lat: "29.570977", //2225 Long Cove Court
       lng: "-95.398422",
-      time: "2017-09-05 14:30",
+      time: new Date("2017-09-05T14:30:00Z"),
       requestStatus: "Approved",
       emContactID: 7,
       UserID: 6, //Kafah

@@ -3,7 +3,6 @@ import {
   Text,
   View,
   Button,
-  Alert,
   AsyncStorage,
   TouchableOpacity } from 'react-native';
 import {Actions} from 'react-native-router-flux';
@@ -16,7 +15,6 @@ class LogoutHeader extends Component{
     try {
       await AsyncStorage.removeItem('id_token');
       await AsyncStorage.removeItem('access_token');
-      Alert.alert('Logged out!');
       Actions.Authentication();
     } catch(error) {
       onsole.log('AsyncStorage error: ' + error.message);

@@ -81,7 +81,7 @@ router.post('/create/checkin', function(req, res){
   }).then((checkup) => {
     models.Checkin.create({
       alerts: 0,
-      status: "On Schedule",
+      status: "Scheduled",
       lat: req.body.lat,
       lng: req.body.lng,
       time: req.body.time,

@@ -23,7 +23,7 @@ module.exports = function(sequelize, DataTypes) {
     lat: {
       type: DataTypes.STRING,
       validate: {
-        isNumeric: {
+        isFloat: {
           args: true,
           msg: "Numeric only."
         },
@@ -36,7 +36,7 @@ module.exports = function(sequelize, DataTypes) {
     lng: {
       type: DataTypes.STRING,
       validate: {
-        isNumeric: {
+        isFloat: {
           args: true,
           msg: "Numeric only."
         },
@@ -47,13 +47,7 @@ module.exports = function(sequelize, DataTypes) {
       }
     },
     time: {
-      type: DataTypes.STRING,
-      validate: {
-        notEmpty: {
-          args: true,
-          msg: "Cannot be empty string."
-        }
-      }
+      type: DataTypes.DATE,
     },
     requestStatus: {
       type: DataTypes.STRING,
@@ -72,11 +66,6 @@ module.exports = function(sequelize, DataTypes) {
     emContactID: {
       type: DataTypes.INTEGER,
       validate: {
-        notThisUser(value) {
-          if (value === this.UserID) {
-            throw new Error('You cannot be your own Emergency Contact!')
-          }
-        }
       }
     }
   }, {})

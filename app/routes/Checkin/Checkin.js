@@ -9,13 +9,37 @@ import {
 
 import MapView from 'react-native-maps';
 import PropTypes from 'prop-types';
+import Geocoder from 'react-native-geocoding';
 
+import CheckinDetails from './CheckinDetails';
 import styles from '../../styles/styles';
 
 //This is where i list only the home location.
 class Checkin extends Component{
   constructor(props){
     super(props);
+
+    this.state = {
+      address: ''
+    }
+  }
+
+  componentWillMount(){
+    this.getAddress(this.props.checkin.lat, this.props.checkin.lng)
+  }
+
+  getAddress(lat, lng) {
+    Geocoder.getFromLatLng(lat, lng).then(
+      json => {
+        this.setState({
+          address: json.results[0].address_components[0].long_name + " " +
+          json.results[0].address_components[1].long_name,
+        })
+      },
+      error => {
+        console.log(error);
+      }
+    )
   }
 
   render(){
@@ -40,21 +64,17 @@ class Checkin extends Component{
             pinColor='#3498db'
           />
         </MapView>
+        <TextInput
+          style={{textAlign: 'left', paddingLeft: 10, fontSize: 18, width: '100%',  height: 45, fontSize: 18, backgroundColor: 'white', color: 'black'}}
+          onChangeText={(text) => this.setState({text})}
+          value={this.state.address}
+          underlineColorAndroid = 'transparent'
+          editable={false}
+        />
 
-        <View style={styles.body}>
-          <TextInput
-            style={{textAlign: 'center', fontSize: 18, width: '80%', borderColor: 'gray', borderWidth: 1}}
-            onChangeText={(text) => this.setState({text})}
-            placeholder={this.props.checkin.lat + ', ' + this.props.checkin.lng}
-            underlineColorAndroid = 'transparent'
-          />
-          <TextInput
-            style={{textAlign: 'center', fontSize: 18, marginTop: 20, width: '80%', borderColor: 'gray', borderWidth: 1}}
-            onChangeText={(text) => this.setState({text})}
-            placeholder={this.props.checkin.requestStatus}
-            underlineColorAndroid = 'transparent'
-          />
-        </View>
+        <CheckinDetails />
+
+
       </View>
     );
   }
