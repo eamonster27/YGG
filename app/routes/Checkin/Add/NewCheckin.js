@@ -6,7 +6,6 @@ import {
   TouchableOpacity,
   TextInput,
   Picker,
-  AppState,
   AsyncStorage,
   Platform } from 'react-native';
 
@@ -28,33 +27,28 @@ import PushController from '../PushController';
 class NewCheckin extends Component {
   constructor(props){
     super(props);
-
+    let now = new Date(Date.now());
     this.state = {
       lat: '29.7604',
       lng: '-95.3698',
       time: null,
-      hour: 0,
-      minute: 0,
+      hour: now.getHours(),
+      minute: (now.getMinutes() - (now.getMinutes() % 5) + 5),
       address: '',
     };
-    this.handleAppStateChange = this.handleAppStateChange.bind(this);
+    this.scheduleNotification = this.scheduleNotification.bind(this);
   }
 
-  componentDidMount(){
-    AppState.addEventListener('change', this.handleAppStateChange);
-  }
+  scheduleNotification() {
+    let now = new Date(Date.now());
+    let currentHour = now.getHours();
+    let currentMinute = now.getMinutes();
 
-  componentWillUnmount(){
-    AppState.removeEventListener('change', this.handleAppStateChange);
-  }
-
-  handleAppStateChange(appState) {
-    if (appState === 'background') {
-      PushNotification.localNotificationSchedule({
-        message: "Checkin time!",
-        date: this.state.time,
-      });
-    }
+    let netMinuteDifference = ((this.state.hour * 60) + this.state.minute) - ((currentHour * 60) + currentMinute);
+    PushNotification.localNotificationSchedule({
+      message: "Checkin time!",
+      date: new Date(Date.now() + (netMinuteDifference) * 60 * 1000 ),
+    });
   }
 
   getLatLng(address){
@@ -91,7 +85,7 @@ class NewCheckin extends Component {
   onPress(){
     // let url = 'http://10.0.0.145:3000'; //Update to heroku
     let url = 'http://172.20.10.3:3000';
-    let checkinPath = `/create/checkin`; //May not need user url param when local storage is used.
+    let checkinPath = `/create/checkin`;
 
     let now = new Date(Date.now());
 
@@ -114,14 +108,15 @@ class NewCheckin extends Component {
           emContactID: this.props.emContactID,
           UserID: this.props.UserID,
         })
-      }) //ERROR MESSAGES!//ERROR MESSAGES!
+      }).done(this.scheduleNotification()) //ERROR MESSAGES!//ERROR MESSAGES!
 
       // .then((response) => response.json())
       // .then((responseData) => {
       //   console.log("responseData");
       //   console.log(responseData);
       // }).done();
-    }).then(Actions.Main)
+    })
+    .then(Actions.Main)
   }
 
   // Address instead. Then convert address into latlng.
