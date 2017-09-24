@@ -23,12 +23,10 @@ class SelectEm extends Component {
     const users_ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     this.state = {
       UsersDataSource: users_ds,
-      me: {
-        id: null,
-        cell: null,
-        email: null,
-      },
-      cell: null
+      UserID: null,
+      UserCell: null,
+      UserEmail: null,
+      emCell: ''
     };
   }
 
@@ -52,18 +50,16 @@ class SelectEm extends Component {
       .then((response) => response.json())
       .then((responseJson) => {
         this.setState({
-          me: {
-            id: responseJson.id,
-            cell: responseJson.cell,
-            email: responseJson.email,
-          }
+          UserID: responseJson.id,
+          UserCell: responseJson.cell,
+          UserEmail: responseJson.email,
         })
       })
       .done();
     })
   }
 
-  getEmContact(cell) {
+  getEmContact(emCell) {
     // let url = 'http://10.0.0.145:3000';
     let url = 'http://172.20.10.3:3000';
     let path = '/users';
@@ -88,15 +84,15 @@ class SelectEm extends Component {
   onPressEmContact(emContact){
     Actions.NewCheckin({
       emContactID: emContact.id,
-      UserID: this.state.me.id
+      UserID: this.state.UserID
     })
   }
 
   renderRow(emContact) {
-    if(emContact.cell === this.state.cell
-      && emContact.id !== this.state.me.id
-      && emContact.cell !== this.state.me.cell
-      && emContact.email !== this.state.me.email) {
+    if(emContact.cell === this.state.emCell
+      && emContact.id !== this.state.UserID
+      && emContact.cell !== this.state.UserCell
+      && emContact.email !== this.state.UserEmail) {
       return(
         <TouchableHighlight onPress={() => {this.onPressEmContact(emContact)}}>
           <View style={styles.selectEmRowStyle}>
@@ -123,7 +119,7 @@ class SelectEm extends Component {
           <TextInput
             style={{textAlign: 'left', paddingLeft: 10, width: '100%', height: 45, fontSize: 18, backgroundColor: 'white', color: 'black'}}
             onChangeText = {(cell) => {
-              this.setState({cell: cell});
+              this.setState({emCell: cell});
             }}
             placeholder="Emergency Contact Cell"
             underlineColorAndroid = 'transparent'

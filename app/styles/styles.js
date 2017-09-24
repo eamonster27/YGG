@@ -261,7 +261,17 @@ export default styles = StyleSheet.create({
     alignItems: 'center',
   },
   addCheckinPicker: {
-    width: 100,
+    width: 59,
+  },
+  addCheckinPickerYear: {
+    width: 77,
+    marginRight: 10
+  },
+  addCheckinPickerMonth: {
+    width: 73,
+  },
+  addCheckinPickerDay: {
+    width: 59,
   },
   addCheckinBody: {
     height: '50%',
@@ -323,5 +333,4 @@ export default styles = StyleSheet.create({
     fontSize: 24,
     color: '#2980b9',
   },
-
 });

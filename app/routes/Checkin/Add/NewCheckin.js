@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   TextInput,
   Picker,
+  Alert,
   AsyncStorage,
   Platform } from 'react-native';
 
@@ -29,25 +30,49 @@ class NewCheckin extends Component {
     super(props);
     let now = new Date(Date.now());
     this.state = {
+      emContactID: this.props.emContactID,
+      UserID: this.props.UserID,
       lat: '29.7604',
       lng: '-95.3698',
       time: null,
+      year: now.getFullYear(),
+      month: now.getMonth(),
+      day: now.getDate(),
       hour: now.getHours(),
-      minute: (now.getMinutes() - (now.getMinutes() % 5) + 5),
+      minute: (now.getMinutes() - (now.getMinutes() % 5)),
       address: '',
     };
     this.scheduleNotification = this.scheduleNotification.bind(this);
   }
 
-  scheduleNotification() {
-    let now = new Date(Date.now());
-    let currentHour = now.getHours();
-    let currentMinute = now.getMinutes();
+  daysInMonth(month, year) {
+    switch(month){
+      case 0:
+      case 2:
+      case 4:
+      case 6:
+      case 7:
+      case 9:
+      case 11:
+        return 31;
+        break;
+      case 3:
+      case 5:
+      case 8:
+      case 10:
+        return 30;
+        break;
+      case 1:
+        if(year % 4 === 0) { return 29; }
+        else{ return 28; };
+        break;
+    }
+  }
 
-    let netMinuteDifference = ((this.state.hour * 60) + this.state.minute) - ((currentHour * 60) + currentMinute);
+  scheduleNotification(netMinuteDifference) {
     PushNotification.localNotificationSchedule({
       message: "Checkin time!",
-      date: new Date(Date.now() + (netMinuteDifference) * 60 * 1000 ),
+      date: new Date(Date.now() + (netMinuteDifference)),
     });
   }
 
@@ -66,62 +91,91 @@ class NewCheckin extends Component {
     );
   }
 
-  setHour(hour){
+  setTime(type, value){
     let now = new Date(Date.now());
-    this.setState({
-      time: new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate(), hour, this.state.minute, 0)),
-      hour: hour
-    })
-  }
-
-  setMinute(minute){
-    let now = new Date(Date.now());
-    this.setState({
-      time: new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate(), this.state.hour, minute, 0)),
-      minute: minute
-    })
+    switch(type){
+      case 'year':
+        this.setState({
+          time: new Date(Date.UTC(value, this.state.month, this.state.day, this.state.hour, this.state.minute, 0)),
+          year: value
+        })
+        break;
+      case 'month':
+        this.setState({
+          time: new Date(Date.UTC(this.state.year, value, this.state.day, this.state.hour, this.state.minute, 0)),
+          month: value
+        })
+        break;
+      case 'day':
+        this.setState({
+          time: new Date(Date.UTC(this.state.year, this.state.month, value, this.state.hour, this.state.minute, 0)),
+          day: value
+        })
+        break;
+      case 'hour':
+        this.setState({
+          time: new Date(Date.UTC(this.state.year, this.state.month, this.state.day, value, this.state.minute, 0)),
+          hour: value
+        })
+        break;
+      case 'minute':
+        this.setState({
+          time: new Date(Date.UTC(this.state.year, this.state.month, this.state.day, this.state.hour, value, 0)),
+          minute: value
+        })
+        break;
+    }
   }
 
   onPress(){
-    // let url = 'http://10.0.0.145:3000'; //Update to heroku
-    let url = 'http://172.20.10.3:3000';
-    let checkinPath = `/create/checkin`;
-
     let now = new Date(Date.now());
 
-    this.setState({
-      time: new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate(), this.state.hour, this.state.minute, 0))
-    })
+    let currentYear = now.getFullYear();
+    let currentMonth = now.getMonth();
+    let currentDay = now.getDate();
+    let currentHour = now.getHours();
+    let currentMinute = now.getMinutes();
 
-    AsyncStorage.getItem('access_token').then((token) => {
-      fetch(`${url}${checkinPath}`, {
-        method: 'POST',
-        headers: {
-          'Authorization': 'Bearer ' + token,
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          lat: this.state.lat,
-          lng: this.state.lng,
-          time: this.state.time,
-          emContactID: this.props.emContactID,
-          UserID: this.props.UserID,
-        })
-      }).done(this.scheduleNotification()) //ERROR MESSAGES!//ERROR MESSAGES!
+    let currentTime = (new Date(Date.UTC(currentYear, currentMonth, currentDay, currentHour, currentMinute, 0))).getTime();
+    let checkinTime = (new Date(Date.UTC(this.state.year, this.state.month, this.state.day, this.state.hour, this.state.minute, 0))).getTime();
+    let netMinuteDifference = checkinTime - currentTime;
 
-      // .then((response) => response.json())
-      // .then((responseData) => {
-      //   console.log("responseData");
-      //   console.log(responseData);
-      // }).done();
-    })
-    .then(Actions.Main)
+    if(netMinuteDifference > 0) {
+      // let url = 'http://10.0.0.145:3000'; //Update to heroku
+      let url = 'http://172.20.10.3:3000';
+      let checkinPath = `/create/checkin`;
+
+      this.setState({
+        time: new Date(Date.UTC(this.state.year, this.state.month, this.state.day, this.state.hour, this.state.minute, 0))
+      })
+
+      AsyncStorage.getItem('access_token').then((token) => {
+        fetch(`${url}${checkinPath}`, {
+          method: 'POST',
+          headers: {
+            'Authorization': 'Bearer ' + token,
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            lat: this.state.lat,
+            lng: this.state.lng,
+            time: this.state.time,
+            emContactID: this.state.emContactID,
+            UserID: this.state.UserID,
+          })
+        }).done() //ERROR MESSAGES!//ERROR MESSAGES!
+      })
+      .then(() => {
+        Actions.Main();
+        this.scheduleNotification(netMinuteDifference);
+      })
+    }
+    else {
+      Alert.alert('Checkin times be after the current time!');
+    }
   }
 
-  // Address instead. Then convert address into latlng.
-  // Time should look similar to apple alarm clock page. Scroll select times.
-  //Enter emergency contact phone number. Should find user with that number. When selected, passes emContactID.
   //Change button to a better functioning button.
   render() {
     return (
@@ -153,12 +207,85 @@ class NewCheckin extends Component {
             placeholder="Address "
             underlineColorAndroid = 'transparent'
           />
+
           <View style={styles.addCheckinBody}>
             <View style={styles.addCheckinTime}>
               <Picker
+                style={styles.addCheckinPickerMonth}
+                selectedValue={this.state.month}
+                onValueChange={(month) => this.setTime('month', month)}
+              >
+                <Picker.Item label="Jan" value={0}/>
+                <Picker.Item label="Feb" value={1}/>
+                <Picker.Item label="Mar" value={2}/>
+                <Picker.Item label="Apr" value={3}/>
+                <Picker.Item label="May" value={4}/>
+                <Picker.Item label="Jun" value={5}/>
+                <Picker.Item label="Jul" value={6}/>
+                <Picker.Item label="Aug" value={7}/>
+                <Picker.Item label="Sept" value={8}/>
+                <Picker.Item label="Oct" value={9}/>
+                <Picker.Item label="Nov" value={10}/>
+                <Picker.Item label="Dec" value={11}/>
+              </Picker>
+
+              <Picker
+                style={styles.addCheckinPickerDay}
+                selectedValue={this.state.day}
+                onValueChange={(day) => this.setTime('day', day)}
+              >
+                <Picker.Item label="01" value={1}/>
+                <Picker.Item label="02" value={2}/>
+                <Picker.Item label="03" value={3}/>
+                <Picker.Item label="04" value={4}/>
+                <Picker.Item label="05" value={5}/>
+                <Picker.Item label="06" value={6}/>
+                <Picker.Item label="07" value={7}/>
+                <Picker.Item label="08" value={8}/>
+                <Picker.Item label="09" value={9}/>
+                <Picker.Item label="10" value={10}/>
+                <Picker.Item label="11" value={11}/>
+                <Picker.Item label="12" value={12}/>
+                <Picker.Item label="13" value={13}/>
+                <Picker.Item label="14" value={14}/>
+                <Picker.Item label="15" value={15}/>
+                <Picker.Item label="16" value={16}/>
+                <Picker.Item label="17" value={17}/>
+                <Picker.Item label="18" value={18}/>
+                <Picker.Item label="19" value={19}/>
+                <Picker.Item label="20" value={20}/>
+                <Picker.Item label="21" value={21}/>
+                <Picker.Item label="22" value={22}/>
+                <Picker.Item label="23" value={23}/>
+                <Picker.Item label="24" value={24}/>
+                <Picker.Item label="25" value={25}/>
+                <Picker.Item label="26" value={26}/>
+                <Picker.Item label="27" value={27}/>
+                <Picker.Item label="28" value={28}/>
+              </Picker>
+
+              <Picker
+                style={styles.addCheckinPickerYear}
+                selectedValue={this.state.year}
+                onValueChange={(year) => this.setTime('year', year)}
+              >
+                <Picker.Item label="2017" value={2017}/>
+                <Picker.Item label="2018" value={2018}/>
+                <Picker.Item label="2019" value={2019}/>
+                <Picker.Item label="2020" value={2020}/>
+                <Picker.Item label="2021" value={2021}/>
+                <Picker.Item label="2022" value={2022}/>
+                <Picker.Item label="2023" value={2023}/>
+                <Picker.Item label="2024" value={2024}/>
+                <Picker.Item label="2025" value={2025}/>
+                <Picker.Item label="2026" value={2026}/>
+                <Picker.Item label="2027" value={2027}/>
+              </Picker>
+
+              <Picker
                 style={styles.addCheckinPicker}
                 selectedValue={this.state.hour}
-                onValueChange={(hour) => this.setHour(hour)}
+                onValueChange={(hour) => this.setTime('hour', hour)}
               >
                 <Picker.Item label="00" value={0}/>
                 <Picker.Item label="01" value={1}/>
@@ -189,7 +316,7 @@ class NewCheckin extends Component {
               <Picker
                 style={styles.addCheckinPicker}
                 selectedValue={this.state.minute}
-                onValueChange={(minute) => this.setMinute(minute)}
+                onValueChange={(minute) => this.setTime('minute', minute)}
               >
                 <Picker.Item label="00" value={0}/>
                 <Picker.Item label="05" value={5}/>
@@ -205,7 +332,6 @@ class NewCheckin extends Component {
                 <Picker.Item label="55" value={55}/>
               </Picker>
               <PushController />
-
             </View>
 
             <TouchableOpacity style={styles.submitNewCheckinButtonWrapper} onPress={this.onPress.bind(this)}>

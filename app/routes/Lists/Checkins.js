@@ -50,7 +50,6 @@ class Checkins extends Component {
 
   onPressCheckin(checkin){
     Actions.Checkin({checkin: checkin});
-    console.log(checkin);
   }
 
   renderRow(checkin){
