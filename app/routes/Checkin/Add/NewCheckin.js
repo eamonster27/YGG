@@ -10,7 +10,6 @@ import {
   AsyncStorage,
   Platform } from 'react-native';
 
-import Form from 'react-native-form';
 import MapView from 'react-native-maps';
 import PushNotification from 'react-native-push-notification';
 import {Actions} from 'react-native-router-flux';
@@ -34,13 +33,12 @@ class NewCheckin extends Component {
       UserID: this.props.UserID,
       lat: '29.7604',
       lng: '-95.3698',
-      time: null,
+      time: '',
       year: now.getFullYear(),
       month: now.getMonth(),
       day: now.getDate(),
       hour: now.getHours(),
       minute: (now.getMinutes() - (now.getMinutes() % 5)),
-      address: '',
     };
     this.scheduleNotification = this.scheduleNotification.bind(this);
   }
@@ -74,6 +72,7 @@ class NewCheckin extends Component {
       message: "Checkin time!",
       date: new Date(Date.now() + (netMinuteDifference)),
     });
+    Actions.Main();
   }
 
   getLatLng(address){
@@ -150,6 +149,12 @@ class NewCheckin extends Component {
       })
 
       AsyncStorage.getItem('access_token').then((token) => {
+        console.log(this.state);
+        console.log(typeof this.state.lat)
+        console.log(typeof this.state.lng)
+        console.log(typeof this.state.time)
+        console.log(typeof this.state.emContactID)
+        console.log(typeof this.state.UserID)
         fetch(`${url}${checkinPath}`, {
           method: 'POST',
           headers: {
@@ -165,9 +170,7 @@ class NewCheckin extends Component {
             UserID: this.state.UserID,
           })
         }).done() //ERROR MESSAGES!//ERROR MESSAGES!
-      })
-      .then(() => {
-        Actions.Main();
+      }).then(() => {
         this.scheduleNotification(netMinuteDifference);
       })
     }
@@ -179,167 +182,165 @@ class NewCheckin extends Component {
   //Change button to a better functioning button.
   render() {
     return (
-      <Form style={{width: '100%', height: '100%'}} ref="form">
-        <View style={styles.addCheckinContainer}>
-          <MapView style={styles.addCheckinMap}
-            provider={this.props.provider}
-            region={{
+      <View style={styles.addCheckinContainer}>
+        <MapView style={styles.addCheckinMap}
+          provider={this.props.provider}
+          region={{
+            latitude: parseFloat(this.state.lat),
+            longitude: parseFloat(this.state.lng),
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0420,
+          }}
+        >
+          <MapView.Marker
+            coordinate={{
               latitude: parseFloat(this.state.lat),
               longitude: parseFloat(this.state.lng),
-              latitudeDelta: 0.0922,
-              longitudeDelta: 0.0420,
             }}
-          >
-            <MapView.Marker
-              coordinate={{
-                latitude: parseFloat(this.state.lat),
-                longitude: parseFloat(this.state.lng),
-              }}
-              title={"Home"}
-              description={"Description"}
-              pinColor='#3498db'
-            />
-          </MapView>
-
-          <TextInput
-            style={{textAlign: 'left', paddingLeft: 10, width: '100%', height: 45, fontSize: 18, backgroundColor: 'white', color: 'black'}}
-            onChangeText = {(address) => this.getLatLng(address)}
-            placeholder="Address "
-            underlineColorAndroid = 'transparent'
+            title={"Home"}
+            description={"Description"}
+            pinColor='#3498db'
           />
+        </MapView>
 
-          <View style={styles.addCheckinBody}>
-            <View style={styles.addCheckinTime}>
-              <Picker
-                style={styles.addCheckinPickerMonth}
-                selectedValue={this.state.month}
-                onValueChange={(month) => this.setTime('month', month)}
-              >
-                <Picker.Item label="Jan" value={0}/>
-                <Picker.Item label="Feb" value={1}/>
-                <Picker.Item label="Mar" value={2}/>
-                <Picker.Item label="Apr" value={3}/>
-                <Picker.Item label="May" value={4}/>
-                <Picker.Item label="Jun" value={5}/>
-                <Picker.Item label="Jul" value={6}/>
-                <Picker.Item label="Aug" value={7}/>
-                <Picker.Item label="Sept" value={8}/>
-                <Picker.Item label="Oct" value={9}/>
-                <Picker.Item label="Nov" value={10}/>
-                <Picker.Item label="Dec" value={11}/>
-              </Picker>
+        <TextInput
+          style={{textAlign: 'left', paddingLeft: 10, width: '100%', height: 45, fontSize: 18, backgroundColor: 'white', color: 'black'}}
+          onChangeText = {(address) => this.getLatLng(address)}
+          placeholder="Address "
+          underlineColorAndroid = 'transparent'
+        />
 
-              <Picker
-                style={styles.addCheckinPickerDay}
-                selectedValue={this.state.day}
-                onValueChange={(day) => this.setTime('day', day)}
-              >
-                <Picker.Item label="01" value={1}/>
-                <Picker.Item label="02" value={2}/>
-                <Picker.Item label="03" value={3}/>
-                <Picker.Item label="04" value={4}/>
-                <Picker.Item label="05" value={5}/>
-                <Picker.Item label="06" value={6}/>
-                <Picker.Item label="07" value={7}/>
-                <Picker.Item label="08" value={8}/>
-                <Picker.Item label="09" value={9}/>
-                <Picker.Item label="10" value={10}/>
-                <Picker.Item label="11" value={11}/>
-                <Picker.Item label="12" value={12}/>
-                <Picker.Item label="13" value={13}/>
-                <Picker.Item label="14" value={14}/>
-                <Picker.Item label="15" value={15}/>
-                <Picker.Item label="16" value={16}/>
-                <Picker.Item label="17" value={17}/>
-                <Picker.Item label="18" value={18}/>
-                <Picker.Item label="19" value={19}/>
-                <Picker.Item label="20" value={20}/>
-                <Picker.Item label="21" value={21}/>
-                <Picker.Item label="22" value={22}/>
-                <Picker.Item label="23" value={23}/>
-                <Picker.Item label="24" value={24}/>
-                <Picker.Item label="25" value={25}/>
-                <Picker.Item label="26" value={26}/>
-                <Picker.Item label="27" value={27}/>
-                <Picker.Item label="28" value={28}/>
-              </Picker>
+        <View style={styles.addCheckinBody}>
+          <View style={styles.addCheckinTime}>
+            <Picker
+              style={styles.addCheckinPickerMonth}
+              selectedValue={this.state.month}
+              onValueChange={(month) => this.setTime('month', month)}
+            >
+              <Picker.Item label="Jan" value={0}/>
+              <Picker.Item label="Feb" value={1}/>
+              <Picker.Item label="Mar" value={2}/>
+              <Picker.Item label="Apr" value={3}/>
+              <Picker.Item label="May" value={4}/>
+              <Picker.Item label="Jun" value={5}/>
+              <Picker.Item label="Jul" value={6}/>
+              <Picker.Item label="Aug" value={7}/>
+              <Picker.Item label="Sept" value={8}/>
+              <Picker.Item label="Oct" value={9}/>
+              <Picker.Item label="Nov" value={10}/>
+              <Picker.Item label="Dec" value={11}/>
+            </Picker>
 
-              <Picker
-                style={styles.addCheckinPickerYear}
-                selectedValue={this.state.year}
-                onValueChange={(year) => this.setTime('year', year)}
-              >
-                <Picker.Item label="2017" value={2017}/>
-                <Picker.Item label="2018" value={2018}/>
-                <Picker.Item label="2019" value={2019}/>
-                <Picker.Item label="2020" value={2020}/>
-                <Picker.Item label="2021" value={2021}/>
-                <Picker.Item label="2022" value={2022}/>
-                <Picker.Item label="2023" value={2023}/>
-                <Picker.Item label="2024" value={2024}/>
-                <Picker.Item label="2025" value={2025}/>
-                <Picker.Item label="2026" value={2026}/>
-                <Picker.Item label="2027" value={2027}/>
-              </Picker>
+            <Picker
+              style={styles.addCheckinPickerDay}
+              selectedValue={this.state.day}
+              onValueChange={(day) => this.setTime('day', day)}
+            >
+              <Picker.Item label="01" value={1}/>
+              <Picker.Item label="02" value={2}/>
+              <Picker.Item label="03" value={3}/>
+              <Picker.Item label="04" value={4}/>
+              <Picker.Item label="05" value={5}/>
+              <Picker.Item label="06" value={6}/>
+              <Picker.Item label="07" value={7}/>
+              <Picker.Item label="08" value={8}/>
+              <Picker.Item label="09" value={9}/>
+              <Picker.Item label="10" value={10}/>
+              <Picker.Item label="11" value={11}/>
+              <Picker.Item label="12" value={12}/>
+              <Picker.Item label="13" value={13}/>
+              <Picker.Item label="14" value={14}/>
+              <Picker.Item label="15" value={15}/>
+              <Picker.Item label="16" value={16}/>
+              <Picker.Item label="17" value={17}/>
+              <Picker.Item label="18" value={18}/>
+              <Picker.Item label="19" value={19}/>
+              <Picker.Item label="20" value={20}/>
+              <Picker.Item label="21" value={21}/>
+              <Picker.Item label="22" value={22}/>
+              <Picker.Item label="23" value={23}/>
+              <Picker.Item label="24" value={24}/>
+              <Picker.Item label="25" value={25}/>
+              <Picker.Item label="26" value={26}/>
+              <Picker.Item label="27" value={27}/>
+              <Picker.Item label="28" value={28}/>
+            </Picker>
 
-              <Picker
-                style={styles.addCheckinPicker}
-                selectedValue={this.state.hour}
-                onValueChange={(hour) => this.setTime('hour', hour)}
-              >
-                <Picker.Item label="00" value={0}/>
-                <Picker.Item label="01" value={1}/>
-                <Picker.Item label="02" value={2}/>
-                <Picker.Item label="03" value={3}/>
-                <Picker.Item label="04" value={4}/>
-                <Picker.Item label="05" value={5}/>
-                <Picker.Item label="06" value={6}/>
-                <Picker.Item label="07" value={7}/>
-                <Picker.Item label="08" value={8}/>
-                <Picker.Item label="09" value={9}/>
-                <Picker.Item label="10" value={10}/>
-                <Picker.Item label="11" value={11}/>
-                <Picker.Item label="12" value={12}/>
-                <Picker.Item label="13" value={13}/>
-                <Picker.Item label="14" value={14}/>
-                <Picker.Item label="15" value={15}/>
-                <Picker.Item label="16" value={16}/>
-                <Picker.Item label="17" value={17}/>
-                <Picker.Item label="18" value={18}/>
-                <Picker.Item label="19" value={19}/>
-                <Picker.Item label="20" value={20}/>
-                <Picker.Item label="21" value={21}/>
-                <Picker.Item label="22" value={22}/>
-                <Picker.Item label="23" value={23}/>
-              </Picker>
+            <Picker
+              style={styles.addCheckinPickerYear}
+              selectedValue={this.state.year}
+              onValueChange={(year) => this.setTime('year', year)}
+            >
+              <Picker.Item label="2017" value={2017}/>
+              <Picker.Item label="2018" value={2018}/>
+              <Picker.Item label="2019" value={2019}/>
+              <Picker.Item label="2020" value={2020}/>
+              <Picker.Item label="2021" value={2021}/>
+              <Picker.Item label="2022" value={2022}/>
+              <Picker.Item label="2023" value={2023}/>
+              <Picker.Item label="2024" value={2024}/>
+              <Picker.Item label="2025" value={2025}/>
+              <Picker.Item label="2026" value={2026}/>
+              <Picker.Item label="2027" value={2027}/>
+            </Picker>
 
-              <Picker
-                style={styles.addCheckinPicker}
-                selectedValue={this.state.minute}
-                onValueChange={(minute) => this.setTime('minute', minute)}
-              >
-                <Picker.Item label="00" value={0}/>
-                <Picker.Item label="05" value={5}/>
-                <Picker.Item label="10" value={10}/>
-                <Picker.Item label="15" value={15}/>
-                <Picker.Item label="20" value={20}/>
-                <Picker.Item label="25" value={25}/>
-                <Picker.Item label="30" value={30}/>
-                <Picker.Item label="35" value={35}/>
-                <Picker.Item label="40" value={40}/>
-                <Picker.Item label="45" value={45}/>
-                <Picker.Item label="50" value={50}/>
-                <Picker.Item label="55" value={55}/>
-              </Picker>
-              <PushController />
-            </View>
+            <Picker
+              style={styles.addCheckinPicker}
+              selectedValue={this.state.hour}
+              onValueChange={(hour) => this.setTime('hour', hour)}
+            >
+              <Picker.Item label="00" value={0}/>
+              <Picker.Item label="01" value={1}/>
+              <Picker.Item label="02" value={2}/>
+              <Picker.Item label="03" value={3}/>
+              <Picker.Item label="04" value={4}/>
+              <Picker.Item label="05" value={5}/>
+              <Picker.Item label="06" value={6}/>
+              <Picker.Item label="07" value={7}/>
+              <Picker.Item label="08" value={8}/>
+              <Picker.Item label="09" value={9}/>
+              <Picker.Item label="10" value={10}/>
+              <Picker.Item label="11" value={11}/>
+              <Picker.Item label="12" value={12}/>
+              <Picker.Item label="13" value={13}/>
+              <Picker.Item label="14" value={14}/>
+              <Picker.Item label="15" value={15}/>
+              <Picker.Item label="16" value={16}/>
+              <Picker.Item label="17" value={17}/>
+              <Picker.Item label="18" value={18}/>
+              <Picker.Item label="19" value={19}/>
+              <Picker.Item label="20" value={20}/>
+              <Picker.Item label="21" value={21}/>
+              <Picker.Item label="22" value={22}/>
+              <Picker.Item label="23" value={23}/>
+            </Picker>
 
-            <TouchableOpacity style={styles.submitNewCheckinButtonWrapper} onPress={this.onPress.bind(this)}>
-              <Text style={styles.submitNewCheckinButtonText}> Submit </Text>
-            </TouchableOpacity>
+            <Picker
+              style={styles.addCheckinPicker}
+              selectedValue={this.state.minute}
+              onValueChange={(minute) => this.setTime('minute', minute)}
+            >
+              <Picker.Item label="00" value={0}/>
+              <Picker.Item label="05" value={5}/>
+              <Picker.Item label="10" value={10}/>
+              <Picker.Item label="15" value={15}/>
+              <Picker.Item label="20" value={20}/>
+              <Picker.Item label="25" value={25}/>
+              <Picker.Item label="30" value={30}/>
+              <Picker.Item label="35" value={35}/>
+              <Picker.Item label="40" value={40}/>
+              <Picker.Item label="45" value={45}/>
+              <Picker.Item label="50" value={50}/>
+              <Picker.Item label="55" value={55}/>
+            </Picker>
+            <PushController />
           </View>
+
+          <TouchableOpacity style={styles.submitNewCheckinButtonWrapper} onPress={this.onPress.bind(this)}>
+            <Text style={styles.submitNewCheckinButtonText}> Submit </Text>
+          </TouchableOpacity>
         </View>
-      </Form>
+      </View>
     )
   }
 }

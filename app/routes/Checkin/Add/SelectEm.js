@@ -9,7 +9,6 @@ import {
   AsyncStorage,
   ListView } from 'react-native';
 
-import Form from 'react-native-form';
 import {Actions} from 'react-native-router-flux';
 
 import styles from '../../../styles/styles';
@@ -24,8 +23,8 @@ class SelectEm extends Component {
     this.state = {
       UsersDataSource: users_ds,
       UserID: null,
-      UserCell: null,
-      UserEmail: null,
+      UserCell: '',
+      UserEmail: '',
       emCell: ''
     };
   }
@@ -59,7 +58,7 @@ class SelectEm extends Component {
     })
   }
 
-  getEmContact(emCell) {
+  getEmContact() {
     // let url = 'http://10.0.0.145:3000';
     let url = 'http://172.20.10.3:3000';
     let path = '/users';
@@ -114,27 +113,25 @@ class SelectEm extends Component {
 
   render() {
     return (
-      <Form style={{width: '100%', height: '100%'}} ref="form">
-        <View style={styles.selectEmContainer}>
-          <TextInput
-            style={{textAlign: 'left', paddingLeft: 10, width: '100%', height: 45, fontSize: 18, backgroundColor: 'white', color: 'black'}}
-            onChangeText = {(cell) => {
-              this.setState({emCell: cell});
-            }}
-            placeholder="Emergency Contact Cell"
-            underlineColorAndroid = 'transparent'
-          />
+      <View style={styles.selectEmContainer}>
+        <TextInput
+          style={{textAlign: 'left', paddingLeft: 10, width: '100%', height: 45, fontSize: 18, backgroundColor: 'white', color: 'black'}}
+          onChangeText = {(cell) => {
+            this.setState({emCell: cell});
+          }}
+          placeholder="Emergency Contact Cell"
+          underlineColorAndroid = 'transparent'
+        />
 
-          <View style={styles.listWrapper}>
-            <ListView
-              style={styles.listView}
-              enableEmptySections={true}
-              dataSource={this.state.UsersDataSource}
-              renderRow={this.renderRow.bind(this)}
-            />
-          </View>
+        <View style={styles.listWrapper}>
+          <ListView
+            style={styles.listView}
+            enableEmptySections={true}
+            dataSource={this.state.UsersDataSource}
+            renderRow={this.renderRow.bind(this)}
+          />
         </View>
-      </Form>
+      </View>
     )
   }
 }
