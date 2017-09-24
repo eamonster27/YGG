@@ -147,32 +147,22 @@ class NewCheckin extends Component {
       this.setState({
         time: new Date(Date.UTC(this.state.year, this.state.month, this.state.day, this.state.hour, this.state.minute, 0))
       })
-
-      AsyncStorage.getItem('access_token').then((token) => {
-        console.log(this.state);
-        console.log(typeof this.state.lat)
-        console.log(typeof this.state.lng)
-        console.log(typeof this.state.time)
-        console.log(typeof this.state.emContactID)
-        console.log(typeof this.state.UserID)
-        fetch(`${url}${checkinPath}`, {
-          method: 'POST',
-          headers: {
-            'Authorization': 'Bearer ' + token,
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            lat: this.state.lat,
-            lng: this.state.lng,
-            time: this.state.time,
-            emContactID: this.state.emContactID,
-            UserID: this.state.UserID,
-          })
-        }).done() //ERROR MESSAGES!//ERROR MESSAGES!
+      fetch(`${url}${checkinPath}`, {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          lat: this.state.lat,
+          lng: this.state.lng,
+          time: this.state.time,
+          emContactID: this.state.emContactID,
+          UserID: this.state.UserID,
+        })
       }).then(() => {
         this.scheduleNotification(netMinuteDifference);
-      })
+      }).done();
     }
     else {
       Alert.alert('Checkin times be after the current time!');

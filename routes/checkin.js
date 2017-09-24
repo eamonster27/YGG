@@ -73,7 +73,6 @@ router.get('/checkins/:checkinid', function(req, res, next){
 //Create corresponding checkup.
 //Set data values.
 //Respond with error or ok.
-router.use('/create/checkin', jwtCheck, requireScope('create:checkin'));
 router.post('/create/checkin', function(req, res){
   models.Checkup.create({
     reqUserID: req.user.sub,
@@ -91,7 +90,7 @@ router.post('/create/checkin', function(req, res){
       CheckupID: checkup.dataValues.id
     })
   }).catch((error) => {
-    return res.status(401).send(error);
+    console.log(error);
   })
 });
 
