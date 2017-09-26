@@ -27,8 +27,8 @@ class Checkins extends Component {
   }
 
   getCheckins() {
-    // let url = 'http://10.0.0.145:3000';
-    let url = 'http://172.20.10.3:3000';
+    let url = 'http://10.0.0.145:3000';
+    // let url = 'http://172.20.10.3:3000';
     let path = '/checkins';
 
     AsyncStorage.getItem('access_token').then((token) => {

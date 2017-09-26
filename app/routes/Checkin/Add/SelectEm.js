@@ -22,7 +22,7 @@ class SelectEm extends Component {
     const users_ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     this.state = {
       UsersDataSource: users_ds,
-      UserID: null,
+      UserID: '',
       UserCell: '',
       UserEmail: '',
       emCell: ''
@@ -35,8 +35,8 @@ class SelectEm extends Component {
   }
 
   getUserInfo() {
-    // let url = 'http://10.0.0.145:3000';
-    let url = 'http://172.20.10.3:3000';
+    let url = 'http://10.0.0.145:3000';
+    // let url = 'http://172.20.10.3:3000';
     let path = '/user';
 
     AsyncStorage.getItem('access_token').then((token) => {
@@ -59,8 +59,8 @@ class SelectEm extends Component {
   }
 
   getEmContact() {
-    // let url = 'http://10.0.0.145:3000';
-    let url = 'http://172.20.10.3:3000';
+    let url = 'http://10.0.0.145:3000';
+    // let url = 'http://172.20.10.3:3000';
     let path = '/users';
 
     AsyncStorage.getItem('access_token').then((token) => {
@@ -83,7 +83,7 @@ class SelectEm extends Component {
   onPressEmContact(emContact){
     Actions.NewCheckin({
       emContactID: emContact.id,
-      UserID: this.state.UserID
+      UserID: parseInt(this.state.UserID)
     })
   }
 

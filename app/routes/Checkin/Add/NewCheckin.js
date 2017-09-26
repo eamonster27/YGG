@@ -16,7 +16,7 @@ import {Actions} from 'react-native-router-flux';
 import PropTypes from 'prop-types';
 import Geocoder from 'react-native-geocoding';
 
-Geocoder.setApiKey('AIzaSyD7A419LWMHGOXzXWr1GrSWEL-bLE70lP4');
+Geocoder.setApiKey('AIzaSyC6vpeu7WmBMNIb1aLb9pOuPdh7m3vz1w8');
 
 import styles from '../../../styles/styles';
 import PushController from '../PushController';
@@ -41,6 +41,7 @@ class NewCheckin extends Component {
       minute: (now.getMinutes() - (now.getMinutes() % 5)),
     };
     this.scheduleNotification = this.scheduleNotification.bind(this);
+    this.getLatLng = this.getLatLng.bind(this);
   }
 
   daysInMonth(month, year) {
@@ -67,12 +68,14 @@ class NewCheckin extends Component {
     }
   }
 
-  scheduleNotification(netMinuteDifference) {
+  scheduleNotification(netMinuteDifference, checkin) {
     PushNotification.localNotificationSchedule({
       message: "Checkin time!",
       date: new Date(Date.now() + (netMinuteDifference)),
+      actions: '["Snooze", "Disable"]',
+      alertAction: '["Snooze", "Disable"]',
+
     });
-    Actions.Main();
   }
 
   getLatLng(address){
@@ -140,29 +143,36 @@ class NewCheckin extends Component {
     let netMinuteDifference = checkinTime - currentTime;
 
     if(netMinuteDifference > 0) {
-      // let url = 'http://10.0.0.145:3000'; //Update to heroku
-      let url = 'http://172.20.10.3:3000';
+      let url = 'http://10.0.0.145:3000'; //Update to heroku
+      // let url = 'http://172.20.10.3:3000';
       let checkinPath = `/create/checkin`;
 
       this.setState({
         time: new Date(Date.UTC(this.state.year, this.state.month, this.state.day, this.state.hour, this.state.minute, 0))
       })
-      fetch(`${url}${checkinPath}`, {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          lat: this.state.lat,
-          lng: this.state.lng,
-          time: this.state.time,
-          emContactID: this.state.emContactID,
-          UserID: this.state.UserID,
+      AsyncStorage.getItem('access_token').then((token) => {
+        fetch(`${url}${checkinPath}`, {
+          method: 'POST',
+          headers: {
+            'Authorization': 'Bearer ' + token,
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            lat: this.state.lat,
+            lng: this.state.lng,
+            time: this.state.time,
+            emContactID: this.state.emContactID,
+          })
         })
-      }).then(() => {
-        this.scheduleNotification(netMinuteDifference);
-      }).done();
+        .then((response) => response.json())
+        .then((responseData) => {
+          this.scheduleNotification(netMinuteDifference, responseData)
+          Actions.Main();
+        })
+        .done();
+      })
+
     }
     else {
       Alert.alert('Checkin times be after the current time!');
