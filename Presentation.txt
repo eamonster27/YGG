@@ -1,0 +1,45 @@
+Quicktime video w/out sound:
+
+1. Slide with my name, github handle, and graduating txstate abbreviation.
+[slide: bio]
+
+2. First 30 seconds: biography/ verbal form resume
+[slide: bio]
+
+3. Next 30 seconds: technical interests
+  - nodejs, react-native, react, postgres, logos, java, javascript,
+[slide: technical interests]
+
+4. 1 minute: project
+  - 1st 15 seconds: problem in real life you're trying to solve.
+    - project logo/ artwork
+[slide: logo]
+
+  - next 45 seconds: technical feats you accomplished
+    - app demo 70% width
+    - technical feats list on left 30% width
+    - say technical feats out loud.
+[slide: project demo]
+
+  - last 15 seconds: current project status and future features
+    - return to biography slide
+[slide: bio]
+
+5. last 10 seconds: what i'm looking for in a job
+  - veiled 10 second brag
+[slide: bio]
+
+Process:
+Rough Draft: memorized script and have first draft of video with
+  proper breaks expected during presentation.
+Final Draft: Thursday night
+
+3 Professional characteristics of myself that I want to touch on.
+1. Fast learner with deep grasp of tech
+2. Craftsmanship
+3. Passion for tech huge appetite
+
+Personal quality
+1. Funny
+
+Business casual no tie no glasses

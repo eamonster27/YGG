@@ -8,6 +8,7 @@ import {
   View } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 
+import localIP from '../localIP'
 import styles from '../../styles/styles';
 
 class Authentication extends Component {
@@ -27,10 +28,7 @@ class Authentication extends Component {
   userRegister() {
     if(!this.state.email || !this.state.password) return;
 
-    // let url = 'https://yougogirl.herokuapp.com';
-    // let url = 'http://localhost:3000';
-    let url = 'http://10.0.0.145:3000';
-    // let url = 'http://172.20.10.3:3000';
+    let url = localIP.url;
     let path = '/register';
 
     fetch(`${url}${path}`, {

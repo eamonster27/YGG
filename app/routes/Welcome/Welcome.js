@@ -7,6 +7,7 @@ import {
 
 import {Actions} from 'react-native-router-flux';
 
+import localIP from '../localIP'
 import styles from '../../styles/styles';
 
 class Welcome extends Component {
@@ -23,8 +24,7 @@ class Welcome extends Component {
   }
 
   getFirstname() {
-    let url = 'http://10.0.0.145:3000';
-    // let url = 'http://172.20.10.3:3000';
+    let url = localIP.url;
     let path = '/user';
 
     AsyncStorage.getItem('access_token').then((token) => {

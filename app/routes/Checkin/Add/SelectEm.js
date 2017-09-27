@@ -10,7 +10,7 @@ import {
   ListView } from 'react-native';
 
 import {Actions} from 'react-native-router-flux';
-
+import localIP from '../../localIP'
 import styles from '../../../styles/styles';
 
 // Perhaps this should be EDITCHECKIN. + or Existing checkin is selected.
@@ -35,8 +35,7 @@ class SelectEm extends Component {
   }
 
   getUserInfo() {
-    let url = 'http://10.0.0.145:3000';
-    // let url = 'http://172.20.10.3:3000';
+    let url = localIP.url;
     let path = '/user';
 
     AsyncStorage.getItem('access_token').then((token) => {
@@ -59,8 +58,7 @@ class SelectEm extends Component {
   }
 
   getEmContact() {
-    let url = 'http://10.0.0.145:3000';
-    // let url = 'http://172.20.10.3:3000';
+    let url = localIP.url;
     let path = '/users';
 
     AsyncStorage.getItem('access_token').then((token) => {

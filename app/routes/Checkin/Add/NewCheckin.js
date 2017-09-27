@@ -11,6 +11,7 @@ import {
   Platform } from 'react-native';
 
 import MapView from 'react-native-maps';
+import NotificationsIOS from 'react-native-notifications';
 import PushNotification from 'react-native-push-notification';
 import {Actions} from 'react-native-router-flux';
 import PropTypes from 'prop-types';
@@ -18,6 +19,7 @@ import Geocoder from 'react-native-geocoding';
 
 Geocoder.setApiKey('AIzaSyC6vpeu7WmBMNIb1aLb9pOuPdh7m3vz1w8');
 
+import localIP from '../../localIP'
 import styles from '../../../styles/styles';
 import PushController from '../PushController';
 
@@ -39,10 +41,31 @@ class NewCheckin extends Component {
       day: now.getDate(),
       hour: now.getHours(),
       minute: (now.getMinutes() - (now.getMinutes() % 5)),
+      Checkin: {},
     };
+
     this.scheduleNotification = this.scheduleNotification.bind(this);
     this.getLatLng = this.getLatLng.bind(this);
+
   }
+
+  componentWillMount(){
+    navigator.geolocation.getCurrentPosition((position) => {
+      this.setState({
+        lat: position.coords.latitude.toString(),
+        lng: position.coords.longitude.toString(),
+      })
+    },
+      (error) => alert(error.message),
+      {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
+    );
+  }
+
+  componentWillUnmount() {
+
+  }
+
+
 
   daysInMonth(month, year) {
     switch(month){
@@ -73,9 +96,12 @@ class NewCheckin extends Component {
       message: "Checkin time!",
       date: new Date(Date.now() + (netMinuteDifference)),
       actions: '["Snooze", "Disable"]',
-      alertAction: '["Snooze", "Disable"]',
-
+      alertAction: '["Snooze", "Disable"]'
     });
+
+    this.setState({
+      Checkin: checkin
+    })
   }
 
   getLatLng(address){
@@ -143,8 +169,7 @@ class NewCheckin extends Component {
     let netMinuteDifference = checkinTime - currentTime;
 
     if(netMinuteDifference > 0) {
-      let url = 'http://10.0.0.145:3000'; //Update to heroku
-      // let url = 'http://172.20.10.3:3000';
+      let url = localIP.url;
       let checkinPath = `/create/checkin`;
 
       this.setState({
@@ -333,7 +358,7 @@ class NewCheckin extends Component {
               <Picker.Item label="50" value={50}/>
               <Picker.Item label="55" value={55}/>
             </Picker>
-            <PushController />
+            <PushController Checkin={this.state.Checkin} />
           </View>
 
           <TouchableOpacity style={styles.submitNewCheckinButtonWrapper} onPress={this.onPress.bind(this)}>

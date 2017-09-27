@@ -8,9 +8,10 @@ import {
   TouchableHighlight,
   View,
   ListView } from 'react-native';
-import {Actions} from 'react-native-router-flux';
 
+import {Actions} from 'react-native-router-flux';
 import CheckupsHeader from '../Header/CheckupsHeader';
+import localIP from '../localIP'
 import styles from '../../styles/styles';
 
 class Checkups extends Component {
@@ -27,8 +28,7 @@ class Checkups extends Component {
   }
 
   getCheckups() {
-    let url = 'http://10.0.0.145:3000';
-    // let url = 'http://172.20.10.3:3000';
+    let url = localIP.url;
     let path = '/checkups';
 
     AsyncStorage.getItem('access_token').then((token) => {

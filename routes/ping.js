@@ -55,7 +55,7 @@ router.get('/pings', function(req, res, next){
 //Find corresponding checkin.
 //Update alerts.
 //Respond with error or ok.
-// router.use('/create/ping', jwtCheck, requireScope('create:ping'));
+router.use('/create/ping', jwtCheck, requireScope('create:ping'));
 router.post('/create/ping', function(req, res){
   models.Ping.create({
     lat: req.body.lat,
@@ -67,9 +67,13 @@ router.post('/create/ping', function(req, res){
       where: {
         id: ping.dataValues.CheckinID
       }
-    }).success((checkin) => {
+    }).then((checkin) => {
       checkin.update({
         alerts: checkin.dataValues.alerts++
+      }).then((checkin) => {
+        res.status(201).send({
+          checkin: checkin.dataValues
+        });
       })
     })
   }).catch((error) => {
