@@ -29,8 +29,7 @@ class Checkin extends Component{
   }
 
   getAddress(lat, lng) {
-    Geocoder.getFromLatLng(lat, lng).then(
-      json => {
+    Geocoder.getFromLatLng(lat, lng).then((json) => {
         this.setState({
           address: json.results[0].address_components[0].long_name + " " +
           json.results[0].address_components[1].long_name,
@@ -72,7 +71,7 @@ class Checkin extends Component{
           editable={false}
         />
 
-        <CheckinDetails />
+        <CheckinDetails checkin={this.props.checkin}/>
 
 
       </View>

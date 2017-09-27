@@ -14,7 +14,7 @@ class CheckinsHeader extends Component{
     return(
       <View style={styles.checkinsHeader}>
         <TouchableOpacity style={styles.addCheckinButtonWrapper} onPress={Actions.SelectEm}>
-          <Text style={styles.addCheckinButtonText}>+</Text>
+          <Text style={styles.addCheckinButtonText}>Schedule a Checkin</Text>
         </TouchableOpacity>
       </View>
     );

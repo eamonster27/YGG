@@ -8,7 +8,7 @@ import {
   TouchableHighlight,
   View,
   ListView } from 'react-native';
-  
+
 import {Actions} from 'react-native-router-flux';
 import CheckinsHeader from '../Header/CheckinsHeader'
 import localIP from '../localIP'
@@ -77,7 +77,7 @@ class Checkins extends Component {
     return(
       <TouchableHighlight onPress={() => {this.onPressCheckin(checkin)}}>
         <View style={rowStyle}>
-          <Text style={listRowTextStyle}> {checkin.time.slice(10, 16)} </Text>
+          <Text style={listRowTextStyle}>{checkin.address} by {checkin.time.slice(11, 16)} - {checkin.time.slice(5, 7)}/{checkin.time.slice(8, 10)}</Text>
         </View>
       </TouchableHighlight>
     )

@@ -27,8 +27,8 @@ module.exports = {
       updatedAt: new Date(),
     },
     {
-      lat: "29.901057",
-      lng: "-97.911498",
+      lat: "29.881057",
+      lng: "-97.931498",
       time: new Date("2017-09-05T16:10:00Z"),
       CheckinID: 4,
       createdAt: new Date(),

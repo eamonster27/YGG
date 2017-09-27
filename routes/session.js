@@ -101,7 +101,7 @@ router.post('/auth', function(req, res){
     }
     else {
       //res with error
-      return res.status(401).send("The username or password don't match our records.");
+      return res.status(401).send("Email or Password don't match our records.");
     }
   })
 })

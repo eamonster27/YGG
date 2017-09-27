@@ -10,6 +10,8 @@ Run Postgres server
 react-native run-ios
 react-native run-android
 
+lat: "29.742063", //3403 Audubon Pl
+lng: "-95.386246",
 
 PushNotification.configure({
 

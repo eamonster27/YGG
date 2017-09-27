@@ -22,6 +22,7 @@ class SelectEm extends Component {
     const users_ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     this.state = {
       UsersDataSource: users_ds,
+      UserName: '',
       UserID: '',
       UserCell: '',
       UserEmail: '',
@@ -48,6 +49,7 @@ class SelectEm extends Component {
       .then((response) => response.json())
       .then((responseJson) => {
         this.setState({
+          UserName: responseJson.firstname,
           UserID: responseJson.id,
           UserCell: responseJson.cell,
           UserEmail: responseJson.email,
@@ -81,7 +83,8 @@ class SelectEm extends Component {
   onPressEmContact(emContact){
     Actions.NewCheckin({
       emContactID: emContact.id,
-      UserID: parseInt(this.state.UserID)
+      UserID: parseInt(this.state.UserID),
+      UserName: this.state.UserName,
     })
   }
 

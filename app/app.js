@@ -91,13 +91,13 @@ class App extends Component {
               component={NewCheckin}
               hideNavBar={false}
               key='NewCheckin'
-              title='Add Checkin'
+              title='Schedule Checkin'
             />
             <Scene
               component={SelectEm}
               hideNavBar={false}
               key='SelectEm'
-              title='Emergency Contact'
+              title='Select Emergency Contact'
             />
             <Scene
               component={Register}

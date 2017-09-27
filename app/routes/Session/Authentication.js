@@ -12,11 +12,12 @@ import localIP from '../localIP'
 import styles from '../../styles/styles';
 
 class Authentication extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       email: '',
       password: '',
+      error: this.props.error || '',
     };
   }
 
@@ -43,13 +44,22 @@ class Authentication extends Component {
         password: this.state.password,
       })
     })
-    .then((response) => response.json())
-    .then((responseData) => {
-      this.saveItem('id_token', responseData.id_token),
-      this.saveItem('access_token', responseData.access_token),
-      Actions.Main();
+    .then((response) => {
+        if(response.status === 401) {
+          return (Actions.Authentication({
+            error: response._bodyText
+          }))
+        }
+        else {
+          response.json()
+          .then((responseData) => {
+            this.saveItem('id_token', responseData.id_token),
+            this.saveItem('access_token', responseData.access_token),
+            Actions.Main();
+          })
+          .done();
+        }
     })
-    .done();
   }
 
   async saveItem(item, selectedValue) {
@@ -94,6 +104,7 @@ class Authentication extends Component {
             value={this.state.password}
             underlineColorAndroid = 'transparent'
           />
+          <Text style={styles.errorText}> {this.state.error} </Text>
 
           <View style={styles.authLoginRegister}>
             <TouchableOpacity style={styles.authButtonWrapper} onPress={this.renderRegister.bind(this)}>

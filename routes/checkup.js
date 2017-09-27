@@ -46,6 +46,8 @@ router.get('/checkups', function(req, res, next){
     ]
   }).then((checkups) => {
     res.json(checkups);
+  }).catch((error) => {
+    console.log(error)
   })
 })
 

@@ -13,8 +13,8 @@
       <uses-permission android:name="${applicationId}.permission.C2D_MESSAGE" />
       <uses-permission android:name="android.permission.VIBRATE" />
       <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
-      <uses-permission android:name="android.permission.ACCESS_MOCK_LOCATION" />
       <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+      <uses-permission android:name="android.permission.ACCESS_MOCK_LOCATION" />
       <uses-sdk
         android:minSdkVersion="16"
         android:targetSdkVersion="23" />
@@ -53,9 +53,6 @@
       <meta-data
           android:name="com.google.android.geo.API_KEY"
           android:value="AIzaSyCz8gOPhGuVWC4fJ6uZLzSutq2GAVmn4UE"/>
-      <meta-data
-        android:name="com.wix.reactnativenotifications.gcmSenderId"
-        android:value="889750153261\0"/>
 
       <activity
         android:name=".MainActivity"

@@ -111,42 +111,50 @@ export default styles = StyleSheet.create({
   listRowApproved: {
     flexDirection: 'row',
     justifyContent: 'center',
-    padding: 10,
+    padding: 7,
     backgroundColor: '#87CEEB', //Approved
     opacity: 1.0,
     marginTop: 3,
     width: '100%',
-    borderRadius: 50,
+    borderRadius: 15,
+    borderWidth: 2,
+    borderColor: '#8A2BE2'
   },
   listRowPending: {
     flexDirection: 'row',
     justifyContent: 'center',
-    padding: 10,
+    padding: 7,
     backgroundColor: '#87CEEB', //Pending
     opacity: 1.0,
     marginTop: 3,
     width: '100%',
-    borderRadius: 50,
+    borderRadius: 15,
+    borderWidth: 2,
+    borderColor: '#FFFF00'
   },
   listRowHomeSafe: {
     flexDirection: 'row',
     justifyContent: 'center',
-    padding: 10,
+    padding: 7,
     backgroundColor: '#32CD32', //Home Status: Checkups only
     opacity: 0.85,
     marginTop: 3,
     width: '100%',
-    borderRadius: 50,
+    borderRadius: 15,
+    borderWidth: 2,
+    borderColor: '#8A2BE2'
   },
   listRowDeclined: {
     flexDirection: 'row',
     justifyContent: 'center',
-    padding: 10,
+    padding: 7,
     backgroundColor: '#DC143C', //Declined
     opacity: 0.7,
     marginTop: 3,
     width: '100%',
-    borderRadius: 50,
+    borderRadius: 15,
+    borderWidth: 2,
+    borderColor: '#8A2BE2'
   },
   listRowTextApproved: {
     flex: 1,
@@ -170,7 +178,7 @@ export default styles = StyleSheet.create({
     flex: 1,
     textAlign: 'center',
     fontSize: 24,
-    color: '#00FFFF'
+    color: '#1a1aff'
   },
 
   // LogoutHeader.js
@@ -240,10 +248,11 @@ export default styles = StyleSheet.create({
     ...StyleSheet.absoluteFillObject,
     justifyContent: 'space-between',
     alignItems: 'center',
+    height: '97.5%',
   },
   map: {
     width: '100%',
-    height: '50%',
+    height: '55%',
   },
   checkupBody: {
     height: '45%',
@@ -251,6 +260,64 @@ export default styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  checkupBodyPending: {
+    height: '40%',
+    width: '98%',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+  },
+  checkupBodyApproved: {
+    height: '45%',
+    width: '98%',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  checkupButtonWrapperApprove: {
+    width: '100%',
+    height: '49%',
+    backgroundColor: '#87CEEB',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    borderRadius: 10,
+  },
+  checkupButtonTextApprove: {
+    color: 'white',
+    fontSize: 23,
+    padding: 10,
+    textAlign: 'center'
+  },
+  checkupButtonWrapperDecline: {
+    width: '100%',
+    height: '49%',
+    backgroundColor: '#DC143C',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    borderRadius: 10,
+    opacity: 0.75,
+  },
+  checkupButtonTextDecline: {
+    color: 'white',
+    fontSize: 23,
+    padding: 10,
+    textAlign: 'center'
+  },
+  pingRow: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    padding: 10,
+    backgroundColor: '#DC143C', //Declined
+    opacity: 0.7,
+    marginTop: 3,
+    width: '100%',
+    borderRadius: 10,
+    borderWidth: 2,
+  },
+  pingText: {
+    color: 'white',
+    fontSize: 20
   },
 
   // NewCheckin.js
@@ -274,7 +341,7 @@ export default styles = StyleSheet.create({
     width: 59,
   },
   addCheckinBody: {
-    height: '50%',
+    height: '45%',
     flexDirection: 'column',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -304,6 +371,7 @@ export default styles = StyleSheet.create({
     ...StyleSheet.absoluteFillObject,
     justifyContent: 'space-between',
     alignItems: 'center',
+    height: '97.5%',
   },
   checkinBody: {
     height: '45%',
@@ -311,6 +379,100 @@ export default styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  checkinBodyPending: {
+    height: '40%',
+    width: '98%',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+  },
+  checkinBodyDeclined: {
+    height: '39%',
+    width: '98%',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  checkinBodyUnresponsive: {
+    height: '40%',
+    width: '98%',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+  },
+  checkinButtonWrapperEdit: {
+    width: '100%',
+    height: '49%',
+    backgroundColor: '#87CEEB',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    borderRadius: 10,
+  },
+  checkinButtonTextEdit: {
+    color: 'white',
+    fontSize: 23,
+    padding: 10,
+    textAlign: 'center'
+  },
+  checkinButtonWrapperCancel: {
+    width: '100%',
+    height: '49%',
+    backgroundColor: '#DC143C',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    borderRadius: 10,
+    opacity: 0.75,
+  },
+  checkinButtonTextCancel: {
+    color: 'white',
+    fontSize: 23,
+    padding: 10,
+    textAlign: 'center'
+  },
+  checkinButtonWrapperSnooze: {
+    width: '100%',
+    height: '49%',
+    backgroundColor: '#ffff66',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    borderRadius: 10,
+  },
+  checkinButtonTextSnooze: {
+    color: '#33adff',
+    fontSize: 23,
+    padding: 10,
+    textAlign: 'center'
+  },
+  checkinButtonWrapperDisable: {
+    width: '100%',
+    height: '49%',
+    backgroundColor: '#DC143C',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    borderRadius: 10,
+    opacity: 0.75,
+  },
+  checkinButtonTextDisable: {
+    color: 'white',
+    fontSize: 23,
+    padding: 10,
+    textAlign: 'center'
+  },
+  checkinButtonWrapperRemove: {
+    width: '100%',
+    height: '60%',
+    backgroundColor: '#DC143C',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    borderRadius: 10,
+    opacity: 0.75,
+  },
+  checkinButtonTextRemove: {
+    color: 'white',
+    fontSize: 23,
+    padding: 10,
+    textAlign: 'center'
   },
 
   //SelectEm.js
@@ -333,4 +495,8 @@ export default styles = StyleSheet.create({
     fontSize: 24,
     color: '#2980b9',
   },
+
+  errorText: {
+    color: 'red',
+  }
 });

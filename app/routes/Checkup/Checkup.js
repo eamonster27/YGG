@@ -84,8 +84,8 @@ class Checkup extends Component {
           value={this.state.address}
           editable={false}
         />
-
-        <CheckupDetails />
+        <Text>Click below for address estimate</Text>
+        <CheckupDetails checkup={this.props.checkup}/>
 
       </View>
     );

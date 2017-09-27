@@ -20,6 +20,15 @@ module.exports = function(sequelize, DataTypes) {
         }
       }
     },
+    address: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: {
+          args: true,
+          msg: 'Dont forget the address.'
+        }
+      }
+    },
     lat: {
       type: DataTypes.STRING,
       validate: {

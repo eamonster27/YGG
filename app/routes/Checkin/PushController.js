@@ -27,8 +27,6 @@ export default class PushController extends Component {
     PushNotification.localNotificationSchedule({
       message: "Checkin time!",
       date: new Date(Date.now() + (netMinuteDifference)),
-      actions: '["Snooze", "Disable"]',
-      alertAction: ["Snooze", "Disable"]
     });
 
 

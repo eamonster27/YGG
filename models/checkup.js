@@ -1,6 +1,23 @@
 'use strict';
 module.exports = function(sequelize, DataTypes) {
   var Checkup = sequelize.define('Checkup', {
+    reqUserName: {
+      type: DataTypes.STRING,
+      validate: {
+        len: {
+          args: [2,30],
+          msg: "Must be between 2 and 30 characters."
+        },
+        isAlpha: {
+          args: true,
+          msg: "Letters only, please."
+        },
+        notEmpty: {
+          args: true,
+          msg: 'You have a first name.'
+        }
+      }
+    },
     reqUserID: {
       type: DataTypes.INTEGER,
       validate: {

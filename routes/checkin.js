@@ -76,12 +76,14 @@ router.get('/checkins/:checkinid', function(req, res, next){
 router.use('/create/checkin', jwtCheck, requireScope('create:checkin'));
 router.post('/create/checkin', function(req, res){
   models.Checkup.create({
+    reqUserName: req.body.UserName,
     reqUserID: req.user.sub,
     UserID: req.body.emContactID,
   }).then((checkup) => {
     models.Checkin.create({
       alerts: 0,
       status: "Scheduled",
+      address: req.body.address,
       lat: req.body.lat,
       lng: req.body.lng,
       time: req.body.time,

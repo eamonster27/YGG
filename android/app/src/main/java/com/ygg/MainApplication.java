@@ -3,9 +3,7 @@ package com.ygg;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
-import com.wix.reactnativenotifications.RNNotificationsPackage;
 import com.airbnb.android.react.maps.MapsPackage;
-import com.wix.reactnativenotifications.RNNotificationsPackage;
 import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
@@ -27,10 +25,8 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-            new RNNotificationsPackage(),
             new MapsPackage(),
-            new ReactNativePushNotificationPackage(),
-            new RNNotificationsPackage(MainApplication.this)
+            new ReactNativePushNotificationPackage()
       );
     }
   };

@@ -79,7 +79,7 @@ class Checkups extends Component {
     return(
       <TouchableHighlight onPress={() => {this.onPressCheckup(checkup)}}>
         <View style={rowStyle}>
-          <Text style={listRowTextStyle}>{checkup.Checkin.time.slice(10, 16)}</Text>
+          <Text style={listRowTextStyle}>Check on {checkup.reqUserName} at{checkup.Checkin.time.slice(10, 16)} {checkup.Checkin.time.slice(5, 7)}/{checkup.Checkin.time.slice(8, 10)}</Text>
         </View>
       </TouchableHighlight>
     )

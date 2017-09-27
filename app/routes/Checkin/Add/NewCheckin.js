@@ -11,7 +11,6 @@ import {
   Platform } from 'react-native';
 
 import MapView from 'react-native-maps';
-import NotificationsIOS from 'react-native-notifications';
 import PushNotification from 'react-native-push-notification';
 import {Actions} from 'react-native-router-flux';
 import PropTypes from 'prop-types';
@@ -32,7 +31,9 @@ class NewCheckin extends Component {
     let now = new Date(Date.now());
     this.state = {
       emContactID: this.props.emContactID,
+      UserName: this.props.UserName,
       UserID: this.props.UserID,
+      address: '3403 Audubon Pl',
       lat: '29.7604',
       lng: '-95.3698',
       time: '',
@@ -46,26 +47,18 @@ class NewCheckin extends Component {
 
     this.scheduleNotification = this.scheduleNotification.bind(this);
     this.getLatLng = this.getLatLng.bind(this);
+    this.getAddress = this.getAddress.bind(this);
 
   }
 
   componentWillMount(){
     navigator.geolocation.getCurrentPosition((position) => {
-      this.setState({
-        lat: position.coords.latitude.toString(),
-        lng: position.coords.longitude.toString(),
-      })
+      getAddress(position.coords.latitude.toString(), position.coords.longitude.toString());
     },
       (error) => alert(error.message),
       {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
     );
   }
-
-  componentWillUnmount() {
-
-  }
-
-
 
   daysInMonth(month, year) {
     switch(month){
@@ -95,8 +88,6 @@ class NewCheckin extends Component {
     PushNotification.localNotificationSchedule({
       message: "Checkin time!",
       date: new Date(Date.now() + (netMinuteDifference)),
-      actions: '["Snooze", "Disable"]',
-      alertAction: ["Snooze", "Disable"]
     });
 
     this.setState({
@@ -110,13 +101,29 @@ class NewCheckin extends Component {
         var location = json.results[0].geometry.location;
         this.setState({
           lat: location.lat.toString(),
-          lng: location.lng.toString()
+          lng: location.lng.toString(),
+          address: address,
         })
       },
       error => {
         console.log(error)
       }
     );
+  }
+
+  getAddress(lat, lng) {
+    Geocoder.getFromLatLng(lat, lng).then((json) => {
+        this.setState({
+          lat: lat,
+          lng: lng,
+          address: json.results[0].address_components[0].long_name + " " +
+          json.results[0].address_components[1].long_name,
+        })
+      },
+      error => {
+        console.log(error);
+      }
+    )
   }
 
   setTime(type, value){
@@ -184,6 +191,8 @@ class NewCheckin extends Component {
             'Content-Type': 'application/json'
           },
           body: JSON.stringify({
+            UserName: this.state.UserName,
+            address: this.state.address,
             lat: this.state.lat,
             lng: this.state.lng,
             time: this.state.time,
@@ -231,9 +240,13 @@ class NewCheckin extends Component {
         <TextInput
           style={{textAlign: 'left', paddingLeft: 10, width: '100%', height: 45, fontSize: 18, backgroundColor: 'white', color: 'black'}}
           onChangeText = {(address) => this.getLatLng(address)}
-          placeholder="Address "
+          placeholder="Where you're staying"
           underlineColorAndroid = 'transparent'
         />
+
+        <View style={{width: '100%'}}>
+          <Text style={{textAlign: 'left', marginLeft: 10, marginTop: 15, fontSize: 18,}}>When you should be there:</Text>
+        </View>
 
         <View style={styles.addCheckinBody}>
           <View style={styles.addCheckinTime}>
