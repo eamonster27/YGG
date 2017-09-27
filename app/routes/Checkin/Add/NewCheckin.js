@@ -96,7 +96,7 @@ class NewCheckin extends Component {
       message: "Checkin time!",
       date: new Date(Date.now() + (netMinuteDifference)),
       actions: '["Snooze", "Disable"]',
-      alertAction: '["Snooze", "Disable"]'
+      alertAction: ["Snooze", "Disable"]
     });
 
     this.setState({

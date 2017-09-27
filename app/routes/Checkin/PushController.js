@@ -27,7 +27,8 @@ export default class PushController extends Component {
     PushNotification.localNotificationSchedule({
       message: "Checkin time!",
       date: new Date(Date.now() + (netMinuteDifference)),
-      actions: '["Snooze", "Disable"]'
+      actions: '["Snooze", "Disable"]',
+      alertAction: ["Snooze", "Disable"]
     });
 
 
@@ -44,15 +45,13 @@ export default class PushController extends Component {
 
         console.log( 'NOTIFICATION:', notification );
 
-        console.log(this.state)
-
         let now = new Date(Date.now());
         let currentYear = now.getFullYear();
         let currentMonth = now.getMonth();
         let currentDay = now.getDate();
         let currentHour = now.getHours();
         let currentMinute = now.getMinutes();
-        let currentTime = (new Date(Date.UTC(currentYear, currentMonth, currentDay, currentHour, currentMinute, 0))).getTime();
+        let currentTime = (new Date(Date.UTC(currentYear, currentMonth, currentDay, currentHour, currentMinute, 0, 0))).getTime();
 
         navigator.geolocation.getCurrentPosition((position) => {
 

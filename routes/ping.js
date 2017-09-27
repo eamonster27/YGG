@@ -61,7 +61,7 @@ router.post('/create/ping', function(req, res){
     lat: req.body.lat,
     lng: req.body.lng,
     time: req.body.time,
-    CheckinID: req.body.checkinid,
+    CheckinID: req.body.CheckinID,
   }).then((ping) => {
     models.Checkin.findOne({
       where: {
