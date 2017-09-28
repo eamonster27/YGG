@@ -91,11 +91,11 @@ router.post('/create/checkin', function(req, res){
       emContactID: req.body.emContactID,
       UserID: req.user.sub,
       CheckupID: checkup.dataValues.id
+    }).then((checkin) => {
+      res.status(201).send({
+        checkin: checkin
+      });
     })
-  }).then((checkin) => {
-    res.status(201).send({
-      checkin: checkin
-    });
   }).catch((error) => {
     return res.status(401).send(error);
   })
@@ -120,11 +120,11 @@ router.post('/update/checkin', function(req, res){
       lng: req.body.lng,
       time: req.body.time,
       alerts: checkin.dataValues.alerts++,
+    }).then((checkin) => {
+      res.status(201).send({
+        checkin: checkin
+      });
     })
-  }).then((checkin) => {
-    res.status(201).send({
-      checkin: checkin
-    });
   }).catch((error) => {
     return res.status(401).send(error);
   })

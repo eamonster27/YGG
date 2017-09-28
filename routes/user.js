@@ -78,6 +78,10 @@ router.post('/update/user', function(req, res){
       cell: req.body.cell,
       passcode: req.body.passcode,
       paniccode: req.body.paniccode,
+    }).then((user) => {
+      res.status(201).send({
+        user: user
+      });
     })
   }).catch((error) => {
     return res.status(401).send(error);

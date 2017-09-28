@@ -176,7 +176,10 @@ class NewCheckin extends Component {
         })
         .then((response) => response.json())
         .then((responseData) => {
-          this.scheduleNotification(netMinuteDifference, responseData.checkin)
+          console.log(responseData);
+          console.log(responseData);
+          console.log(responseData);
+          this.scheduleNotification(netMinuteDifference, responseData)
           Actions.Main();
         })
         .done();
