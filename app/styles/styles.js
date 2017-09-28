@@ -158,27 +158,35 @@ export default styles = StyleSheet.create({
   },
   listRowTextApproved: {
     flex: 1,
-    textAlign: 'center',
-    fontSize: 24,
+    textAlign: 'left',
+    paddingLeft: 5,
+    paddingRight: 5,
+    fontSize: 22,
     color: '#FFFF00'
   },
   listRowTextPending: {
     flex: 1,
-    textAlign: 'center',
-    fontSize: 24,
+    textAlign: 'left',
+    paddingLeft: 5,
+    paddingRight: 5,
+    fontSize: 22,
     color: '#FFFF00'
   },
   listRowTextHomeSafe: {
     flex: 1,
-    textAlign: 'center',
-    fontSize: 24,
+    textAlign: 'left',
+    paddingLeft: 5,
+    paddingRight: 5,
+    fontSize: 22,
     color: '#8A2BE2'
   },
   listRowTextDeclined: {
     flex: 1,
-    textAlign: 'center',
-    fontSize: 24,
-    color: '#1a1aff'
+    textAlign: 'left',
+    paddingLeft: 5,
+    paddingRight: 5,
+    fontSize: 22,
+    color: 'white'
   },
 
   // LogoutHeader.js
@@ -252,7 +260,7 @@ export default styles = StyleSheet.create({
   },
   map: {
     width: '100%',
-    height: '55%',
+    height: '51%',
   },
   checkupBody: {
     height: '45%',
@@ -262,11 +270,12 @@ export default styles = StyleSheet.create({
     justifyContent: 'center',
   },
   checkupBodyPending: {
-    height: '40%',
+    height: '43%',
     width: '98%',
     flexDirection: 'column',
     alignItems: 'center',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
+    marginTop: 3
   },
   checkupBodyApproved: {
     height: '45%',
@@ -381,8 +390,9 @@ export default styles = StyleSheet.create({
     justifyContent: 'center',
   },
   checkinBodyPending: {
-    height: '40%',
+    height: '43%',
     width: '98%',
+    marginTop: 3,
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'space-around',
@@ -395,8 +405,9 @@ export default styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   checkinBodyUnresponsive: {
-    height: '40%',
+    height: '43%',
     width: '98%',
+    marginTop: 3,
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'space-around',

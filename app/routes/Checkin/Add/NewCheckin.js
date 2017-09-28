@@ -53,7 +53,10 @@ class NewCheckin extends Component {
 
   componentWillMount(){
     navigator.geolocation.getCurrentPosition((position) => {
-      getAddress(position.coords.latitude.toString(), position.coords.longitude.toString());
+      this.setState({
+        lat: position.coords.latitude.toString(),
+        lng: position.coords.longitude.toString(),
+      })
     },
       (error) => alert(error.message),
       {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}

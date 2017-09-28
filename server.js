@@ -1,6 +1,6 @@
 const express    = require('express'),
       bodyParser = require('body-parser'),
-      http       = require('http'),
+      https       = require('https'),
       dotenv     = require('dotenv');
 
 const app = express();
@@ -22,8 +22,8 @@ app.use(function(err, req, res, next) {
 
 const port = process.env.PORT || 3000;
 
-http.createServer(app).listen(port, function (err) {
-  console.log('Listening on http://localhost:' + port);
+https.createServer(app).listen(port, function (err) {
+  console.log('Listening on https://localhost:' + port);
 });
 
 app.use(require('./routes/session'));

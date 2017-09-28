@@ -66,6 +66,7 @@ class upDetails extends Component {
     if(this.state.checkup.Checkin.requestStatus === "Approved"){
       return(
         <View style={styles.checkupBodyApproved}>
+        <Text>Click below for address estimate</Text>
           <ListView
             style={styles.listView}
             enableEmptySections={true}
