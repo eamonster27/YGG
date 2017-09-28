@@ -73,7 +73,7 @@ export default class PushController extends Component {
                 lat: this.state.lat,
                 lng: this.state.lng,
                 time: this.state.time,
-                CheckinID: this.state.Checkin.id,
+                CheckinID: parseInt(notification.number)
               })
             })
             .then((response) => response.json())
