@@ -93,7 +93,9 @@ router.post('/create/checkin', function(req, res){
       CheckupID: checkup.dataValues.id
     })
   }).then((checkin) => {
-    res.json(checkin);
+    res.status(201).send({
+      checkin: checkin.dataValues
+    });
   }).catch((error) => {
     return res.status(401).send(error);
   })
@@ -120,7 +122,9 @@ router.post('/update/checkin', function(req, res){
       alerts: checkin.dataValues.alerts++,
     })
   }).then((checkin) => {
-    res.json(checkin);
+    res.status(201).send({
+      checkin: checkin.dataValues
+    });
   }).catch((error) => {
     return res.status(401).send(error);
   })
