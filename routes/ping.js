@@ -72,7 +72,7 @@ router.post('/create/ping', function(req, res){
         alerts: checkin.dataValues.alerts++
       }).then((checkin) => {
         res.status(201).send({
-          checkin: checkin.dataValues
+          checkin: checkin
         });
       })
     })

@@ -94,7 +94,7 @@ router.post('/create/checkin', function(req, res){
     })
   }).then((checkin) => {
     res.status(201).send({
-      checkin: checkin.dataValues
+      checkin: checkin
     });
   }).catch((error) => {
     return res.status(401).send(error);
@@ -123,7 +123,7 @@ router.post('/update/checkin', function(req, res){
     })
   }).then((checkin) => {
     res.status(201).send({
-      checkin: checkin.dataValues
+      checkin: checkin
     });
   }).catch((error) => {
     return res.status(401).send(error);
