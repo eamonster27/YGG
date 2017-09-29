@@ -46,7 +46,6 @@ class upDetails extends Component {
   }
 
   pressApprove(checkup){
-    console.log(checkup)
     let url = localIP.url;
     let checkinPath = `/update/checkin`;
 
@@ -70,14 +69,8 @@ class upDetails extends Component {
           emContactID: checkup.Checkin.emContactID,
         })
       })
-      .then((response) => {
-        console.log("RESPONSE")
-        console.log(response)
-        response.json()
-      })
+      .then((response) => { response.json() })
       .then((responseData) => {
-        console.log("RESPONSE.CHECKIN")
-        console.log(responseData.checkin)
         Actions.Main();
       })
       .done();
@@ -85,8 +78,6 @@ class upDetails extends Component {
   }
 
   pressDecline(checkup){
-    console.log(checkup)
-
     let url = localIP.url;
     let checkinPath = `/update/checkin`;
 
@@ -110,14 +101,12 @@ class upDetails extends Component {
           emContactID: checkup.Checkin.emContactID,
         })
       })
-      .then((response) => response.json())
+      .then((response) => { response.json() })
       .then((responseData) => {
-        console.log(responseData.checkin)
         Actions.Main();
       })
       .done();
     })
-
   }
 
   renderRow(ping){
