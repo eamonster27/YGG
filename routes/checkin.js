@@ -108,17 +108,21 @@ router.post('/create/checkin', function(req, res){
 //Update checkup alerts.
 //Respond with error or ok.
 router.use('/update/checkin', jwtCheck, requireScope('update:checkin'));
-router.post('/update/checkin', function(req, res){
+router.put('/update/checkin', function(req, res){
   models.Checkin.findOne({
      where: {
        id: req.body.id,
      }
-  }).then((checkin) => {
+  }).success((checkin) => {
     checkin.update({
+      alerts: checkin.dataValues.alerts++,
+      status: req.body.status,
+      address: req.body.address,
       lat: req.body.lat,
       lng: req.body.lng,
       time: req.body.time,
-      alerts: checkin.dataValues.alerts++,
+      requestStatus: req.body.requestStatus,
+      emContactID: req.body.emContactID,
     }).then((checkin) => {
       res.status(201).send({
         checkin: checkin

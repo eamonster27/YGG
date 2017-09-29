@@ -70,8 +70,13 @@ class upDetails extends Component {
           emContactID: checkup.Checkin.emContactID,
         })
       })
-      .then((response) => response.json())
+      .then((response) => {
+        console.log("RESPONSE")
+        console.log(response)
+        response.json()
+      })
       .then((responseData) => {
+        console.log("RESPONSE.CHECKIN")
         console.log(responseData.checkin)
         Actions.Main();
       })
