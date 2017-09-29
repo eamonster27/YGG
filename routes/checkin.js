@@ -113,7 +113,7 @@ router.post('/update/checkin', function(req, res){
      where: {
        id: req.body.id,
      }
-  }).success((checkin) => {
+  }).then((checkin) => {
     checkin.update({
       lat: req.body.lat,
       lng: req.body.lng,
