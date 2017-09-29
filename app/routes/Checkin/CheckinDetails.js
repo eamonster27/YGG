@@ -45,7 +45,7 @@ class inDetails extends Component {
           lat: checkin.lat,
           lng: checkin.lng,
           time: checkin.time,
-          requestStatus: 'Snoozed',
+          requestStatus: checkin.requestStatus,
           emContactID: checkin.emContactID,
         })
       })
