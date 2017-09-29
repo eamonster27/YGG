@@ -109,25 +109,24 @@ router.post('/create/checkin', function(req, res){
 //Respond with error or ok.
 router.use('/update/checkin', jwtCheck, requireScope('update:checkin'));
 router.put('/update/checkin', function(req, res){
-  models.Checkin.findOne({
-     where: {
-       id: req.body.id,
-     }
-  }).success((checkin) => {
-    checkin.update({
-      alerts: checkin.dataValues.alerts++,
-      status: req.body.status,
-      address: req.body.address,
-      lat: req.body.lat,
-      lng: req.body.lng,
-      time: req.body.time,
-      requestStatus: req.body.requestStatus,
-      emContactID: req.body.emContactID,
-    }).then((checkin) => {
-      res.status(201).send({
-        checkin: checkin
-      });
-    })
+  models.Checkin.update({
+    alerts: req.body.alerts,
+    status: req.body.status,
+    address: req.body.address,
+    lat: req.body.lat,
+    lng: req.body.lng,
+    time: req.body.time,
+    requestStatus: req.body.requestStatus,
+    emContactID: req.body.emContactID },
+  { where: {
+      id: req.body.id,
+    },
+    returning: true,
+    plain: true
+  }).then((checkin) => {
+    res.status(201).send({
+      checkin: checkin
+    });
   }).catch((error) => {
     return res.status(401).send(error);
   })
