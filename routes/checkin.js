@@ -112,7 +112,6 @@ router.post('/update/checkin', function(req, res){
   models.Checkin.findOne({
      where: {
        id: req.body.id,
-       UserID: req.user.sub
      }
   }).success((checkin) => {
     checkin.update({

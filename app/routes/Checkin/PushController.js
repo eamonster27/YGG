@@ -18,31 +18,19 @@ export default class PushController extends Component {
       lat: '',
       lng: '',
       time: '',
-      Checkin: this.props.Checkin,
+      Checkin: null,
       home: false,
     }
   }
 
-  scheduleNotification(netMinuteDifference) {
-    PushNotification.localNotificationSchedule({
-      message: "Checkin time!",
-      date: new Date(Date.now() + (netMinuteDifference)),
-    });
-
-
-  }
-
   componentWillMount() {
     PushNotification.configure({
-
       onRegister: function(token) {
         console.log( 'TOKEN:', token );
       },
 
       onNotification: function(notification) {
-
         console.log( 'NOTIFICATION:', notification );
-
         let now = new Date(Date.now());
         let currentYear = now.getFullYear();
         let currentMonth = now.getMonth();
@@ -52,7 +40,6 @@ export default class PushController extends Component {
         let currentTime = (new Date(Date.UTC(currentYear, currentMonth, currentDay, currentHour, currentMinute, 0, 0))).getTime();
 
         navigator.geolocation.getCurrentPosition((position) => {
-
           this.setState({
             lat: position.coords.latitude.toString(),
             lng: position.coords.longitude.toString(),
@@ -78,20 +65,24 @@ export default class PushController extends Component {
             })
             .then((response) => response.json())
             .then((responseData) => {
-              console.log(responseData);
+              this.setState({
+                Checkin: responseData.checkin
+              })
+              if((Math.abs(parseFloat(position.coords.latitude) - parseFloat(responseData.checkin.lat)) < 0.0004) && (Math.abs(parseFloat(position.coords.longitude) - parseFloat(responseData.checkin.lng)) < 0.0004)){
+                this.setState({
+                  home: true,
+                })
+              }
+              else {
+                PushNotification.localNotificationSchedule({
+                  message: "Checkin time!",
+                  date: new Date(Date.now() + (5*60*1000)),
+                  number: notification.number
+                });
+              }
             })
-            .done();
-          })
 
-          if((Math.abs(parseFloat(position.coords.latitude) - parseFloat(this.state.Checkin.lat)) < 0.0004) && (Math.abs(parseFloat(position.coords.longitude) - parseFloat(this.state.Checkin.lng)) < 0.0004)){
-            this.setState({
-              home: true,
-            })
-          }
-          else {
-            var netMinuteDifference = 5*60*1000;
-            this.scheduleNotification(netMinuteDifference)
-          }
+          })
         })
       }.bind(this),
 

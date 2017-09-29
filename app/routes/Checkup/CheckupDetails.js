@@ -7,9 +7,12 @@ import {
   TouchableOpacity,
   TouchableHighlight,
   ListView,
-  Alert } from 'react-native';
+  Alert,
+  AsyncStorage } from 'react-native';
 import Geocoder from 'react-native-geocoding';
+import {Actions} from 'react-native-router-flux';
 import styles from '../../styles/styles';
+import localIP from '../localIP'
 
 class upDetails extends Component {
   constructor(props){
@@ -44,10 +47,72 @@ class upDetails extends Component {
 
   pressApprove(checkup){
     console.log(checkup)
+    let url = localIP.url;
+    let checkinPath = `/update/checkin`;
+
+    AsyncStorage.getItem('access_token').then((token) => {
+      fetch(`${url}${checkinPath}`, {
+        method: 'PUT',
+        headers: {
+          'Authorization': 'Bearer ' + token,
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          id: checkup.Checkin.id,
+          alerts: checkup.Checkin.alerts++,
+          status: checkup.Checkin.status,
+          address: checkup.Checkin.address,
+          lat: checkup.Checkin.lat,
+          lng: checkup.Checkin.lng,
+          time: checkup.Checkin.time,
+          requestStatus: 'Approved',
+          emContactID: checkup.Checkin.emContactID,
+        })
+      })
+      .then((response) => response.json())
+      .then((responseData) => {
+        console.log(responseData.checkin)
+        Actions.Main();
+      })
+      .done();
+    })
   }
 
   pressDecline(checkup){
     console.log(checkup)
+
+    let url = localIP.url;
+    let checkinPath = `/update/checkin`;
+
+    AsyncStorage.getItem('access_token').then((token) => {
+      fetch(`${url}${checkinPath}`, {
+        method: 'PUT',
+        headers: {
+          'Authorization': 'Bearer ' + token,
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          id: checkup.Checkin.id,
+          alerts: checkup.Checkin.alerts++,
+          status: checkup.Checkin.status,
+          address: checkup.Checkin.address,
+          lat: checkup.Checkin.lat,
+          lng: checkup.Checkin.lng,
+          time: checkup.Checkin.time,
+          requestStatus: 'Declined',
+          emContactID: checkup.Checkin.emContactID,
+        })
+      })
+      .then((response) => response.json())
+      .then((responseData) => {
+        console.log(responseData.checkin)
+        Actions.Main();
+      })
+      .done();
+    })
+
   }
 
   renderRow(ping){

@@ -176,10 +176,7 @@ class NewCheckin extends Component {
         })
         .then((response) => response.json())
         .then((responseData) => {
-          console.log(responseData);
-          console.log(responseData);
-          console.log(responseData);
-          this.scheduleNotification(netMinuteDifference, responseData)
+          this.scheduleNotification(netMinuteDifference, responseData.checkin)
           Actions.Main();
         })
         .done();
@@ -486,7 +483,7 @@ class NewCheckin extends Component {
               <Picker.Item label="50" value={50}/>
               <Picker.Item label="55" value={55}/>
             </Picker>
-            <PushController Checkin={this.state.Checkin} />
+            <PushController />
           </View>
 
           <TouchableOpacity style={styles.submitNewCheckinButtonWrapper} onPress={this.onPress.bind(this)}>

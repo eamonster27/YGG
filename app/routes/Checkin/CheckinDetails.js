@@ -18,22 +18,27 @@ class inDetails extends Component {
 
   pressEdit(checkin){
     console.log(checkin)
+
   }
 
   pressCancel(checkin){
     console.log(checkin)
+
   }
 
   pressSnooze(checkin){
     console.log(checkin)
+
   }
 
   pressDisable(checkin){
     console.log(checkin)
+
   }
 
   pressRemove(checkin){
     console.log(checkin)
+    
   }
 
 //ifTime SnoozeDisable>Keypad ifPending CancelEdit
