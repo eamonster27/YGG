@@ -30,6 +30,7 @@ export default class PushController extends Component {
       },
 
       onNotification: function(notification) {
+        //Set to unrsponseive status
         console.log( 'NOTIFICATION:', notification );
         let now = new Date(Date.now());
         let currentYear = now.getFullYear();
@@ -81,7 +82,6 @@ export default class PushController extends Component {
                 });
               }
             })
-
           })
         })
       }.bind(this),

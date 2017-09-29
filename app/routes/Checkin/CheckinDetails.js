@@ -4,9 +4,14 @@ import {
   View,
   Button,
   TextInput,
-  TouchableOpacity } from 'react-native';
-
+  TouchableOpacity,
+  Alert,
+  AsyncStorage } from 'react-native';
+import Geocoder from 'react-native-geocoding';
+import {Actions} from 'react-native-router-flux';
+import PushNotification from 'react-native-push-notification';
 import styles from '../../styles/styles';
+import localIP from '../localIP'
 
 class inDetails extends Component {
   constructor(props){
@@ -18,27 +23,123 @@ class inDetails extends Component {
 
   pressEdit(checkin){
     console.log(checkin)
+    //Passcode interface then
+    //Navigate to edit page before doing below
+    console.log(checkin)
+    let url = localIP.url;
+    let checkinPath = `/update/checkin`;
 
+    AsyncStorage.getItem('access_token').then((token) => {
+      fetch(`${url}${checkinPath}`, {
+        method: 'PUT',
+        headers: {
+          'Authorization': 'Bearer ' + token,
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          id: checkin.id,
+          alerts: checkin.alerts++,
+          status: checkin.status,
+          address: checkin.address,
+          lat: checkin.lat,
+          lng: checkin.lng,
+          time: checkin.time,
+          requestStatus: 'Snoozed',
+          emContactID: checkin.emContactID,
+        })
+      })
+      .then((response) => { response.json() })
+      .then((responseData) => {
+        Actions.Main();
+      })
+      .done();
+    })
   }
 
   pressCancel(checkin){
     console.log(checkin)
-
+    //Navigate to passcode interace
+    //Delete Checkup and Checkin
   }
 
   pressSnooze(checkin){
     console.log(checkin)
+    let url = localIP.url;
+    let checkinPath = `/update/checkin`;
+
+    AsyncStorage.getItem('access_token').then((token) => {
+      fetch(`${url}${checkinPath}`, {
+        method: 'PUT',
+        headers: {
+          'Authorization': 'Bearer ' + token,
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          id: checkin.id,
+          alerts: checkin.alerts++,
+          status: 'Snoozed',
+          address: checkin.address,
+          lat: checkin.lat,
+          lng: checkin.lng,
+          time: checkin.time,
+          requestStatus: checkin.requestStatus,
+          emContactID: checkin.emContactID,
+        })
+      })
+      .then((response) => { response.json() })
+      .then((responseData) => {
+        PushNotification.localNotificationSchedule({
+          message: "Checkin time!",
+          date: new Date(Date.now() + (15*60*1000)),
+          number: checkin.id.toString(),
+        });
+        Actions.Main();
+      })
+      .done();
+    })
 
   }
 
   pressDisable(checkin){
+    //Go to passcode interface before doing below.
     console.log(checkin)
+    console.log(checkin)
+    let url = localIP.url;
+    let checkinPath = `/update/checkin`;
 
+    AsyncStorage.getItem('access_token').then((token) => {
+      fetch(`${url}${checkinPath}`, {
+        method: 'PUT',
+        headers: {
+          'Authorization': 'Bearer ' + token,
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          id: checkin.id,
+          alerts: checkin.alerts++,
+          status: 'Disabled',
+          address: checkin.address,
+          lat: checkin.lat,
+          lng: checkin.lng,
+          time: checkin.time,
+          requestStatus: checkin.requestStatus,
+          emContactID: checkin.emContactID,
+        })
+      })
+      .then((response) => { response.json() })
+      .then((responseData) => {
+        Actions.Main();
+      })
+      .done();
+    })
   }
 
   pressRemove(checkin){
     console.log(checkin)
-    
+
   }
 
 //ifTime SnoozeDisable>Keypad ifPending CancelEdit

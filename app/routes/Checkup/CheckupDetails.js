@@ -75,6 +75,7 @@ class upDetails extends Component {
       })
       .done();
     })
+    //Maybe schedule notification for other user here?
   }
 
   pressDecline(checkup){
@@ -107,6 +108,7 @@ class upDetails extends Component {
       })
       .done();
     })
+    //Cancel notification here.
   }
 
   renderRow(ping){
