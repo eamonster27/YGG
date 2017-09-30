@@ -1,3 +1,6 @@
+
+
+
 Project Backlog: https://trello.com/b/1rosETC9/you-go-girl
 
 ABOUT: You Go Girl offers users, who want to feel safer when they go out, an alternative to 24/7 location tracking and user-interaction-dependent features. It’s designed to respect user privacy, and to be useful regardless of user-interaction.
@@ -17,12 +20,13 @@ TECHNICAL FEATS
 •	Used Git for Version Control
 •	Solved a Real Human Problem with Software
 
+UPDATES
 JSON API live on Heroku.
 Postgres database pushed to Heroku.
 
-react-native run-ios or run in xCode
+react-native run-ios or run in xCode.
 react-native run-android or run in Android Studio.
 
-//3403 Audubon Pl for Mock location on simulator/emulator
+Mock location on simulator/emulator:
 lat: "29.742063",
 lng: "-95.386246"
