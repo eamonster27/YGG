@@ -1,6 +1,3 @@
-
-
-
 Project Backlog: https://trello.com/b/1rosETC9/you-go-girl
 
 ABOUT: You Go Girl offers users, who want to feel safer when they go out, an alternative to 24/7 location tracking and user-interaction-dependent features. It’s designed to respect user privacy, and to be useful regardless of user-interaction.
@@ -30,3 +27,12 @@ react-native run-android or run in Android Studio.
 Mock location on simulator/emulator:
 lat: "29.742063",
 lng: "-95.386246"
+
+![Alt text](./AppScreenshots/iOSLogin.png)
+![Alt text](./AppScreenshots/AndroidLoggedIn.png)
+![Alt text](./AppScreenshots/AndroidCreateCheckin.png)
+![Alt text](./AppScreenshots/iOSScheduleCheckin.png)
+![Alt text](./AppScreenshots/iOSCheckup.png)
+![Alt text](./AppScreenshots/AndroidNotifications.png)
+![Alt text](./AppScreenshots/iOSPings.png)
+![Alt text](./AppScreenshots/iOSAddressEstimate.png)
