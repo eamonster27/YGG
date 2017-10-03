@@ -80,14 +80,13 @@ router.get('/checkups/:checkupid', function(req, res, next){
 //Delete checkup.
 //Respond with error or ok.
 router.use('/delete/checkup', jwtCheck, requireScope('delete:checkup'));
-router.post('/delete/checkup', function(req, res){
-  models.Checkup.findOne({
+router.delete('/delete/checkup', function(req, res){
+  models.Checkup.destroy({
     where: {
-      id: req.body.CheckupID,
-      reqUserID: req.user.sub
+      id: req.body.CheckupID
     }
-  }).success((checkup) => {
-    checkup.destroy();
+  }).then((checkup) => {
+    res.json(checkup);
   }).catch((error) => {
     return res.status(401).send(error);
   })

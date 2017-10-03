@@ -61,6 +61,28 @@ class inDetails extends Component {
     console.log(checkin)
     //Navigate to passcode interace
     //Delete Checkup and Checkin
+    let url = localIP.url;
+    let checkupPath = `/delete/checkup`;
+
+    AsyncStorage.getItem('access_token').then((token) => {
+      fetch(`${url}${checkupPath}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': 'Bearer ' + token,
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          CheckupID: checkin.CheckupID,
+        })
+      })
+      .then((response) => { response.json() })
+      .then((responseData) => {
+        Actions.Main();
+      })
+      .done();
+    })
+
   }
 
   pressSnooze(checkin){

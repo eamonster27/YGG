@@ -21,7 +21,7 @@ function createAccessToken(user) {
     iss: config.issuer,
     jwtid: genJwtid(),
     sub: user.id, //Possible issue
-    scope: 'read:user update:user create:checkin read:checkin update:checkin delete:checkin read:checkup create:ping read:pings',
+    scope: 'read:user update:user create:checkin read:checkin update:checkin delete:checkup read:checkup create:ping read:pings',
   }, config.secret);
 }
 
