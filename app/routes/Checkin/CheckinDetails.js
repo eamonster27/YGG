@@ -69,11 +69,11 @@ class inDetails extends Component {
         method: 'DELETE',
         headers: {
           'Authorization': 'Bearer ' + token,
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
         },
         body: JSON.stringify({
           CheckupID: checkin.CheckupID,
+          CheckinID: checkin.id,
+
         })
       })
       .then((response) => { response.json() })

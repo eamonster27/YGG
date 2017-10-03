@@ -81,12 +81,24 @@ router.get('/checkups/:checkupid', function(req, res, next){
 //Respond with error or ok.
 router.use('/delete/checkup', jwtCheck, requireScope('delete:checkup'));
 router.delete('/delete/checkup', function(req, res){
-  models.Checkup.destroy({
+  models.Pings.destroy({
     where: {
-      id: req.body.CheckupID
+      CheckinID: req.body.CheckinID
     }
-  }).then((checkup) => {
-    res.json(checkup);
+  }).then(() => {
+    models.Checkin.destroy({
+      where: {
+        id: req.body.CheckinID
+      }
+    })
+  }).then(() => {
+    models.Checkup.destroy({
+      where: {
+        id: req.body.CheckupID
+      }
+    }).then((checkup) => {
+      res.json(checkup);
+    })
   }).catch((error) => {
     return res.status(401).send(error);
   })
