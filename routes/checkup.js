@@ -5,6 +5,7 @@ const express = require('express'),
 
 const router = express.Router();
 
+// MOVE TO ONE FILE!!!
 // Validate access_token
 var jwtCheck = jwt({
   secret: config.secret,
@@ -28,6 +29,7 @@ function requireScope(scope) {
     next();
   };
 }
+// MOVE TO ONE FILE!!!
 
 //Scope: read:checkup delete:checkup
 //Get All User Checkups

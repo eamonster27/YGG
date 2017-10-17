@@ -5,6 +5,7 @@ const express = require('express'),
 
 const router = express.Router();
 
+// MOVE TO ONE FILE!!!
 // Validate access_token
 var jwtCheck = jwt({
   secret: config.secret,
@@ -28,6 +29,7 @@ function requireScope(scope) {
     next();
   };
 }
+// MOVE TO ONE FILE!!!
 
 //Scope: create:checkin read:checkin update:checkin
 //Get All User Checkins
@@ -101,6 +103,7 @@ router.post('/create/checkin', function(req, res){
   })
 });
 
+//NOT COMPLETE
 //Edit checkin (Lat, Lng, and Time only)
 //Verify user credentials.
 //Find checkin.

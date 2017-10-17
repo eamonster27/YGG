@@ -5,6 +5,7 @@ const express = require('express'),
 
 const router = express.Router();
 
+// MOVE TO ONE FILE!!!
 // Validate access_token
 var jwtCheck = jwt({
   secret: config.secret,
@@ -29,6 +30,7 @@ function requireScope(scope) {
     next();
   };
 }
+// MOVE TO ONE FILE!!!
 
 //Scope: read:user update:user
 //Get All Users
@@ -61,6 +63,7 @@ router.get('/user', function(req, res, next){
   })
 })
 
+//NOT COMPLETE
 //Edit User (Everything but email)
 //Find user.
 //Verify user credentials.
@@ -87,6 +90,7 @@ router.post('/update/user', function(req, res){
     return res.status(401).send(error);
   })
 })
+//NOT COMPLETE
 
 //Delete User
 //Find user.
